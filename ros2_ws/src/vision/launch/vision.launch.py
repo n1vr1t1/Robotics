@@ -19,16 +19,16 @@ def generate_launch_description():
         # Add the vision_node node
         Node(
             package='vision',
-            executable='vision_node',
-            name='vision_node',
+            executable='position',
+            name='pose_from_camera_node',
             output='screen'
         ),
         
         # Add the detection_result_republisher node
         Node(
             package='vision',
-            executable='detection_result_republisher',
-            name='detection_result_republisher',
+            executable='detection',
+            name='yolo_detection_node',
             output='screen'
         ),
         
