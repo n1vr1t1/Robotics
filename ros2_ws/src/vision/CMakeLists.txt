@@ -13,7 +13,7 @@ find_package(cv_bridge REQUIRED)
 
 
 # Set the path to LibTorch
-set(Torch_DIR "${CMAKE_SOURCE_DIR}/../src/external/pytorch/share/cmake/Torch")
+set(Torch_DIR "${CMAKE_SOURCE_DIR}/../src/external/libtorch/share/cmake/Torch")
 
 # Now, find and include LibTorch
 find_package(Torch REQUIRED)
