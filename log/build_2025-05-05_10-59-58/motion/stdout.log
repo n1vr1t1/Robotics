@@ -1,0 +1,8 @@
+[ 12%] [32mBuilding CXX object CMakeFiles/inverse_kin_server_node.dir/src/inverse_kin_server.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/direct_kin_server.dir/src/direct_kin_server.cpp.o[0m
+[ 50%] Built target compute_path_service
+[ 62%] [32mBuilding CXX object CMakeFiles/compute_trajectory_service.dir/src/compute_trajectory_service.cpp.o[0m
+[ 75%] [32m[1mLinking CXX executable inverse_kin_server_node[0m
+[ 75%] Built target inverse_kin_server_node
+[ 87%] [32m[1mLinking CXX executable compute_trajectory_service[0m
+[ 87%] Built target compute_trajectory_service

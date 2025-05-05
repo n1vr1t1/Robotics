@@ -1,0 +1,3 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/table_avoidance_node.dir/src/table_avoidance_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable table_avoidance_node[0m
+[100%] Built target table_avoidance_node

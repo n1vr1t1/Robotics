@@ -1,0 +1,1 @@
+Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/install/ros2_ur5_interface

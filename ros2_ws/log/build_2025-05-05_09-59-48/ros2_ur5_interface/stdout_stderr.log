@@ -1,0 +1,6 @@
+[ 25%] [32mBuilding CXX object CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/gripper_service.dir/src/gripper_service.cpp.o[0m
+[ 75%] [32m[1mLinking CXX executable publish_trajectory_node[0m
+[ 75%] Built target publish_trajectory_node
+[100%] [32m[1mLinking CXX executable gripper_service[0m
+[100%] Built target gripper_service

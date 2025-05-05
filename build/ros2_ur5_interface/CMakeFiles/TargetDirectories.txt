@@ -1,0 +1,11 @@
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/uninstall.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/ros2_ur5_interface_uninstall.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/publish_trajectory_node.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/gripper_service.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/test.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/edit_cache.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/list_install_components.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/install.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/install/local.dir
+/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/install/strip.dir

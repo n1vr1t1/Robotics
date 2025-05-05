@@ -1,0 +1,1 @@
+Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/collision_detection_pkg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/collision_detection_pkg -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/install/collision_detection_pkg

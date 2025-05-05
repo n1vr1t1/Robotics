@@ -1,0 +1,2 @@
+Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/custom_msg_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/custom_msg_interfaces -- -j16 -l16
+Invoked command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/custom_msg_interfaces' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/custom_msg_interfaces -- -j16 -l16

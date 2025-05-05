@@ -1,0 +1,1 @@
+Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface -- -j16 -l16

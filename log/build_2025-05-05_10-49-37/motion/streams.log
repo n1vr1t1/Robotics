@@ -1,0 +1,63 @@
+[0.449s] Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/build/motion': CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:/home/ubuntu/ros2_ws/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/ros2_ws/install/motion_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/collision_detection_pkg:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg:/opt/ros/jazzy PYTHONPATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/motion -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/ros2_ws/install/motion
+[0.556s] -- The C compiler identification is GNU 13.2.0
+[0.670s] -- The CXX compiler identification is GNU 13.2.0
+[0.691s] -- Detecting C compiler ABI info
+[0.786s] -- Detecting C compiler ABI info - done
+[0.795s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.795s] -- Detecting C compile features
+[0.796s] -- Detecting C compile features - done
+[0.805s] -- Detecting CXX compiler ABI info
+[0.905s] -- Detecting CXX compiler ABI info - done
+[0.915s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.916s] -- Detecting CXX compile features
+[0.916s] -- Detecting CXX compile features - done
+[0.926s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.110s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.255s] -- Found rclcpp: 28.1.5 (/opt/ros/jazzy/share/rclcpp/cmake)
+[1.331s] -- Found rosidl_generator_c: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.351s] -- Found rosidl_generator_cpp: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.374s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.402s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.509s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.514s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.609s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[1.636s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[1.663s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.753s] -- Found custom_msg_interfaces: 0.0.0 (/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/cmake)
+[1.874s] -- Found control_msgs: 5.3.0 (/opt/ros/jazzy/share/control_msgs/cmake)
+[2.008s] -- Found rclcpp_action: 28.1.5 (/opt/ros/jazzy/share/rclcpp_action/cmake)
+[2.026s] -- Found std_srvs: 5.3.5 (/opt/ros/jazzy/share/std_srvs/cmake)
+[2.048s] -- Found visualization_msgs: 5.3.5 (/opt/ros/jazzy/share/visualization_msgs/cmake)
+[2.089s] -- Found tf2: 0.36.4 (/opt/ros/jazzy/share/tf2/cmake)
+[2.100s] -- Found tf2_geometry_msgs: 0.36.4 (/opt/ros/jazzy/share/tf2_geometry_msgs/cmake)
+[2.117s] -- Found eigen3_cmake_module: 0.3.0 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[2.119s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.119s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.353s] -- Configuring done (1.9s)
+[2.386s] -- Generating done (0.0s)
+[2.398s] -- Build files have been written to: /home/ubuntu/ros2_ws/ros2_ws/build/motion
+[2.412s] Invoked command in '/home/ubuntu/ros2_ws/ros2_ws/build/motion' returned '0': CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:/home/ubuntu/ros2_ws/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/ros2_ws/install/motion_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/collision_detection_pkg:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg:/opt/ros/jazzy PYTHONPATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/motion -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/ros2_ws/install/motion
+[2.413s] Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/build/motion': CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:/home/ubuntu/ros2_ws/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/ros2_ws/install/motion_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/collision_detection_pkg:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg:/opt/ros/jazzy PYTHONPATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --build /home/ubuntu/ros2_ws/ros2_ws/build/motion -- -j16 -l16
+[2.462s] [ 25%] [32mBuilding CXX object CMakeFiles/compute_path_service.dir/src/compute_path_service.cpp.o[0m
+[2.462s] [ 25%] [32mBuilding CXX object CMakeFiles/direct_kin_server.dir/src/direct_kin_server.cpp.o[0m
+[2.463s] [ 37%] [32mBuilding CXX object CMakeFiles/inverse_kin_server_node.dir/src/inverse_kin_server.cpp.o[0m
+[2.463s] [ 50%] [32mBuilding CXX object CMakeFiles/compute_trajectory_service.dir/src/compute_trajectory_service.cpp.o[0m
+[2.472s] [01m[K/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/motion/src/direct_kin_server.cpp:1:10:[m[K [01;31m[Kfatal error: [m[Kmotion_pkg/direct_kin_server.hpp: No such file or directory
+[2.472s]     1 | #include [01;31m[K"motion_pkg/direct_kin_server.hpp"[m[K
+[2.473s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[2.473s] compilation terminated.
+[2.474s] [01m[K/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/motion/src/inverse_kin_server.cpp:1:10:[m[K [01;31m[Kfatal error: [m[Kmotion_pkg/inverse_kin_server.hpp: No such file or directory
+[2.474s]     1 | #include [01;31m[K"motion_pkg/inverse_kin_server.hpp"[m[K
+[2.474s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[2.474s] compilation terminated.
+[2.474s] gmake[2]: *** [CMakeFiles/direct_kin_server.dir/build.make:76: CMakeFiles/direct_kin_server.dir/src/direct_kin_server.cpp.o] Error 1
+[2.474s] gmake[1]: *** [CMakeFiles/Makefile2:169: CMakeFiles/direct_kin_server.dir/all] Error 2
+[2.474s] gmake[1]: *** Waiting for unfinished jobs....
+[2.474s] gmake[2]: *** [CMakeFiles/inverse_kin_server_node.dir/build.make:76: CMakeFiles/inverse_kin_server_node.dir/src/inverse_kin_server.cpp.o] Error 1
+[2.475s] gmake[1]: *** [CMakeFiles/Makefile2:143: CMakeFiles/inverse_kin_server_node.dir/all] Error 2
+[8.150s] [ 62%] [32m[1mLinking CXX executable compute_path_service[0m
+[8.343s] [ 62%] Built target compute_path_service
+[12.470s] gmake[2]: *** [CMakeFiles/compute_trajectory_service.dir/build.make:76: CMakeFiles/compute_trajectory_service.dir/src/compute_trajectory_service.cpp.o] Interrupt
+[12.471s] gmake[1]: *** [CMakeFiles/Makefile2:195: CMakeFiles/compute_trajectory_service.dir/all] Interrupt
+[12.471s] gmake: *** [Makefile:146: all] Interrupt
+[12.502s] Invoked command in '/home/ubuntu/ros2_ws/ros2_ws/build/motion' returned '-2': CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:/home/ubuntu/ros2_ws/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/ros2_ws/install/motion_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/collision_detection_pkg:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg:/opt/ros/jazzy PYTHONPATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/start_simulation/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/arm_bringup/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/cmake --build /home/ubuntu/ros2_ws/ros2_ws/build/motion -- -j16 -l16

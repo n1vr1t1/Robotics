@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-9799098976f6de3405bf.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ros2_ur5_interface",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "gripper_service::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gripper_service-d4a157085564e26ee571.json",
+					"name" : "gripper_service",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "publish_trajectory_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-publish_trajectory_node-8d14ac441299847dbb7e.json",
+					"name" : "publish_trajectory_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ros2_ur5_interface_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ros2_ur5_interface_uninstall-d8bc96bf55ac6fa41619.json",
+					"name" : "ros2_ur5_interface_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-9296012adde1361ca7dd.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface",
+		"source" : "/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

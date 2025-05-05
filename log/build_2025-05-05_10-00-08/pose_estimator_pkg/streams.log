@@ -1,0 +1,60 @@
+[1.102s] Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/pose_estimator_pkg': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/pose_estimator_pkg build --build-base /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build install --record /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/install.log --single-version-externally-managed install_data
+[1.338s] running egg_info
+[1.338s] creating ../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info
+[1.355s] writing ../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/PKG-INFO
+[1.355s] writing dependency_links to ../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/dependency_links.txt
+[1.355s] writing entry points to ../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/entry_points.txt
+[1.355s] writing requirements to ../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/requires.txt
+[1.356s] writing top-level names to ../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/top_level.txt
+[1.356s] writing manifest file '../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/SOURCES.txt'
+[1.388s] reading manifest file '../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/SOURCES.txt'
+[1.389s] writing manifest file '../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info/SOURCES.txt'
+[1.389s] running build
+[1.389s] running build_py
+[1.390s] creating /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build
+[1.390s] creating /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib
+[1.390s] creating /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.390s] copying pose_estimator_pkg/detection_result_republisher.py -> /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.390s] copying pose_estimator_pkg/icp_pose_estimator.py -> /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.391s] copying pose_estimator_pkg/__init__.py -> /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.391s] copying pose_estimator_pkg/test_pointcloude.py -> /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.391s] copying pose_estimator_pkg/pt_inference_node.py -> /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.391s] copying pose_estimator_pkg/pose_estimator.py -> /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.391s] copying pose_estimator_pkg/visualization_node.py -> /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg
+[1.391s] running install
+[1.398s] running install_lib
+[1.416s] creating /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.416s] copying /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg/detection_result_republisher.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.416s] copying /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg/icp_pose_estimator.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.416s] copying /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg/__init__.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.416s] copying /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg/test_pointcloude.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.417s] copying /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg/pt_inference_node.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.417s] copying /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg/pose_estimator.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.417s] copying /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build/lib/pose_estimator_pkg/visualization_node.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg
+[1.417s] byte-compiling /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg/detection_result_republisher.py to detection_result_republisher.cpython-312.pyc
+[1.418s] byte-compiling /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg/icp_pose_estimator.py to icp_pose_estimator.cpython-312.pyc
+[1.420s] byte-compiling /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg/__init__.py to __init__.cpython-312.pyc
+[1.420s] byte-compiling /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg/test_pointcloude.py to test_pointcloude.cpython-312.pyc
+[1.420s] byte-compiling /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg/pt_inference_node.py to pt_inference_node.cpython-312.pyc
+[1.421s] byte-compiling /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg/pose_estimator.py to pose_estimator.cpython-312.pyc
+[1.422s] byte-compiling /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg/visualization_node.py to visualization_node.cpython-312.pyc
+[1.423s] running install_data
+[1.423s] creating /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/ament_index
+[1.423s] creating /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/ament_index/resource_index
+[1.423s] creating /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/ament_index/resource_index/packages
+[1.423s] copying resource/pose_estimator_pkg -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/ament_index/resource_index/packages
+[1.424s] copying package.xml -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/pose_estimator_pkg
+[1.424s] creating /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/pose_estimator_pkg/launch
+[1.424s] copying launch/vision_launch.py -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/pose_estimator_pkg/launch
+[1.425s] creating /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/pose_estimator_pkg/msg
+[1.425s] copying msg/DetectionResult.msg -> /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/share/pose_estimator_pkg/msg
+[1.425s] running install_egg_info
+[1.443s] Copying ../../../build/pose_estimator_pkg/pose_estimator_pkg.egg-info to /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages/pose_estimator_pkg-0.0.0-py3.12.egg-info
+[1.443s] running install_scripts
+[1.571s] Installing detection_result_republisher script to /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/pose_estimator_pkg
+[1.571s] Installing icp_pose_estimator_node script to /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/pose_estimator_pkg
+[1.572s] Installing pose_estimator_node script to /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/pose_estimator_pkg
+[1.572s] Installing pt_inference_node script to /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/pose_estimator_pkg
+[1.572s] Installing visualization_node script to /home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/pose_estimator_pkg
+[1.573s] writing list of installed files to '/home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/install.log'
+[1.606s] Invoked command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/pose_estimator_pkg' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/ros2_ws/install/pose_estimator_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/pose_estimator_pkg build --build-base /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/build install --record /home/ubuntu/ros2_ws/ros2_ws/build/pose_estimator_pkg/install.log --single-version-externally-managed install_data
