@@ -18,7 +18,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X2-Y2-Z2.stl</uri>
+            <uri>file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X2-Y2-Z2-FILLET.stl</uri>
           </mesh>
         </geometry>
       </collision>
@@ -27,7 +27,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X2-Y2-Z2.stl</uri>
+            <uri>file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X2-Y2-Z2-FILLET.stl</uri>
           </mesh>
         </geometry>
         <material>

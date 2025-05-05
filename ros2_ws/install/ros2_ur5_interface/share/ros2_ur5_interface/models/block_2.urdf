@@ -16,7 +16,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X1-Y2-Z2.stl" scale="1 1 1"/>
+        <mesh filename="file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X1-Y2-Z2-TWINFILLET.stl" scale="1 1 1"/>
       </geometry>
       <material name="color">
         <color rgba="0.4 0.4 0.9 1"/>
@@ -27,7 +27,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <!-- <box size="0.031 0.031 0.057" /> -->
-        <mesh filename="file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X1-Y2-Z2.stl" scale="1 1 1"/>
+        <mesh filename="file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X1-Y2-Z2-TWINFILLET.stl" scale="1 1 1"/>
       </geometry>
     </collision>
   </link>
