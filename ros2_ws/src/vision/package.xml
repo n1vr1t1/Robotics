@@ -1,29 +1,27 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>vision</name>
-  <version>0.0.0</version>
-  <description>Classifying and estimating distance of blocks with respect to base</description>
-  <maintainer email="nivriti.raising@studenti.unitn.it">ubuntu</maintainer>
-  <license>TODO: License declaration</license>
+  <version>0.1.0</version>
+  <description>YOLO-based object detection using LibTorch and OpenCV</description>
 
-  <!-- Core dependencies -->
-  <depend>rclcpp</depend>
-  <depend>sensor_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>custom_msg_interfaces</depend>
+  <maintainer email="nivriti.raising@studenti.unitn.it">Nivriti Raising</maintainer>
+  <license>MIT</license> 
 
-  <!-- Build dependencies for custom messages -->
+  <!-- C++ ROS 2 Core -->
+  <build_depend>rclcpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
   <build_depend>rosidl_default_generators</build_depend>
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>image_transport</exec_depend>
   <exec_depend>rosidl_default_runtime</exec_depend>
 
-  <!-- Test dependencies -->
-  <test_depend>ament_copyright</test_depend>
-  <test_depend>ament_flake8</test_depend>
-  <test_depend>ament_pep257</test_depend>
-  <test_depend>python3-pytest</test_depend>
-
   <export>
-    <build_type>ament_python</build_type>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
