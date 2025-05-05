@@ -1,27 +1,17 @@
 #!/bin/bash
 
-# Source the ROS2 workspace
+# Source the ROS2 workspace setup.bash
 source ~/ros2_ws/install/setup.bash
 
-# Activate the virtual environment
-source /home/ubuntu/ros2_env/bin/activate
+# Define the base path for your C++ executables
+VISION_PATH="$HOME/ros2_ws/src/vision/src"
 
+# Navigate to the directory containing your C++ executables
+cd "$VISION_PATH"
 
-
-# Set up the environment variables (if needed)
-#export PYTHONPATH=/home/ubuntu/ros2_env/lib/python3.12/site-packages
-export PATH=/home/ubuntu/ros2_env/bin:$PATH
-
-# Define the base path for the Python scripts
-POSE_ESTIMATOR_PATH="$HOME/ros2_ws/src/vision/vision"
-
-cd "$POSE_ESTIMATOR_PATH"
-
-# Run each Python script in the background
-./pt_inference_node.py &
-./visualization_node.py &
-#./icp_pose_estimator.py &
+# Run each C++ executable (ROS2 node) in the background
+./pt_inference_node &  # Replace with your actual C++ executable name
+./visualization_node & # Replace with your actual C++ executable name
 
 # Wait for all background processes to finish
 wait
-
