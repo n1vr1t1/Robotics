@@ -1,0 +1,440 @@
+[0.073s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.073s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f8ecc20f260>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f8ecc1b4e60>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f8ecc1b4e60>>)
+[0.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.101s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/ubuntu/ros2_ws/Robotics/ros2_ws'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.121s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extension 'ignore'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extension 'ignore_ament_install'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extensions ['colcon_pkg']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extension 'colcon_pkg'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extensions ['colcon_meta']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extension 'colcon_meta'
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extensions ['ros']
+[0.122s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_msg_interfaces) by extension 'ros'
+[0.124s] DEBUG:colcon.colcon_core.package_identification:Package 'src/custom_msg_interfaces' with type 'ros.ament_cmake' and name 'custom_msg_interfaces'
+[0.124s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extensions ['ignore', 'ignore_ament_install']
+[0.124s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extension 'ignore'
+[0.124s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extension 'ignore_ament_install'
+[0.125s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extensions ['colcon_pkg']
+[0.125s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extension 'colcon_pkg'
+[0.125s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extensions ['colcon_meta']
+[0.125s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extension 'colcon_meta'
+[0.125s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extensions ['ros']
+[0.125s] Level 1:colcon.colcon_core.package_identification:_identify(src/motion) by extension 'ros'
+[0.125s] DEBUG:colcon.colcon_core.package_identification:Package 'src/motion' with type 'ros.ament_cmake' and name 'motion'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extensions ['ignore', 'ignore_ament_install']
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extension 'ignore'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extension 'ignore_ament_install'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extensions ['colcon_pkg']
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extension 'colcon_pkg'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extensions ['colcon_meta']
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extension 'colcon_meta'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extensions ['ros']
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/planning_pkg) by extension 'ros'
+[0.126s] DEBUG:colcon.colcon_core.package_identification:Package 'src/planning_pkg' with type 'ros.ament_python' and name 'planning_pkg'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extensions ['ignore', 'ignore_ament_install']
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extension 'ignore'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extension 'ignore_ament_install'
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extensions ['colcon_pkg']
+[0.126s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extension 'colcon_pkg'
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extensions ['colcon_meta']
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extension 'colcon_meta'
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extensions ['ros']
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros2_ur5_interface) by extension 'ros'
+[0.127s] DEBUG:colcon.colcon_core.package_identification:Package 'src/ros2_ur5_interface' with type 'ros.ament_cmake' and name 'ros2_ur5_interface'
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extensions ['ignore', 'ignore_ament_install']
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extension 'ignore'
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extension 'ignore_ament_install'
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extensions ['colcon_pkg']
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extension 'colcon_pkg'
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extensions ['colcon_meta']
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extension 'colcon_meta'
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extensions ['ros']
+[0.127s] Level 1:colcon.colcon_core.package_identification:_identify(src/start_simulation) by extension 'ros'
+[0.128s] DEBUG:colcon.colcon_core.package_identification:Package 'src/start_simulation' with type 'ros.ament_python' and name 'start_simulation'
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extensions ['ignore', 'ignore_ament_install']
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extension 'ignore'
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extension 'ignore_ament_install'
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extensions ['colcon_pkg']
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extension 'colcon_pkg'
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extensions ['colcon_meta']
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extension 'colcon_meta'
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extensions ['ros']
+[0.128s] Level 1:colcon.colcon_core.package_identification:_identify(src/vision) by extension 'ros'
+[0.130s] DEBUG:colcon.colcon_core.package_identification:Package 'src/vision' with type 'ros.ament_python' and name 'vision'
+[0.130s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.130s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.130s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.130s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.130s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.144s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.144s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.146s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 364 installed packages in /opt/ros/jazzy
+[0.147s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'custom_msg_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.181s] DEBUG:colcon.colcon_core.verb:Building package 'custom_msg_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces', 'merge_install': False, 'path': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'cmake_args' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'cmake_target' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'cmake_clean_cache' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'cmake_clean_first' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'cmake_force_configure' from command line to 'False'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'ament_cmake_args' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'catkin_cmake_args' from command line to 'None'
+[0.181s] Level 5:colcon.colcon_core.verb:set package 'ros2_ur5_interface' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.182s] DEBUG:colcon.colcon_core.verb:Building package 'ros2_ur5_interface' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface', 'merge_install': False, 'path': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface', 'symlink_install': False, 'test_result_base': None}
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'cmake_target' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'cmake_clean_cache' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'cmake_clean_first' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'cmake_force_configure' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'ament_cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'catkin_cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'motion' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.182s] DEBUG:colcon.colcon_core.verb:Building package 'motion' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion', 'merge_install': False, 'path': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/motion', 'symlink_install': False, 'test_result_base': None}
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'cmake_target' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'cmake_clean_cache' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'cmake_clean_first' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'cmake_force_configure' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'ament_cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'catkin_cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'planning_pkg' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.182s] DEBUG:colcon.colcon_core.verb:Building package 'planning_pkg' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/planning_pkg', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg', 'merge_install': False, 'path': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/planning_pkg', 'symlink_install': False, 'test_result_base': None}
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'cmake_target' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'cmake_clean_cache' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'cmake_clean_first' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'cmake_force_configure' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'ament_cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'catkin_cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'vision' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.182s] DEBUG:colcon.colcon_core.verb:Building package 'vision' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/vision', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision', 'merge_install': False, 'path': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/vision', 'symlink_install': False, 'test_result_base': None}
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'cmake_args' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'cmake_target' from command line to 'None'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.182s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'cmake_clean_cache' from command line to 'False'
+[0.183s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'cmake_clean_first' from command line to 'False'
+[0.183s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'cmake_force_configure' from command line to 'False'
+[0.183s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'ament_cmake_args' from command line to 'None'
+[0.183s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'catkin_cmake_args' from command line to 'None'
+[0.183s] Level 5:colcon.colcon_core.verb:set package 'start_simulation' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.183s] DEBUG:colcon.colcon_core.verb:Building package 'start_simulation' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation', 'merge_install': False, 'path': '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/start_simulation', 'symlink_install': False, 'test_result_base': None}
+[0.183s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.183s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.184s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces' with build type 'ament_cmake'
+[0.184s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces'
+[0.185s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.186s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.186s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.188s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface' with build type 'ament_cmake'
+[0.188s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface'
+[0.188s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.188s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.194s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces
+[0.199s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface
+[1.189s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface
+[1.190s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface -- -j16 -l16
+[2.982s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces
+[2.983s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces -- -j16 -l16
+[9.100s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces -- -j16 -l16
+[9.108s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces
+[9.223s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(custom_msg_interfaces)
+[9.223s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces
+[9.225s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces' for CMake module files
+[9.225s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces' for CMake config files
+[9.226s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_msg_interfaces', 'cmake_prefix_path')
+[9.226s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/cmake_prefix_path.ps1'
+[9.227s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/cmake_prefix_path.dsv'
+[9.227s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/cmake_prefix_path.sh'
+[9.228s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib'
+[9.228s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_msg_interfaces', 'ld_library_path_lib')
+[9.228s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/ld_library_path_lib.ps1'
+[9.228s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/ld_library_path_lib.dsv'
+[9.229s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/ld_library_path_lib.sh'
+[9.229s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/bin'
+[9.229s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/pkgconfig/custom_msg_interfaces.pc'
+[9.229s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages'
+[9.229s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_msg_interfaces', 'pythonpath')
+[9.229s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/pythonpath.ps1'
+[9.230s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/pythonpath.dsv'
+[9.230s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/pythonpath.sh'
+[9.230s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/bin'
+[9.231s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.ps1'
+[9.231s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.dsv'
+[9.232s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.sh'
+[9.233s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.bash'
+[9.233s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.zsh'
+[9.234s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/colcon-core/packages/custom_msg_interfaces)
+[9.234s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(custom_msg_interfaces)
+[9.235s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces' for CMake module files
+[9.235s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces' for CMake config files
+[9.236s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_msg_interfaces', 'cmake_prefix_path')
+[9.236s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/cmake_prefix_path.ps1'
+[9.237s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/cmake_prefix_path.dsv'
+[9.237s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/cmake_prefix_path.sh'
+[9.238s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib'
+[9.238s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_msg_interfaces', 'ld_library_path_lib')
+[9.238s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/ld_library_path_lib.ps1'
+[9.238s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/ld_library_path_lib.dsv'
+[9.238s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/ld_library_path_lib.sh'
+[9.239s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/bin'
+[9.239s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/pkgconfig/custom_msg_interfaces.pc'
+[9.239s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages'
+[9.239s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_msg_interfaces', 'pythonpath')
+[9.239s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/pythonpath.ps1'
+[9.240s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/pythonpath.dsv'
+[9.240s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/hook/pythonpath.sh'
+[9.241s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/bin'
+[9.241s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.ps1'
+[9.241s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.dsv'
+[9.242s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.sh'
+[9.242s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.bash'
+[9.243s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/package.zsh'
+[9.243s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/share/colcon-core/packages/custom_msg_interfaces)
+[9.243s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/motion' with build type 'ament_cmake'
+[9.244s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/motion'
+[9.244s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[9.244s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[9.248s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/planning_pkg' with build type 'ament_python'
+[9.248s] Level 1:colcon.colcon_core.shell:create_environment_hook('planning_pkg', 'ament_prefix_path')
+[9.248s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/hook/ament_prefix_path.ps1'
+[9.249s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/hook/ament_prefix_path.dsv'
+[9.250s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/hook/ament_prefix_path.sh'
+[9.250s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[9.250s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[9.253s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/vision' with build type 'ament_python'
+[9.253s] Level 1:colcon.colcon_core.shell:create_environment_hook('vision', 'ament_prefix_path')
+[9.253s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/hook/ament_prefix_path.ps1'
+[9.255s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/hook/ament_prefix_path.dsv'
+[9.255s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/hook/ament_prefix_path.sh'
+[9.255s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[9.256s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[9.262s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/motion -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion
+[9.511s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/planning_pkg'
+[9.511s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[9.511s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[9.731s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/vision'
+[9.731s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[9.731s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[10.436s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/vision': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/vision/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vision build --build-base /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/vision/build install --record /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/vision/install.log --single-version-externally-managed install_data
+[10.439s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/planning_pkg': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/planning_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/planning_pkg build --build-base /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/planning_pkg/build install --record /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/planning_pkg/install.log --single-version-externally-managed install_data
+[10.873s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/motion -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion
+[10.874s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion -- -j16 -l16
+[10.940s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision' for CMake module files
+[10.940s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/vision' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/vision/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/vision build --build-base /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/vision/build install --record /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/vision/install.log --single-version-externally-managed install_data
+[10.941s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision' for CMake config files
+[10.942s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/lib'
+[10.942s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/bin'
+[10.942s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/lib/pkgconfig/vision.pc'
+[10.942s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/lib/python3.12/site-packages'
+[10.943s] Level 1:colcon.colcon_core.shell:create_environment_hook('vision', 'pythonpath')
+[10.943s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/hook/pythonpath.ps1'
+[10.943s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/hook/pythonpath.dsv'
+[10.944s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/hook/pythonpath.sh'
+[10.944s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/bin'
+[10.944s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(vision)
+[10.945s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/package.ps1'
+[10.945s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/package.dsv'
+[10.946s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/package.sh'
+[10.946s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/package.bash'
+[10.947s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/vision/package.zsh'
+[10.947s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/vision/share/colcon-core/packages/vision)
+[10.982s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg' for CMake module files
+[10.982s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/planning_pkg' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/planning_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/planning_pkg build --build-base /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/planning_pkg/build install --record /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/planning_pkg/install.log --single-version-externally-managed install_data
+[10.983s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg' for CMake config files
+[10.984s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/lib'
+[10.984s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/bin'
+[10.984s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/lib/pkgconfig/planning_pkg.pc'
+[10.985s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/lib/python3.12/site-packages'
+[10.985s] Level 1:colcon.colcon_core.shell:create_environment_hook('planning_pkg', 'pythonpath')
+[10.985s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/hook/pythonpath.ps1'
+[10.986s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/hook/pythonpath.dsv'
+[10.986s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/hook/pythonpath.sh'
+[10.987s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/bin'
+[10.987s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(planning_pkg)
+[10.987s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/package.ps1'
+[10.988s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/package.dsv'
+[10.989s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/package.sh'
+[10.989s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/package.bash'
+[10.990s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/planning_pkg/package.zsh'
+[10.990s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/share/colcon-core/packages/planning_pkg)
+[16.124s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface -- -j16 -l16
+[16.125s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface
+[16.182s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(ros2_ur5_interface)
+[16.183s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface
+[16.183s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface' for CMake module files
+[16.184s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface' for CMake config files
+[16.184s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros2_ur5_interface', 'cmake_prefix_path')
+[16.185s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/hook/cmake_prefix_path.ps1'
+[16.185s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/hook/cmake_prefix_path.dsv'
+[16.186s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/hook/cmake_prefix_path.sh'
+[16.186s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/lib'
+[16.186s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/bin'
+[16.187s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/lib/pkgconfig/ros2_ur5_interface.pc'
+[16.187s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/lib/python3.12/site-packages'
+[16.187s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/bin'
+[16.187s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.ps1'
+[16.188s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.dsv'
+[16.188s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.sh'
+[16.189s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.bash'
+[16.189s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.zsh'
+[16.189s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/colcon-core/packages/ros2_ur5_interface)
+[16.191s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(ros2_ur5_interface)
+[16.191s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface' for CMake module files
+[16.192s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface' for CMake config files
+[16.192s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros2_ur5_interface', 'cmake_prefix_path')
+[16.192s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/hook/cmake_prefix_path.ps1'
+[16.193s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/hook/cmake_prefix_path.dsv'
+[16.193s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/hook/cmake_prefix_path.sh'
+[16.194s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/lib'
+[16.194s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/bin'
+[16.194s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/lib/pkgconfig/ros2_ur5_interface.pc'
+[16.194s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/lib/python3.12/site-packages'
+[16.194s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/bin'
+[16.195s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.ps1'
+[16.195s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.dsv'
+[16.196s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.sh'
+[16.196s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.bash'
+[16.196s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/package.zsh'
+[16.197s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/colcon-core/packages/ros2_ur5_interface)
+[23.594s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion -- -j16 -l16
+[23.595s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion
+[23.614s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motion)
+[23.614s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion' for CMake module files
+[23.615s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/motion
+[23.615s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion' for CMake config files
+[23.615s] Level 1:colcon.colcon_core.shell:create_environment_hook('motion', 'cmake_prefix_path')
+[23.615s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/hook/cmake_prefix_path.ps1'
+[23.616s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/hook/cmake_prefix_path.dsv'
+[23.616s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/hook/cmake_prefix_path.sh'
+[23.616s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/lib'
+[23.616s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/bin'
+[23.616s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/lib/pkgconfig/motion.pc'
+[23.616s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/lib/python3.12/site-packages'
+[23.617s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/bin'
+[23.617s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.ps1'
+[23.617s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.dsv'
+[23.617s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.sh'
+[23.617s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.bash'
+[23.618s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.zsh'
+[23.618s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/colcon-core/packages/motion)
+[23.619s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motion)
+[23.619s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion' for CMake module files
+[23.619s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion' for CMake config files
+[23.619s] Level 1:colcon.colcon_core.shell:create_environment_hook('motion', 'cmake_prefix_path')
+[23.619s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/hook/cmake_prefix_path.ps1'
+[23.620s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/hook/cmake_prefix_path.dsv'
+[23.620s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/hook/cmake_prefix_path.sh'
+[23.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/lib'
+[23.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/bin'
+[23.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/lib/pkgconfig/motion.pc'
+[23.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/lib/python3.12/site-packages'
+[23.621s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/bin'
+[23.621s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.ps1'
+[23.621s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.dsv'
+[23.621s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.sh'
+[23.622s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.bash'
+[23.622s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/motion/package.zsh'
+[23.622s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion/share/colcon-core/packages/motion)
+[23.622s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/start_simulation' with build type 'ament_python'
+[23.623s] Level 1:colcon.colcon_core.shell:create_environment_hook('start_simulation', 'ament_prefix_path')
+[23.623s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/hook/ament_prefix_path.ps1'
+[23.624s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/hook/ament_prefix_path.dsv'
+[23.624s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/hook/ament_prefix_path.sh'
+[23.624s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[23.624s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[23.804s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/start_simulation'
+[23.804s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[23.804s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[24.245s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/start_simulation': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/start_simulation build --build-base /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation/build install --record /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation/install.log --single-version-externally-managed install_data
+[24.619s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation' for CMake module files
+[24.619s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation' for CMake config files
+[24.620s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/start_simulation' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/motion:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/planning_pkg/lib/python3.12/site-packages:/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/start_simulation build --build-base /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation/build install --record /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation/install.log --single-version-externally-managed install_data
+[24.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/lib'
+[24.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/bin'
+[24.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/lib/pkgconfig/start_simulation.pc'
+[24.620s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/lib/python3.12/site-packages'
+[24.620s] Level 1:colcon.colcon_core.shell:create_environment_hook('start_simulation', 'pythonpath')
+[24.620s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/hook/pythonpath.ps1'
+[24.621s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/hook/pythonpath.dsv'
+[24.621s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/hook/pythonpath.sh'
+[24.621s] Level 1:colcon.colcon_core.environment:checking '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/bin'
+[24.621s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(start_simulation)
+[24.621s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/package.ps1'
+[24.622s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/package.dsv'
+[24.622s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/package.sh'
+[24.622s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/package.bash'
+[24.622s] INFO:colcon.colcon_core.shell:Creating package script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/package.zsh'
+[24.622s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/colcon-core/packages/start_simulation)
+[24.623s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[24.623s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[24.623s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[24.623s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[24.631s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[24.631s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[24.631s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[24.639s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[24.639s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/local_setup.ps1'
+[24.639s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/_local_setup_util_ps1.py'
+[24.640s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/setup.ps1'
+[24.641s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/local_setup.sh'
+[24.641s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/_local_setup_util_sh.py'
+[24.641s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/setup.sh'
+[24.642s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/local_setup.bash'
+[24.642s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/setup.bash'
+[24.643s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/local_setup.zsh'
+[24.643s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/setup.zsh'

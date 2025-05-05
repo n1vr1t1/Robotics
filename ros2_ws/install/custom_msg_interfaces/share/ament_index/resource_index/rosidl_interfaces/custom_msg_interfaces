@@ -1,0 +1,12 @@
+msg/DetectionResult.idl
+msg/DetectionResult.msg
+srv/ComputeDirKin.idl
+srv/ComputeDirKin.srv
+srv/ComputeIK.idl
+srv/ComputeIK.srv
+srv/ComputePath.idl
+srv/ComputePath.srv
+srv/ComputeTrajectory.idl
+srv/ComputeTrajectory.srv
+srv/MoveAB.idl
+srv/MoveAB.srv

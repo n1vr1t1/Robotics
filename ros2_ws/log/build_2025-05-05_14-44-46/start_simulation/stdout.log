@@ -1,0 +1,16 @@
+running egg_info
+writing ../../build/start_simulation/start_simulation.egg-info/PKG-INFO
+writing dependency_links to ../../build/start_simulation/start_simulation.egg-info/dependency_links.txt
+writing requirements to ../../build/start_simulation/start_simulation.egg-info/requires.txt
+writing top-level names to ../../build/start_simulation/start_simulation.egg-info/top_level.txt
+reading manifest file '../../build/start_simulation/start_simulation.egg-info/SOURCES.txt'
+writing manifest file '../../build/start_simulation/start_simulation.egg-info/SOURCES.txt'
+running build
+running install
+running install_data
+copying launch/start_simulation.launch.py -> /home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/share/start_simulation/launch
+running install_egg_info
+removing '/home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/lib/python3.12/site-packages/start_simulation-0.0.1-py3.12.egg-info' (and everything under it)
+Copying ../../build/start_simulation/start_simulation.egg-info to /home/ubuntu/ros2_ws/Robotics/ros2_ws/install/start_simulation/lib/python3.12/site-packages/start_simulation-0.0.1-py3.12.egg-info
+running install_scripts
+writing list of installed files to '/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/start_simulation/install.log'

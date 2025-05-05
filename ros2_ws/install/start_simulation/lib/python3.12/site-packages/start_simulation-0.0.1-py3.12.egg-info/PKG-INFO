@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: start-simulation
+Version: 0.0.1
+Summary: Package to start arm detection, planning and motion
+Maintainer: Sara Francavilla
+Maintainer-email: sara.francavilla@gmail.com
+License: Apache License 2.0

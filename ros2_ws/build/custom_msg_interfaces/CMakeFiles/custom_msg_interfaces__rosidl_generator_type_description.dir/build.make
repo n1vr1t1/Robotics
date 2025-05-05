@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/custom_msg_interfaces
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/build/custom_msg_interfaces
+CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces
 
 # Utility rule file for custom_msg_interfaces__rosidl_generator_type_description.
 
@@ -67,15 +67,45 @@ include CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/
 include CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/progress.make
 
 CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json
+CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeIK.json
+CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeDirKin.json
+CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputePath.json
+CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeTrajectory.json
+CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/MoveAB.json
 
 rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: /opt/ros/jazzy/lib/rosidl_generator_type_description/rosidl_generator_type_description
 rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: /opt/ros/jazzy/lib/python3.12/site-packages/rosidl_generator_type_description/__init__.py
 rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: rosidl_adapter/custom_msg_interfaces/msg/DetectionResult.idl
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating type hashes for ROS interfaces"
-	/usr/bin/python3 /opt/ros/jazzy/lib/rosidl_generator_type_description/rosidl_generator_type_description --generator-arguments-file /home/ubuntu/ros2_ws/build/custom_msg_interfaces/rosidl_generator_type_description__arguments.json
+rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: rosidl_adapter/custom_msg_interfaces/srv/ComputeIK.idl
+rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: rosidl_adapter/custom_msg_interfaces/srv/ComputeDirKin.idl
+rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: rosidl_adapter/custom_msg_interfaces/srv/ComputePath.idl
+rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: rosidl_adapter/custom_msg_interfaces/srv/ComputeTrajectory.idl
+rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json: rosidl_adapter/custom_msg_interfaces/srv/MoveAB.idl
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating type hashes for ROS interfaces"
+	/usr/bin/python3 /opt/ros/jazzy/lib/rosidl_generator_type_description/rosidl_generator_type_description --generator-arguments-file /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_generator_type_description__arguments.json
+
+rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeIK.json: rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeIK.json
+
+rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeDirKin.json: rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeDirKin.json
+
+rosidl_generator_type_description/custom_msg_interfaces/srv/ComputePath.json: rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_type_description/custom_msg_interfaces/srv/ComputePath.json
+
+rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeTrajectory.json: rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeTrajectory.json
+
+rosidl_generator_type_description/custom_msg_interfaces/srv/MoveAB.json: rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_type_description/custom_msg_interfaces/srv/MoveAB.json
 
 custom_msg_interfaces__rosidl_generator_type_description: CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description
 custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/msg/DetectionResult.json
+custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeDirKin.json
+custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeIK.json
+custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputePath.json
+custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/ComputeTrajectory.json
+custom_msg_interfaces__rosidl_generator_type_description: rosidl_generator_type_description/custom_msg_interfaces/srv/MoveAB.json
 custom_msg_interfaces__rosidl_generator_type_description: CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/build.make
 .PHONY : custom_msg_interfaces__rosidl_generator_type_description
 
@@ -88,6 +118,6 @@ CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/clean:
 .PHONY : CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/clean
 
 CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/depend:
-	cd /home/ubuntu/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/custom_msg_interfaces__rosidl_generator_type_description.dir/depend
 

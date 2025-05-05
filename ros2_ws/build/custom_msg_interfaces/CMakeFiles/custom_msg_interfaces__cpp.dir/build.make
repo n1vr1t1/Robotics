@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/custom_msg_interfaces
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/build/custom_msg_interfaces
+CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces
 
 # Utility rule file for custom_msg_interfaces__cpp.
 
@@ -71,6 +71,31 @@ CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interface
 CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__struct.hpp
 CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__traits.hpp
 CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__type_support.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_ik.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__builder.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__struct.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__traits.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__type_support.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_dir_kin.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__builder.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__struct.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__traits.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__type_support.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_path.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__builder.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__struct.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__traits.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__type_support.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_trajectory.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__builder.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__struct.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__traits.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__type_support.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/move_ab.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__builder.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__struct.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__traits.hpp
+CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__type_support.hpp
 CMakeFiles/custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
 
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/lib/rosidl_generator_cpp/rosidl_generator_cpp
@@ -93,6 +118,11 @@ rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/ja
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/rosidl_generator_cpp/resource/srv__traits.hpp.em
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/rosidl_generator_cpp/resource/srv__type_support.hpp.em
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: rosidl_adapter/custom_msg_interfaces/msg/DetectionResult.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: rosidl_adapter/custom_msg_interfaces/srv/ComputeIK.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: rosidl_adapter/custom_msg_interfaces/srv/ComputeDirKin.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: rosidl_adapter/custom_msg_interfaces/srv/ComputePath.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: rosidl_adapter/custom_msg_interfaces/srv/ComputeTrajectory.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: rosidl_adapter/custom_msg_interfaces/srv/MoveAB.idl
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/std_msgs/msg/Bool.idl
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/std_msgs/msg/Byte.idl
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/std_msgs/msg/ByteMultiArray.idl
@@ -125,8 +155,45 @@ rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/ja
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/std_msgs/msg/UInt8MultiArray.idl
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/builtin_interfaces/msg/Duration.idl
 rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/builtin_interfaces/msg/Time.idl
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
-	/usr/bin/python3 /opt/ros/jazzy/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /home/ubuntu/ros2_ws/build/custom_msg_interfaces/rosidl_generator_cpp__arguments.json
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Accel.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/AccelStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/AccelWithCovariance.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/AccelWithCovarianceStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Inertia.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/InertiaStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Point.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Point32.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PointStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Polygon.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PolygonInstance.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PolygonInstanceStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PolygonStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Pose.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Pose2D.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseArray.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseWithCovariance.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseWithCovarianceStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Quaternion.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/QuaternionStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Transform.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/TransformStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Twist.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/TwistStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/TwistWithCovariance.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/TwistWithCovarianceStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Vector3.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Vector3Stamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/VelocityStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/Wrench.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/geometry_msgs/msg/WrenchStamped.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/trajectory_msgs/msg/JointTrajectory.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/trajectory_msgs/msg/JointTrajectoryPoint.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/trajectory_msgs/msg/MultiDOFJointTrajectory.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/trajectory_msgs/msg/MultiDOFJointTrajectoryPoint.idl
+rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp: /opt/ros/jazzy/share/service_msgs/msg/ServiceEventInfo.idl
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
+	/usr/bin/python3 /opt/ros/jazzy/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_generator_cpp__arguments.json
 
 rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__builder.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__builder.hpp
@@ -140,6 +207,81 @@ rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__traits.h
 rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__type_support.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__type_support.hpp
 
+rosidl_generator_cpp/custom_msg_interfaces/srv/compute_ik.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/compute_ik.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__builder.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__builder.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__struct.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__struct.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__traits.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__traits.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__type_support.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__type_support.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/compute_dir_kin.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/compute_dir_kin.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__builder.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__builder.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__struct.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__struct.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__traits.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__traits.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__type_support.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__type_support.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/compute_path.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/compute_path.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__builder.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__builder.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__struct.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__struct.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__traits.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__traits.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__type_support.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__type_support.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/compute_trajectory.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/compute_trajectory.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__builder.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__builder.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__struct.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__struct.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__traits.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__traits.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__type_support.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__type_support.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/move_ab.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/move_ab.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__builder.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__builder.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__struct.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__struct.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__traits.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__traits.hpp
+
+rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__type_support.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__type_support.hpp
+
 rosidl_generator_cpp/custom_msg_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/custom_msg_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
 
@@ -150,6 +292,31 @@ custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detai
 custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detail/detection_result__type_support.hpp
 custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/detection_result.hpp
 custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_dir_kin.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_ik.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_path.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/compute_trajectory.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__builder.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__struct.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__traits.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_dir_kin__type_support.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__builder.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__struct.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__traits.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_ik__type_support.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__builder.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__struct.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__traits.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_path__type_support.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__builder.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__struct.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__traits.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/compute_trajectory__type_support.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__builder.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__struct.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__traits.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/detail/move_ab__type_support.hpp
+custom_msg_interfaces__cpp: rosidl_generator_cpp/custom_msg_interfaces/srv/move_ab.hpp
 custom_msg_interfaces__cpp: CMakeFiles/custom_msg_interfaces__cpp.dir/build.make
 .PHONY : custom_msg_interfaces__cpp
 
@@ -162,6 +329,6 @@ CMakeFiles/custom_msg_interfaces__cpp.dir/clean:
 .PHONY : CMakeFiles/custom_msg_interfaces__cpp.dir/clean
 
 CMakeFiles/custom_msg_interfaces__cpp.dir/depend:
-	cd /home/ubuntu/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces__cpp.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces__cpp.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/custom_msg_interfaces__cpp.dir/depend
 

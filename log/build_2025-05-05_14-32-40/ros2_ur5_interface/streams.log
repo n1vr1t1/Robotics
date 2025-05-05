@@ -1,0 +1,5 @@
+[0.009s] Invoking command in '/home/ubuntu/ros2_ws/Robotics/build/ros2_ur5_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/build/ros2_ur5_interface -- -j16 -l16
+[0.013s] [0mCMake Error: The current CMakeCache.txt directory /home/ubuntu/ros2_ws/Robotics/build/ros2_ur5_interface/CMakeCache.txt is different than the directory /home/ubuntu/ros2_ws/ros2_ws/build/ros2_ur5_interface where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt[0m
+[0.021s] [0mCMake Error: The source directory "/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface" does not exist.
+[0.022s] Specify --help for usage, or press the help button on the CMake GUI.[0m
+[0.023s] gmake: *** [Makefile:308: cmake_check_build_system] Error 1

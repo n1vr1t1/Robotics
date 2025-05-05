@@ -1,0 +1,6 @@
+[0.009s] Invoking command in '/home/ubuntu/ros2_ws/Robotics/build/custom_msg_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/build/custom_msg_interfaces -- -j16 -l16
+[0.016s] [0mCMake Error: The current CMakeCache.txt directory /home/ubuntu/ros2_ws/Robotics/build/custom_msg_interfaces/CMakeCache.txt is different than the directory /home/ubuntu/ros2_ws/ros2_ws/build/custom_msg_interfaces where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt[0m
+[0.025s] [0mCMake Error: The source directory "/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/custom_msg_interfaces" does not exist.
+[0.026s] Specify --help for usage, or press the help button on the CMake GUI.[0m
+[0.027s] gmake: *** [Makefile:2165: cmake_check_build_system] Error 1
+[0.028s] Invoked command in '/home/ubuntu/ros2_ws/Robotics/build/custom_msg_interfaces' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/Robotics/build/custom_msg_interfaces -- -j16 -l16

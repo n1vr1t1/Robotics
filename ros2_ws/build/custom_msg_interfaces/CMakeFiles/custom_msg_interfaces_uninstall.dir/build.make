@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/custom_msg_interfaces
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/build/custom_msg_interfaces
+CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces
 
 # Utility rule file for custom_msg_interfaces_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/custom_msg_interfaces_uninstall.dir/compiler_depend.make
 include CMakeFiles/custom_msg_interfaces_uninstall.dir/progress.make
 
 CMakeFiles/custom_msg_interfaces_uninstall:
-	/usr/bin/cmake -P /home/ubuntu/ros2_ws/build/custom_msg_interfaces/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 custom_msg_interfaces_uninstall: CMakeFiles/custom_msg_interfaces_uninstall
 custom_msg_interfaces_uninstall: CMakeFiles/custom_msg_interfaces_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/custom_msg_interfaces_uninstall.dir/clean:
 .PHONY : CMakeFiles/custom_msg_interfaces_uninstall.dir/clean
 
 CMakeFiles/custom_msg_interfaces_uninstall.dir/depend:
-	cd /home/ubuntu/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces_uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces_uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/custom_msg_interfaces_uninstall.dir/depend
 

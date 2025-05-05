@@ -1,4 +1,0 @@
-[0.015s] Invoking command in '/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/collision_detection_pkg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/collision_detection_pkg -- -j16 -l16
-[0.051s] [ 50%] [32mBuilding CXX object CMakeFiles/table_avoidance_node.dir/src/table_avoidance_node.cpp.o[0m
-[4.833s] [100%] [32m[1mLinking CXX executable table_avoidance_node[0m
-[5.016s] [100%] Built target table_avoidance_node

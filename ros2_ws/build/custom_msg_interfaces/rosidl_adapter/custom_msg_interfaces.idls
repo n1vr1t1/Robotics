@@ -1,0 +1,6 @@
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_adapter/custom_msg_interfaces:msg/DetectionResult.idl
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_adapter/custom_msg_interfaces:srv/ComputeIK.idl
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_adapter/custom_msg_interfaces:srv/ComputeDirKin.idl
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_adapter/custom_msg_interfaces:srv/ComputePath.idl
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_adapter/custom_msg_interfaces:srv/ComputeTrajectory.idl
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_adapter/custom_msg_interfaces:srv/MoveAB.idl

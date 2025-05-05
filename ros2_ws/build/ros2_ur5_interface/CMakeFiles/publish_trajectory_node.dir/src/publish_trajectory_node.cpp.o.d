@@ -1,5 +1,5 @@
 CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o: \
- /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp \
+ /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp \
  /usr/include/stdc-predef.h \
  /opt/ros/jazzy/include/rclcpp/rclcpp/rclcpp.hpp \
  /usr/include/c++/13/csignal \

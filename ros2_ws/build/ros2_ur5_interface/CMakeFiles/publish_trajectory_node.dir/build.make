@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface
+CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface
 
 # Include any dependencies generated for this target.
 include CMakeFiles/publish_trajectory_node.dir/depend.make
@@ -70,18 +70,18 @@ include CMakeFiles/publish_trajectory_node.dir/progress.make
 include CMakeFiles/publish_trajectory_node.dir/flags.make
 
 CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o: CMakeFiles/publish_trajectory_node.dir/flags.make
-CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o: /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp
+CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o: /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp
 CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o: CMakeFiles/publish_trajectory_node.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o -MF CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o.d -o CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o -c /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o -MF CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o.d -o CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.o -c /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp
 
 CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp > CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp > CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.i
 
 CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp -o CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface/src/publish_trajectory_node.cpp -o CMakeFiles/publish_trajectory_node.dir/src/publish_trajectory_node.cpp.s
 
 # Object files for target publish_trajectory_node
 publish_trajectory_node_OBJECTS = \
@@ -222,7 +222,7 @@ publish_trajectory_node: /opt/ros/jazzy/lib/librcpputils.so
 publish_trajectory_node: /opt/ros/jazzy/lib/librosidl_runtime_c.so
 publish_trajectory_node: /opt/ros/jazzy/lib/librcutils.so
 publish_trajectory_node: CMakeFiles/publish_trajectory_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable publish_trajectory_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable publish_trajectory_node"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/publish_trajectory_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -234,6 +234,6 @@ CMakeFiles/publish_trajectory_node.dir/clean:
 .PHONY : CMakeFiles/publish_trajectory_node.dir/clean
 
 CMakeFiles/publish_trajectory_node.dir/depend:
-	cd /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/publish_trajectory_node.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface/CMakeFiles/publish_trajectory_node.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/publish_trajectory_node.dir/depend
 

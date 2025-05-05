@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/custom_msg_interfaces
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/build/custom_msg_interfaces
+CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces
 
 # Include any dependencies generated for this target.
 include CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend.make
@@ -76,6 +76,11 @@ rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cp
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/rosidl_typesupport_c/resource/msg__type_support.cpp.em
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/rosidl_typesupport_c/resource/srv__type_support.cpp.em
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: rosidl_adapter/custom_msg_interfaces/msg/DetectionResult.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: rosidl_adapter/custom_msg_interfaces/srv/ComputeIK.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: rosidl_adapter/custom_msg_interfaces/srv/ComputeDirKin.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: rosidl_adapter/custom_msg_interfaces/srv/ComputePath.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: rosidl_adapter/custom_msg_interfaces/srv/ComputeTrajectory.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: rosidl_adapter/custom_msg_interfaces/srv/MoveAB.idl
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/std_msgs/msg/Bool.idl
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/std_msgs/msg/Byte.idl
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/std_msgs/msg/ByteMultiArray.idl
@@ -108,42 +113,180 @@ rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cp
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/std_msgs/msg/UInt8MultiArray.idl
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/builtin_interfaces/msg/Duration.idl
 rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/builtin_interfaces/msg/Time.idl
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C type support dispatch for ROS interfaces"
-	/usr/bin/python3 /opt/ros/jazzy/lib/rosidl_typesupport_c/rosidl_typesupport_c --generator-arguments-file /home/ubuntu/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c__arguments.json --typesupports rosidl_typesupport_fastrtps_c rosidl_typesupport_introspection_c
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Accel.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/AccelStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/AccelWithCovariance.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/AccelWithCovarianceStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Inertia.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/InertiaStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Point.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Point32.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PointStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Polygon.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PolygonInstance.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PolygonInstanceStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PolygonStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Pose.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Pose2D.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseArray.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseWithCovariance.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/PoseWithCovarianceStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Quaternion.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/QuaternionStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Transform.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/TransformStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Twist.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/TwistStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/TwistWithCovariance.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/TwistWithCovarianceStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Vector3.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Vector3Stamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/VelocityStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/Wrench.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/geometry_msgs/msg/WrenchStamped.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/trajectory_msgs/msg/JointTrajectory.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/trajectory_msgs/msg/JointTrajectoryPoint.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/trajectory_msgs/msg/MultiDOFJointTrajectory.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/trajectory_msgs/msg/MultiDOFJointTrajectoryPoint.idl
+rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp: /opt/ros/jazzy/share/service_msgs/msg/ServiceEventInfo.idl
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C type support dispatch for ROS interfaces"
+	/usr/bin/python3 /opt/ros/jazzy/lib/rosidl_typesupport_c/rosidl_typesupport_c --generator-arguments-file /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c__arguments.json --typesupports rosidl_typesupport_fastrtps_c rosidl_typesupport_introspection_c
+
+rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp: rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp
+
+rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp: rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp
+
+rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp: rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp
+
+rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp: rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp
+
+rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp: rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp
 
 CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/flags.make
 CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o: rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
 CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o -MF CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o.d -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o -c /home/ubuntu/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o -MF CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o.d -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o -c /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
 
 CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp > CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp > CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.i
 
 CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.s
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/flags.make
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o -MF CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o.d -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o -c /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp > CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.i
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.s
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/flags.make
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o -MF CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o.d -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o -c /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp > CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.i
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.s
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/flags.make
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o -MF CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o.d -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o -c /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp > CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.i
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.s
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/flags.make
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o -MF CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o.d -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o -c /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp > CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.i
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.s
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/flags.make
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o: rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o -MF CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o.d -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o -c /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp > CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.i
+
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp -o CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.s
 
 # Object files for target custom_msg_interfaces__rosidl_typesupport_c
 custom_msg_interfaces__rosidl_typesupport_c_OBJECTS = \
-"CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o"
+"CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o" \
+"CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o" \
+"CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o" \
+"CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o" \
+"CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o" \
+"CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o"
 
 # External object files for target custom_msg_interfaces__rosidl_typesupport_c
 custom_msg_interfaces__rosidl_typesupport_c_EXTERNAL_OBJECTS =
 
 libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp.o
+libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp.o
+libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp.o
+libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp.o
+libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp.o
+libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp.o
 libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/build.make
 libcustom_msg_interfaces__rosidl_typesupport_c.so: libcustom_msg_interfaces__rosidl_generator_c.so
+libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libtrajectory_msgs__rosidl_typesupport_c.so
+libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libservice_msgs__rosidl_typesupport_c.so
+libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_typesupport_c.so
 libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libstd_msgs__rosidl_typesupport_c.so
+libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libtrajectory_msgs__rosidl_generator_c.so
+libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libgeometry_msgs__rosidl_generator_c.so
+libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libstd_msgs__rosidl_generator_c.so
 libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_typesupport_c.so
 libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/librosidl_typesupport_c.so
-libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libstd_msgs__rosidl_generator_c.so
+libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libservice_msgs__rosidl_generator_c.so
 libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/libbuiltin_interfaces__rosidl_generator_c.so
 libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/librosidl_runtime_c.so
 libcustom_msg_interfaces__rosidl_typesupport_c.so: /opt/ros/jazzy/lib/librcutils.so
 libcustom_msg_interfaces__rosidl_typesupport_c.so: CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libcustom_msg_interfaces__rosidl_typesupport_c.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX shared library libcustom_msg_interfaces__rosidl_typesupport_c.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -155,6 +298,11 @@ CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/clean:
 .PHONY : CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/clean
 
 CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/custom_msg_interfaces/msg/detection_result__type_support.cpp
-	cd /home/ubuntu/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/DependInfo.cmake "--color=$(COLOR)"
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_dir_kin__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_ik__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_path__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/custom_msg_interfaces/srv/compute_trajectory__type_support.cpp
+CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend: rosidl_typesupport_c/custom_msg_interfaces/srv/move_ab__type_support.cpp
+	cd /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/custom_msg_interfaces/CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/custom_msg_interfaces__rosidl_typesupport_c.dir/depend
 

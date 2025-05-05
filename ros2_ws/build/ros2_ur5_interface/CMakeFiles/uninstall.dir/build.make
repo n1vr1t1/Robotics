@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface
+CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/ros2_ws/ros2_ws/build/ros2_ur5_interface/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/src/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface /home/ubuntu/ros2_ws/Robotics/ros2_ws/build/ros2_ur5_interface/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/uninstall.dir/depend
 

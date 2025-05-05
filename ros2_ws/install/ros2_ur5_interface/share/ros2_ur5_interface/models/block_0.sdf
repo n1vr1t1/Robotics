@@ -1,0 +1,50 @@
+<sdf version='1.11'>
+  <model name='block'>
+    <link name='block1'>
+      <inertial>
+        <pose>0 0 0.028500000000000001 0 0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>3.6040000000000001e-06</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>3.6040000000000001e-06</iyy>
+          <iyz>0</iyz>
+          <izz>1.6020000000000001e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='block1_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X2-Y2-Z2.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='block1_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/ubuntu/ros2_ws/Robotics/ros2_ws/install/ros2_ur5_interface/share/ros2_ur5_interface/models/meshes/X2-Y2-Z2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.5 0.5 1 1</diffuse>
+          <ambient>0.5 0.5 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+
+            <plugin
+                filename="ignition-gazebo-pose-publisher-system"
+                name="ignition::gazebo::systems::PosePublisher">
+                <publish_model_pose>true</publish_model_pose>
+                <publish_nested_model_pose>true</publish_nested_model_pose>
+                <use_pose_vector_msg>true</use_pose_vector_msg>
+                <update_frequency>100.0</update_frequency>
+            </plugin>
+            
+  </model>
+</sdf>
