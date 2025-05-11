@@ -34,7 +34,7 @@ include_directories(
   include
 )
 
-add_executable(yolo_detection_node src/detection.cc)
+add_executable(yolo_detection_node src/detection.cpp)
 # target_link_libraries(yolo_detection_node
 #  ${OpenCV_LIBS}
 #  ${TORCH_LIBRARIES}
@@ -50,7 +50,7 @@ ament_target_dependencies(yolo_detection_node
   image_transport
 )
 
-add_executable(pose_from_camera_node src/position.cc)
+add_executable(pose_from_camera_node src/position.cpp)
 ament_target_dependencies(pose_from_camera_node
   rclcpp
   std_msgs
