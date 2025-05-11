@@ -3,7 +3,7 @@
 #include <std_msgs/msg/float32_multi_array.hpp>
 #include <sensor_msgs/image_encodings.hpp>
 
-#include <cv_bridge/cv_bridge.h>
+#include <cv_bridge/cv_bridge.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
