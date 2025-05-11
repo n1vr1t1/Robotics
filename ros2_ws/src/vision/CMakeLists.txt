@@ -20,6 +20,9 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 
+set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include"
+                        "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
+
 set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
 find_package(Torch REQUIRED)
@@ -35,6 +38,9 @@ install(DIRECTORY launch/
 )
 
 add_executable(yolo_detection_node src/detection.cpp)
+target_include_directories(yolo_detection_node PRIVATE 
+  ${TORCH_INCLUDE_DIRS}
+)
 #target_link_libraries(yolo_detection_node
 #  ${OpenCV_LIBS}
 #  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libtorch_cpu.so
