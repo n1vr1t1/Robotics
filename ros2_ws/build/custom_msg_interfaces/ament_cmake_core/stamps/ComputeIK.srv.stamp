@@ -1,8 +1,0 @@
-# ComputeIK.srv
-std_msgs/Header header
-geometry_msgs/Pose target_pose
----
-# Response
-std_msgs/Float64MultiArray joint_angles_matrix
-string status_message
-
