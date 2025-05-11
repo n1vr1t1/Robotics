@@ -48,6 +48,8 @@ add_executable(yolo_detection_node src/detection.cpp)
 target_link_libraries(yolo_detection_node
   ${OpenCV_LIBS}
   ${TORCH_LIBRARIES}
+  rclcpp::rclcpp
+  libstatistics_collector::libstatistics_collector
 )
 
 ament_target_dependencies(yolo_detection_node
@@ -69,6 +71,8 @@ add_executable(pose_from_camera_node src/position.cpp)
 target_link_libraries(pose_from_camera_node
   ${OpenCV_LIBS}
   ${TORCH_LIBRARIES}
+  rclcpp::rclcpp
+  libstatistics_collector::libstatistics_collector
 )
 
 ament_target_dependencies(pose_from_camera_node
