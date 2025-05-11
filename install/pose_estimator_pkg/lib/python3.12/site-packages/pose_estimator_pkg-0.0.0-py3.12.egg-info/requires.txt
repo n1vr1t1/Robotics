@@ -1,4 +1,0 @@
-rclpy
-rosidl_default_runtime
-setuptools
-std_msgs
