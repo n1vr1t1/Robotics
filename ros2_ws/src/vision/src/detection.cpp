@@ -19,7 +19,7 @@ class DetectionNode : public rclcpp::Node {
 public:
     DetectionNode() : Node("yolo_detection_node") {
         try {
-            model = torch::jit::load(model_path);
+            model = torch::jit::load("model/yolo11n_0dropout.pt");
             model.to(torch::kCPU);
             model.eval();
         } catch (const c10::Error &e) {
@@ -91,7 +91,6 @@ private:
         RCLCPP_INFO(this->get_logger(), "Published %d detections.", num_detections);
     }
 
-    static constexpr const char* model_path = "model/yolo11n_0dropout.pt";
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription;
     rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr publisher;
     torch::jit::script::Module model;
