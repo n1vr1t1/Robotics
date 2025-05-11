@@ -14,7 +14,7 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 
-set(LIBTORCH_DIR "/root/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
+set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
 find_package(Torch REQUIRED)
 
