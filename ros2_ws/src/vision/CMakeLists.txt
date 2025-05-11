@@ -29,9 +29,8 @@ include_directories(
 add_executable(yolo_detection_node src/detection.cpp)
 target_link_libraries(yolo_detection_node
   ${OpenCV_LIBS}
-  Torch::Torch
-#  ${TORCH_LIBRARIES}
-#  rclcpp::rclcpp
+  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libtorch_cpu.so
+  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libc10.so
 )
 ament_target_dependencies(yolo_detection_node
   rclcpp
