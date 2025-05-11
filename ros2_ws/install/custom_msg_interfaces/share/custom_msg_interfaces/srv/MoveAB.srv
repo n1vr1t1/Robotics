@@ -1,5 +1,0 @@
-geometry_msgs/Pose pose_start
-geometry_msgs/Pose pose_end
----
-bool success
-string message
