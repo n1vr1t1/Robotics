@@ -60,14 +60,15 @@ class CameraPoseNode : public rclcpp::Node{
                 int width = current_cloud->width;
                 int height = current_cloud->height;
 
-                int u = static_cast<int>(x * width);
-                int v = static_cast<int>(y * height);
+                int u = static_cast<int>(x * static_cast<float>(width));
+                int v = static_cast<int>(y * static_cast<float>(height));
+
 
                 if(u < 0 || u >= width || v < 0 || v >= height){
                     RCLCPP_WARN(this->get_logger(), "Invalid pixel coordinates: (%d, %d)", u, v);
                     continue;
                 }
-                float index_1d = v * width + u;
+                float index_1d = static_cast<float>(v * width + u);
 
                 sensor_msgs::PointCloud2ConstIterator<float> iter_x(*current_cloud, "x");
                 sensor_msgs::PointCloud2ConstIterator<float> iter_y(*current_cloud, "y");
