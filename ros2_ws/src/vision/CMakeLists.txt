@@ -4,17 +4,6 @@ project(vision)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(LIBTORCH_URL "https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.2.0%2Bcpu.zip")
-set(LIBTORCH_DIR ${CMAKE_BINARY_DIR}/libtorch)
-set(LIBTORCH_ZIP ${CMAKE_BINARY_DIR}/libtorch.zip)
-
-if(NOT EXISTS ${LIBTORCH_DIR})
-  message(STATUS "Downloading libTorch...")
-  file(DOWNLOAD ${LIBTORCH_URL} ${LIBTORCH_ZIP} SHOW_PROGRESS)
-  execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${LIBTORCH_ZIP}
-                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
-endif()
-
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
