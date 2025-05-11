@@ -9,19 +9,19 @@ def generate_launch_description():
 
     ros2_ur5_interface_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("ros2_ur5_interface"), "/launch/sim.launch.py"]
+            [FindPackageShare("ros2_ur5_interface"), "/launch/sim_launch.py"]
         )
     )
 
     pose_estimator_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("vision"), "/launch/vision.launch.py"]
+            [FindPackageShare("vision"), "/launch/vision_launch.py"]
         )
     )
 
     motion_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("motion"), "/launch/motion.launch.py"]
+            [FindPackageShare("motion"), "/launch/motion_launch.py"]
         )
     )
 
