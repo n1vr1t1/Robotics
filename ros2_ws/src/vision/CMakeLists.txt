@@ -25,10 +25,10 @@ set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
 find_package(Torch REQUIRED)
 
 #include_directories(
-  include
-  ${OpenCV_INCLUDE_DIRS}
-  ${TORCH_INCLUDE_DIRS}
-)
+#  include
+#  ${OpenCV_INCLUDE_DIRS}
+#  ${TORCH_INCLUDE_DIRS}
+#)
 
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
