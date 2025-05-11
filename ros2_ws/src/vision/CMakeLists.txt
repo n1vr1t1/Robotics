@@ -27,11 +27,12 @@ include_directories(
 )
 
 add_executable(yolo_detection_node src/detection.cpp)
-# target_link_libraries(yolo_detection_node
-#  ${OpenCV_LIBS}
+target_link_libraries(yolo_detection_node
+  ${OpenCV_LIBS}
+  Torch::Torch
 #  ${TORCH_LIBRARIES}
 #  rclcpp::rclcpp
-#)
+)
 ament_target_dependencies(yolo_detection_node
   rclcpp
   std_msgs
