@@ -9,22 +9,17 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        # Run the shell script to start the original node
         ExecuteProcess(
             cmd=[script_path],
             shell=True,
             output='screen'
         ),
-
-        # Add the vision_node node
         Node(
             package='vision',
             executable='position',
             name='pose_from_camera_node',
             output='screen'
         ),
-        
-        # Add the detection_result_republisher node
         Node(
             package='vision',
             executable='detection',
