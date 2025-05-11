@@ -1,8 +1,12 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.8)
 project(vision)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wconversion -Wpedantic -Wextra -Wshadow -Werror)
+endif()
+
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
@@ -20,18 +24,22 @@ set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/li
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
 find_package(Torch REQUIRED)
 
-include_directories(
+#include_directories(
+  include
   ${OpenCV_INCLUDE_DIRS}
   ${TORCH_INCLUDE_DIRS}
-  include
+)
+
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
 )
 
 add_executable(yolo_detection_node src/detection.cpp)
-target_link_libraries(yolo_detection_node
-  ${OpenCV_LIBS}
-  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libtorch_cpu.so
-  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libc10.so
-)
+#target_link_libraries(yolo_detection_node
+#  ${OpenCV_LIBS}
+#  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libtorch_cpu.so
+#  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libc10.so
+#)
 ament_target_dependencies(yolo_detection_node
   rclcpp
   std_msgs
