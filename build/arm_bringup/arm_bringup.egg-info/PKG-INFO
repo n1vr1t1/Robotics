@@ -1,7 +1,0 @@
-Metadata-Version: 2.1
-Name: arm-bringup
-Version: 0.0.1
-Summary: Bringup package to launch the full robot stack
-Maintainer: your_name
-Maintainer-email: your_email@example.com
-License: Apache License 2.0
