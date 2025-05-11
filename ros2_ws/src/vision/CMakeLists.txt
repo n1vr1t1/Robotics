@@ -37,11 +37,11 @@ add_executable(yolo_detection_node src/detection.cpp)
 target_include_directories(yolo_detection_node PRIVATE 
   ${TORCH_INCLUDE_DIRS}
 )
-#target_link_libraries(yolo_detection_node
-#  ${OpenCV_LIBS}
-#  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libtorch_cpu.so
-#  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libc10.so
-#)
+target_link_libraries(yolo_detection_node
+  ${OpenCV_LIBS}
+  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libtorch_cpu.so
+  /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/lib/libc10.so
+)
 ament_target_dependencies(yolo_detection_node
   rclcpp
   std_msgs
