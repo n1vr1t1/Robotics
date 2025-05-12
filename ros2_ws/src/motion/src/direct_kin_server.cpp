@@ -7,6 +7,11 @@
 // Helper class for Kinematics operations
 class Kinematics {
 public:
+
+    void handleServiceRequest(
+    const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
+    std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response);
+        
     static Eigen::Matrix4d computeTransformMatrix(double th, double alpha, double d, double a) {
         Eigen::Matrix4d T;
         T << std::cos(th), -std::sin(th) * std::cos(alpha), std::sin(th) * std::sin(alpha), a * std::cos(th),
