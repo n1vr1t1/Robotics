@@ -26,6 +26,7 @@ include_directories(
 )
 
 add_executable(pose_from_camera_node src/position.cpp)
+target_link_libraries(pose_from_camera_node  ${TORCH_LIBRARIES})
 ament_target_dependencies(pose_from_camera_node
   rclcpp
   rclcpp_action
@@ -35,7 +36,7 @@ ament_target_dependencies(pose_from_camera_node
   vision_msgs
   libstatistics_collector
 )
-target_link_libraries(pose_from_camera_node libstatistics_collector)
+
 
 
 add_executable(yolo_detection_node src/detection.cpp)
