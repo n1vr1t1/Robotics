@@ -18,16 +18,12 @@ find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(libstatistics_collector REQUIRED)
 
-set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include"
-                        "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
-
 include_directories(
   include
   ${TORCH_INCLUDE_DIRS}
 )
 
-set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
 find_package(Torch REQUIRED)
 
 install(DIRECTORY launch/
