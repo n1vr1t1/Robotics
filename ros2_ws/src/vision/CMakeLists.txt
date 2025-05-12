@@ -68,7 +68,7 @@ ament_target_dependencies(pose_from_camera_node
   libstatistics_collector
 )
 message("rclcpp is: ${rclcpp_LIBRARIES}")
-target_link_libraries(yolo_detection_node
+target_link_libraries(pose_from_camera_node 
   ${rclcpp_LIBRARIES}
   ${std_msgs_LIBRARIES}
   ${sensor_msgs_LIBRARIES}
