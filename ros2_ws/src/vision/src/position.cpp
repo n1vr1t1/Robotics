@@ -1,5 +1,4 @@
 #include <rclcpp/rclcpp.hpp>
-#include "rclcpp_action/rclcpp_action.hpp"
 #include "libstatistics_collector/topic_statistics_collector/topic_statistics_collector.hpp"
 #include <sensor_msgs/msg/image.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
