@@ -7,6 +7,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
 find_package(ament_cmake REQUIRED)
+
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -19,6 +20,11 @@ find_package(libstatistics_collector REQUIRED)
 
 set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include"
                         "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
+
+include_directories(
+  include
+  ${TORCH_INCLUDE_DIRS}
+)
 
 set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
@@ -63,12 +69,12 @@ ament_target_dependencies(pose_from_camera_node
   libstatistics_collector
   )
 target_link_libraries(pose_from_camera_node
-  ${rclcpp_LIBS}
-  ${std_msgs_LIBS}
-  ${sensor_msgs_LIBS}
-  ${geometry_msgs_LIBS}
-  ${vision_msgs_LIBS}
-  ${libstatistics_collector_LIBS}
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  vision_msgs
+  libstatistics_collector
   )
 
 install(TARGETS
