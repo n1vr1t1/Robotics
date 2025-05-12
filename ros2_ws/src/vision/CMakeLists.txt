@@ -1,8 +1,10 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.8)
 project(vision)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -14,22 +16,21 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 
-set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
+set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include"
+                        "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
+
+set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
 find_package(Torch REQUIRED)
 
-include_directories(
-  ${OpenCV_INCLUDE_DIRS}
-  ${TORCH_INCLUDE_DIRS}
-  include
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
 )
 
 add_executable(yolo_detection_node src/detection.cpp)
-# target_link_libraries(yolo_detection_node
-#  ${OpenCV_LIBS}
-#  ${TORCH_LIBRARIES}
-#  rclcpp::rclcpp
-#)
+target_include_directories(yolo_detection_node PRIVATE 
+  ${TORCH_INCLUDE_DIRS}
+)
 ament_target_dependencies(yolo_detection_node
   rclcpp
   std_msgs
@@ -38,6 +39,17 @@ ament_target_dependencies(yolo_detection_node
   vision_msgs
   cv_bridge
   image_transport
+  OpenCV
+)
+target_link_libraries(yolo_detection_node
+  ${rclcpp_LIBS}
+  ${std_msgs_LIBS}
+  ${sensor_msgs_LIBS}
+  ${geometry_msgs_LIBS}
+  ${vision_msgs_LIBS}
+  ${cv_bridge_LIBS}
+  ${image_transport_LIBS}
+  ${OpenCV_LIBS}
 )
 
 add_executable(pose_from_camera_node src/position.cpp)
@@ -48,6 +60,14 @@ ament_target_dependencies(pose_from_camera_node
   geometry_msgs
   vision_msgs
   libstatistics_collector
+  )
+target_link_libraries(pose_from_camera_node
+  ${rclcpp_LIBS}
+  ${std_msgs_LIBS}
+  ${sensor_msgs_LIBS}
+  ${geometry_msgs_LIBS}
+  ${vision_msgs_LIBS}
+  ${libstatistics_collector_LIBS}
   )
 
 install(TARGETS
