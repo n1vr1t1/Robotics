@@ -1,12 +1,12 @@
 #!/bin/bash
 
 ZIP_FILE="external/libtorch.zip"  
-DESTINATION_DIR="external"  #
+DESTINATION_DIR="external/libtorch"
 TORCH_URL="https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.2.2%2Bcpu.zip" 
 
-if [ ! -d "$DESTINATION_DIR" ]; then
+if [ ! -d "external" ]; then
     echo "Creating external directory"
-    mkdir "$DESTINATION_DIR"
+    mkdir "external"
 fi
 
 if [ ! -f "$ZIP_FILE" ]; then
@@ -18,7 +18,7 @@ fi
 
 if [ ! -d "$DESTINATION_DIR" ]; then
     echo "Unzipping libTorch..."
-    unzip -q "$ZIP_FILE" -d "$DESTINATION_DIR"
+    unzip -q "$ZIP_FILE" -d "external"
 else
     echo "libTorch already unzipped."
 fi
