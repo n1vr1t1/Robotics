@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project(vision)
 
-# set(CMAKE_CXX_STANDARD 17)
-# set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
@@ -16,15 +16,22 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 
-set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include"
-                        "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
-
-set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};/home/ubuntu/ros2_ws/Robotics/ros2_ws/external/libtorch/libtorch")
 find_package(Torch REQUIRED)
 
-install(DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/launch
+include_directories(
+  include
+  ${TORCH_INCLUDE_DIRS}
+)
+
+add_executable(pose_from_camera_node src/position.cpp)
+ament_target_dependencies(pose_from_camera_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  vision_msgs
+  libstatistics_collector
 )
 
 add_executable(yolo_detection_node src/detection.cpp)
@@ -41,38 +48,11 @@ ament_target_dependencies(yolo_detection_node
   image_transport
   OpenCV
 )
-target_link_libraries(yolo_detection_node
-  ${rclcpp_LIBS}
-  ${std_msgs_LIBS}
-  ${sensor_msgs_LIBS}
-  ${geometry_msgs_LIBS}
-  ${vision_msgs_LIBS}
-  ${cv_bridge_LIBS}
-  ${image_transport_LIBS}
-  ${OpenCV_LIBS}
-)
-
-add_executable(pose_from_camera_node src/position.cpp)
-ament_target_dependencies(pose_from_camera_node
-  rclcpp
-  std_msgs
-  sensor_msgs
-  geometry_msgs
-  vision_msgs
-  libstatistics_collector
-  )
-target_link_libraries(pose_from_camera_node
-  ${rclcpp_LIBS}
-  ${std_msgs_LIBS}
-  ${sensor_msgs_LIBS}
-  ${geometry_msgs_LIBS}
-  ${vision_msgs_LIBS}
-  ${libstatistics_collector_LIBS}
-  )
+target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
 
 install(TARGETS
-  yolo_detection_node
   pose_from_camera_node
+  yolo_detection_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
