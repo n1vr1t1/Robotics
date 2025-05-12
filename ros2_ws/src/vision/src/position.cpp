@@ -92,7 +92,7 @@ class CameraPoseNode : public rclcpp::Node{
                 pose.position.x = x;
                 pose.position.y = y;
                 pose.position.z = z;
-                pose.orientation.w = 1.0;
+                pose.orientation.w = 1.0; //need to initiaze the orientation of x,y, z too
     
                 vision_msgs::msg::ObjectHypothesisWithPose object_hypothesis;
                 object_hypothesis.hypothesis.class_id = std::to_string(static_cast<int>(id));
