@@ -20,7 +20,7 @@ set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libto
                         "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
 
 set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
-set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};/home/ubuntu/ros2_ws/Robotics/ros2_ws/external/libtorch/libtorch")
 find_package(Torch REQUIRED)
 
 install(DIRECTORY launch/
