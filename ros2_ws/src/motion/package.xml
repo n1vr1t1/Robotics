@@ -4,7 +4,7 @@
   <name>motion</name>
   <version>0.0.0</version>
   <description>Gives the basic motion function together with the functions to plan the motion</description>
-  <maintainer email="sara.francavilla.dht@gmail.com">ubuntu</maintainer>
+  <maintainer email="sara.francavilla.dht@gmail.com">SaraFrancavilla</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
