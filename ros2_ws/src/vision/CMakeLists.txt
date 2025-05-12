@@ -8,6 +8,7 @@ add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -27,12 +28,15 @@ include_directories(
 add_executable(pose_from_camera_node src/position.cpp)
 ament_target_dependencies(pose_from_camera_node
   rclcpp
+  rclcpp_action
   std_msgs
   sensor_msgs
   geometry_msgs
   vision_msgs
   libstatistics_collector
 )
+target_link_libraries(pose_from_camera_node libstatistics_collector)
+
 
 add_executable(yolo_detection_node src/detection.cpp)
 target_include_directories(yolo_detection_node PRIVATE 
@@ -40,6 +44,7 @@ target_include_directories(yolo_detection_node PRIVATE
 )
 ament_target_dependencies(yolo_detection_node
   rclcpp
+  rclcpp_action
   std_msgs
   sensor_msgs
   geometry_msgs
