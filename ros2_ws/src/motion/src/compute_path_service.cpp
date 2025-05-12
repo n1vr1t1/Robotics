@@ -83,7 +83,7 @@ double PathPlannerNode::lerp(double a, double b, double t) const {
 
 int main(int argc, char** argv) {
     rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<PathPlannerNode>());
+    rclcpp::spin(std::make_shared<motion::PathPlannerNode>());
     rclcpp::shutdown();
     return 0;
 }
