@@ -7,6 +7,8 @@
 #include <Eigen/Dense>
 #include <vector>
 
+constexpr double PI = 3.14159265358979323846 
+
 class DirectKinServer : public rclcpp::Node
 {
 public:
