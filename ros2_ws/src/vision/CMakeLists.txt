@@ -67,7 +67,15 @@ ament_target_dependencies(pose_from_camera_node
   vision_msgs
   libstatistics_collector
 )
-
+message("rclcpp is: ${rclcpp_LIBRARIES}")
+target_link_libraries(yolo_detection_node
+  ${rclcpp_LIBRARIES}
+  ${std_msgs_LIBRARIES}
+  ${sensor_msgs_LIBRARIES}
+  ${geometry_msgs_LIBRARIES}
+  ${vision_msgs_LIBRARIES}
+  ${libstatistics_collector_LIBRARIES}
+)
 
 install(TARGETS
 #  yolo_detection_node
