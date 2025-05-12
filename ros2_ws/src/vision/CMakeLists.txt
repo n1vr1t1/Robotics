@@ -27,30 +27,30 @@ install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )
 
-add_executable(yolo_detection_node src/detection.cpp)
-target_include_directories(yolo_detection_node PRIVATE 
-  ${TORCH_INCLUDE_DIRS}
-)
-ament_target_dependencies(yolo_detection_node
-  rclcpp
-  std_msgs
-  sensor_msgs
-  geometry_msgs
-  vision_msgs
-  cv_bridge
-  image_transport
-  OpenCV
-)
-target_link_libraries(yolo_detection_node
-  ${rclcpp_LIBS}
-  ${std_msgs_LIBS}
-  ${sensor_msgs_LIBS}
-  ${geometry_msgs_LIBS}
-  ${vision_msgs_LIBS}
-  ${cv_bridge_LIBS}
-  ${image_transport_LIBS}
-  ${OpenCV_LIBS}
-)
+#add_executable(yolo_detection_node src/detection.cpp)
+#target_include_directories(yolo_detection_node PRIVATE 
+#  ${TORCH_INCLUDE_DIRS}
+#)
+#ament_target_dependencies(yolo_detection_node
+#  rclcpp
+#  std_msgs
+#  sensor_msgs
+#  geometry_msgs
+#  vision_msgs
+#  cv_bridge
+#  image_transport
+#  OpenCV
+#)
+#target_link_libraries(yolo_detection_node
+#  ${rclcpp_LIBS}
+#  ${std_msgs_LIBS}
+#  ${sensor_msgs_LIBS}
+#  ${geometry_msgs_LIBS}
+#  ${vision_msgs_LIBS}
+#  ${cv_bridge_LIBS}
+#  ${image_transport_LIBS}
+#  ${OpenCV_LIBS}
+#)
 
 add_executable(pose_from_camera_node src/position.cpp)
 ament_target_dependencies(pose_from_camera_node
@@ -71,7 +71,7 @@ target_link_libraries(pose_from_camera_node
   )
 
 install(TARGETS
-  yolo_detection_node
+#  yolo_detection_node
   pose_from_camera_node
   DESTINATION lib/${PROJECT_NAME}
 )
