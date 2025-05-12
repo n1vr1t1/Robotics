@@ -18,8 +18,7 @@ find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(libstatistics_collector REQUIRED)
 
-set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include"
-                        "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
+set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include")
 
 include_directories(
   include
