@@ -22,7 +22,7 @@ public:
         
         std::vector<double> A = {0, -0.425, -0.3922, 0, 0, 0};
         std::vector<double> D = {0.1625, 0, 0, 0.1333, 0.0997, 0.0996};
-        std::vector<double> Alpha = {M_PI / 2, 0, 0, M_PI / 2, -M_PI / 2, 0};
+        std::vector<double> Alpha = {PI / 2, 0, 0, PI / 2, -PI / 2, 0};
 
         for (auto& a : A) a *= scaleFactor;
         for (auto& d : D) d *= scaleFactor;
