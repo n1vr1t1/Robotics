@@ -10,7 +10,9 @@
 #include "custom_msg_interfaces/srv/compute_ik.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
 
-#define PI 3.14159265358979323846 
+constexpr double PI = 3.14159265358979323846 
+constexpr float A[6] = {0.0f, -0.425f, -0.3922f, 0.0f, 0.0f, 0.0f};
+constexpr float D[6] = {0.1625f, 0.0f, 0.0f, 0.1333f, 0.0997f, 0.0996f};
 
 
 // Forward-declare the class
