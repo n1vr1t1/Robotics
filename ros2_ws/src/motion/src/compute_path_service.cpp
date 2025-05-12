@@ -40,7 +40,7 @@ namespace motion{
         publish_pose_array(interpolated_poses);
     }
     
-    std::vector<geometry_msgs::msg::Pose> compute_interpolated_poses(
+    std::vector<geometry_msgs::msg::Pose> PathPlannerNode::compute_interpolated_poses(
         const geometry_msgs::msg::Pose& start_pose,
         const geometry_msgs::msg::Pose& end_pose,
         int num_interpolations) const {
