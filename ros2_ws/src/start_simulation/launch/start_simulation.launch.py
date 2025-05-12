@@ -13,11 +13,11 @@ def generate_launch_description():
         )
     )
 
-    pose_estimator_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [FindPackageShare("vision"), "/launch/vision.launch.py"]
-        )
-    )
+    #pose_estimator_launch = IncludeLaunchDescription(
+    #    PythonLaunchDescriptionSource(
+    #        [FindPackageShare("vision"), "/launch/vision.launch.py"]
+    #    )
+    #)
 
     motion_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -33,7 +33,7 @@ def generate_launch_description():
 
     return launch.LaunchDescription([
         ros2_ur5_interface_launch,
-        pose_estimator_launch,
+        #pose_estimator_launch,
         motion_launch,
         planning_launch
     ])
