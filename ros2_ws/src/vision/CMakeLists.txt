@@ -31,8 +31,17 @@ add_executable(yolo_detection_node src/detection.cpp)
 target_include_directories(yolo_detection_node PRIVATE 
   ${TORCH_INCLUDE_DIRS}
 )
+ament_target_dependencies(yolo_detection_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  vision_msgs
+  cv_bridge
+  image_transport
+  OpenCV
+)
 target_link_libraries(yolo_detection_node
-  ${OpenCV_LIBS}
   ${rclcpp_LIBS}
   ${std_msgs_LIBS}
   ${sensor_msgs_LIBS}
@@ -40,9 +49,18 @@ target_link_libraries(yolo_detection_node
   ${vision_msgs_LIBS}
   ${cv_bridge_LIBS}
   ${image_transport_LIBS}
+  ${OpenCV_LIBS}
 )
 
 add_executable(pose_from_camera_node src/position.cpp)
+ament_target_dependencies(pose_from_camera_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  vision_msgs
+  libstatistics_collector
+  )
 target_link_libraries(pose_from_camera_node
   ${rclcpp_LIBS}
   ${std_msgs_LIBS}
