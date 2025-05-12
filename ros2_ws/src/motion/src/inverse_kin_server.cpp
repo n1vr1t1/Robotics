@@ -361,7 +361,7 @@ Eigen::MatrixXd InverseKinServer::ur5Inverse(const Eigen::Vector3f & p60, const 
 int main(int argc, char ** argv)
 {
  rclcpp::init(argc, argv);
- rclcpp::spin(std::make_shared<motion_pkg::InverseKinServer>());
+ rclcpp::spin(std::make_shared<motion::InverseKinServer>());
  rclcpp::shutdown();
  return 0;
 }
