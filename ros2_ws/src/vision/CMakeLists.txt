@@ -43,7 +43,7 @@ target_link_libraries(yolo_detection_node
 )
 
 add_executable(pose_from_camera_node src/position.cpp)
-ament_target_dependencies(pose_from_camera_node
+target_link_libraries(pose_from_camera_node
   ${rclcpp_LIBS}
   ${std_msgs_LIBS}
   ${sensor_msgs_LIBS}
