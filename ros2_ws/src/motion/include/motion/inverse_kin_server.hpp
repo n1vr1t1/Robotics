@@ -10,7 +10,6 @@
 #include "custom_msg_interfaces/srv/compute_ik.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
 
-#define PI_2 1.57079632679489661923 
 #define PI 3.14159265358979323846 
 
 
