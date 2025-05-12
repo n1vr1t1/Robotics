@@ -7,8 +7,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
 find_package(ament_cmake REQUIRED)
+
 find_package(rclcpp REQUIRED)
-find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -16,49 +16,70 @@ find_package(vision_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(libstatistics_collector REQUIRED)
 
-set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};/home/ubuntu/ros2_ws/Robotics/ros2_ws/external/libtorch/libtorch")
-find_package(Torch REQUIRED)
+set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include"
+                        "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/include/torch/csrc/api/include")
 
 include_directories(
   include
   ${TORCH_INCLUDE_DIRS}
 )
 
+set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
+find_package(Torch REQUIRED)
+
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+)
+
+#add_executable(yolo_detection_node src/detection.cpp)
+#target_include_directories(yolo_detection_node PRIVATE 
+#  ${TORCH_INCLUDE_DIRS}
+#)
+#ament_target_dependencies(yolo_detection_node
+#  rclcpp
+#  std_msgs
+#  sensor_msgs
+#  geometry_msgs
+#  vision_msgs
+#  cv_bridge
+#  image_transport
+#  OpenCV
+#)
+#target_link_libraries(yolo_detection_node
+#  ${rclcpp_LIBS}
+#  ${std_msgs_LIBS}
+#  ${sensor_msgs_LIBS}
+#  ${geometry_msgs_LIBS}
+#  ${vision_msgs_LIBS}
+#  ${cv_bridge_LIBS}
+#  ${image_transport_LIBS}
+#  ${OpenCV_LIBS}
+#)
+
 add_executable(pose_from_camera_node src/position.cpp)
-target_link_libraries(pose_from_camera_node  ${TORCH_LIBRARIES})
 ament_target_dependencies(pose_from_camera_node
   rclcpp
-  rclcpp_action
   std_msgs
   sensor_msgs
   geometry_msgs
   vision_msgs
   libstatistics_collector
-)
-
-
-
-add_executable(yolo_detection_node src/detection.cpp)
-target_include_directories(yolo_detection_node PRIVATE 
-  ${TORCH_INCLUDE_DIRS}
-)
-ament_target_dependencies(yolo_detection_node
+  )
+target_link_libraries(pose_from_camera_node
   rclcpp
-  rclcpp_action
   std_msgs
   sensor_msgs
   geometry_msgs
   vision_msgs
-  cv_bridge
-  image_transport
-  OpenCV
-)
-target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
+  libstatistics_collector
+  )
 
 install(TARGETS
+#  yolo_detection_node
   pose_from_camera_node
-  yolo_detection_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
