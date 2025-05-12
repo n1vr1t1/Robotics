@@ -42,54 +42,48 @@ public:
 };
 
 // The main DirectKinServer class
-class DirectKinServer : public rclcpp::Node {
-public:
-    DirectKinServer() : Node("direct_kin_server") {
-        service_ = create_service<custom_msg_interfaces::srv::ComputeDirKin>(
-            "compute_dir_kin", 
-            [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
-                   std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response) {
-                handleServiceRequest(request, response);
-            });
+DirectKinServer::DirectKinServer() : Node("direct_kin_server") {
+    service_ = create_service<custom_msg_interfaces::srv::ComputeDirKin>(
+        "compute_dir_kin", 
+        [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
+               std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response) {
+            handleServiceRequest(request, response);
+        });
 
-        RCLCPP_INFO(this->get_logger(), "Direct Kinematics Service is ready.");
+    RCLCPP_INFO(this->get_logger(), "Direct Kinematics Service is ready.");
+}
+
+void handleServiceRequest(
+    const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
+    std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response) {
+
+    try {
+        Eigen::Vector3d end_effector_position;
+        Eigen::Matrix3d end_effector_orientation;
+        std::vector<Eigen::Matrix4d> transforms;
+
+        // Perform kinematics computation
+        Kinematics::computeDirectKinematics(
+            request->joints, 1.0, end_effector_position, end_effector_orientation, transforms);
+
+        // Populate the response
+        response->final_pose.position.x = end_effector_position(0);
+        response->final_pose.position.y = end_effector_position(1);
+        response->final_pose.position.z = end_effector_position(2);
+
+        Eigen::Quaterniond quaternion(end_effector_orientation);
+        response->final_pose.orientation.x = quaternion.x();
+        response->final_pose.orientation.y = quaternion.y();
+        response->final_pose.orientation.z = quaternion.z();
+        response->final_pose.orientation.w = quaternion.w();
+
+        response->status_message = "Direct kinematics calculated successfully";
+        response->frame_id = request->frame_id;
+    } catch (const std::exception& e) {
+        RCLCPP_ERROR(this->get_logger(), "Error in direct kinematics calculation: %s", e.what());
+        response->status_message = "Failed to calculate direct kinematics";
     }
-
-private:
-    void handleServiceRequest(
-        const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
-        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response) {
-
-        try {
-            Eigen::Vector3d end_effector_position;
-            Eigen::Matrix3d end_effector_orientation;
-            std::vector<Eigen::Matrix4d> transforms;
-
-            // Perform kinematics computation
-            Kinematics::computeDirectKinematics(
-                request->joints, 1.0, end_effector_position, end_effector_orientation, transforms);
-
-            // Populate the response
-            response->final_pose.position.x = end_effector_position(0);
-            response->final_pose.position.y = end_effector_position(1);
-            response->final_pose.position.z = end_effector_position(2);
-
-            Eigen::Quaterniond quaternion(end_effector_orientation);
-            response->final_pose.orientation.x = quaternion.x();
-            response->final_pose.orientation.y = quaternion.y();
-            response->final_pose.orientation.z = quaternion.z();
-            response->final_pose.orientation.w = quaternion.w();
-
-            response->status_message = "Direct kinematics calculated successfully";
-            response->frame_id = request->frame_id;
-        } catch (const std::exception& e) {
-            RCLCPP_ERROR(this->get_logger(), "Error in direct kinematics calculation: %s", e.what());
-            response->status_message = "Failed to calculate direct kinematics";
-        }
-    }
-
-    rclcpp::Service<custom_msg_interfaces::srv::ComputeDirKin>::SharedPtr service_;
-};
+}
 
 int main(int argc, char** argv) {
     rclcpp::init(argc, argv);
