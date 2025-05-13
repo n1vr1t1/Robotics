@@ -11,9 +11,7 @@ namespace motion{
                                         this->handle_compute_path(request, response);};
 
         // Creating the service using the callback
-        service_ = this->create_service<custom_msg_interfaces::srv::ComputePath>(
-            "compute_path",
-            service_callback
+        service_ = this->create_service<custom_msg_interfaces::srv::ComputePath>("compute_path", service_callback);
         
         //initialize_publisher
         auto qos = rclcpp::QoS(10).transient_local().reliable();
