@@ -10,6 +10,7 @@
 using namespace std::chrono_literals;
 
 //set different value
+//Check table height
 const double z_threshold = 0.87 + 0.10; // Example threshold
 
 
