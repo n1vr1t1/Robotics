@@ -48,7 +48,7 @@ namespace motion{
     
         for (int i = 0; i <= num_interpolations; ++i) {
             double t = static_cast<double>(i) / num_interpolations;            
-            poses.push_back(s_lerp(start_pose, end_pose, t););
+            poses.push_back(s_lerp(start_pose.position, end_pose.position, t););
         }
         return poses;
     }
