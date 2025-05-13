@@ -22,8 +22,6 @@ setup(
     entry_points={
         'console_scripts': [
             'planning_node = planning_pkg.planning:main',
-            'move_a_to_b_server = planning_pkg.move_a_to_b_server:main',
-            'block_frame_publisher = planning_pkg.block_frame_publisher:main',
         ],
     },
 )
