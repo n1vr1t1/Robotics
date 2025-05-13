@@ -6,6 +6,17 @@ using namespace std::chrono_literals;
 // ---------------------------------------------------------------------------
 std::vector<std::array<double, 6>> waypoints;
 
+// Joint Names for Our 6-DOF Arm
+// ---------------------------------------------------------------------------
+const std::vector<std::string> JOINT_NAMES = {
+    "shoulder_pan_joint",
+    "shoulder_lift_joint",
+    "elbow_joint",
+    "wrist_1_joint",
+    "wrist_2_joint",
+    "wrist_3_joint"
+};
+
 // ---------------------------------------------------------------------------
 // 3) Compute Cubic Spline Coefficients
 //    For a segment from q0->q1 in time T, given velocities v0->v1
