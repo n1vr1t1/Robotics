@@ -40,6 +40,6 @@ namespace motion
       void publish_pose_array(const std::vector<geometry_msgs::msg::Pose>& poses) const;
   
       // Helper function for linear interpolation
-      double lerp(double a, double b, double t) const;
+     geometry_msgs::msg::Pose s_lerp(const geometry_msgs::msg::Point& start, const geometry_msgs::msg::Point& end, double t) const;
   };
 }
