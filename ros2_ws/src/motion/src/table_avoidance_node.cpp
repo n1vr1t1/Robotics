@@ -9,12 +9,7 @@
 
 using namespace std::chrono_literals;
 
-// Helper Function: Checks if the end effector is below the threshold
-bool isEndEffectorTooLow(const geometry_msgs::msg::TransformStamped &transform, double z_threshold)
-{
-  double end_effector_z = transform.transform.translation.z;
-  return end_effector_z < z_threshold;
-}
+const double z_threshold = 0.87 + 0.10; // Example threshold
 
 // Helper Function: Log status of the end effector
 void logEndEffectorStatus(rclcpp::Logger logger, bool is_too_low, double z_value)
@@ -69,18 +64,18 @@ private:
     }
 
     // Determine if the end effector is below the threshold
-    double z_threshold = 0.87 + 0.10; // Example threshold
-    bool is_too_low = isEndEffectorTooLow(transform_stamped, z_threshold);
-
-    // Log the status
-    logEndEffectorStatus(this->get_logger(), is_too_low, transform_stamped.transform.translation.z);
-
     // Publish shutdown signal if necessary
-    if (is_too_low)
+    if (transform_stamped.transform.translation.z < z_threshold)
     {
+       // Log the status
+      logEndEffectorStatus(this->get_logger(), true, transform_stamped.transform.translation.z);
       std_msgs::msg::Bool shutdown_msg;
       shutdown_msg.data = true;
       shutdown_pub_->publish(shutdown_msg);
+      
+    }else{
+       // Log the status
+      logEndEffectorStatus(this->get_logger(), false, transform_stamped.transform.translation.z);
     }
   }
 
