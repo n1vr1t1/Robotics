@@ -1,4 +1,4 @@
-#include "compute_trajectory_service.hpp"
+#include "motion/compute_trajectory_service.hpp"
 using namespace std::chrono_literals;  
 
 // ---------------------------------------------------------------------------
