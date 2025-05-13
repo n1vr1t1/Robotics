@@ -23,8 +23,16 @@ using namespace std::chrono_literals;
 
 // Joint Names for Our 6-DOF Arm
 // ---------------------------------------------------------------------------
-constexpr std::vector<std::string> JOINT_NAMES = {"shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint",
-                                                  "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"};
+constexpr const char* JOINT_NAMES[] = {
+    "shoulder_pan_joint",
+    "shoulder_lift_joint",
+    "elbow_joint",
+    "wrist_1_joint",
+    "wrist_2_joint",
+    "wrist_3_joint"
+};
+
+constexpr size_t JOINT_COUNT = sizeof(JOINT_NAMES) / sizeof(JOINT_NAMES[0]);
 
 std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0, double v1, double T);
 
