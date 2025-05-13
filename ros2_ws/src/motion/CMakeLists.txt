@@ -34,7 +34,7 @@ install(DIRECTORY launch/
 add_executable(table_avoidance_node src/table_avoidance_node.cpp)
 ament_target_dependencies(table_avoidance_node rclcpp std_msgs Eigen3 tf2 tf2_ros)
 
-add_executable(inverse_kin_server_node src/inverse_kin_server.cpp)
+add_executable(inverse_kin_server_node src/kinematics_server.cpp)
 ament_target_dependencies(inverse_kin_server_node
   rclcpp
   custom_msg_interfaces
@@ -42,7 +42,7 @@ ament_target_dependencies(inverse_kin_server_node
   std_msgs
   Eigen3
 )
-add_executable(direct_kin_server src/direct_kin_server.cpp)
+add_executable(direct_kin_server src/kinematics_server.cpp)
 ament_target_dependencies(direct_kin_server 
   rclcpp 
   custom_msg_interfaces 
