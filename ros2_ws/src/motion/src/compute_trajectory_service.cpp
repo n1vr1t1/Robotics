@@ -81,7 +81,7 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory(
 
         // Generate interpolated points
         for (int step = 0; step <= STEPS; ++step) {
-            double t = (step / static_cast<double>(steps)) * segment_time;
+            double t = (step / static_cast<double>(STEPS)) * segment_time;
             trajectory_msgs::msg::JointTrajectoryPoint interpolated_point;
             interpolated_point.positions.resize(6);
             interpolated_point.velocities.resize(6);
@@ -99,7 +99,7 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory(
                 interpolated_point.velocities[j] = vel;
             }
 
-            double dt = segment_time / static_cast<double>(steps);
+            double dt = segment_time / static_cast<double>(STEPS);
             total_time += dt;
             interpolated_point.time_from_start = rclcpp::Duration::from_seconds(total_time);
             traj_msg.points.push_back(interpolated_point);
