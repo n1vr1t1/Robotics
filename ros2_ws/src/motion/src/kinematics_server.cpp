@@ -64,17 +64,11 @@ namespace motion
     
     void DirectKinServer::ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
                                     Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm){
-        
-        // Apply scale factor
-        for (size_t i = 0; i < 6; ++i) {
-            A[i] = A[i] * scaleFactor;
-            D[i] = D[i] * scaleFactor;
-        }
          
         // Compute transformation matrices
         Eigen::Matrix4d T60 = Eigen::Matrix4d::Identity();
         for (size_t i = 0; i < 6; ++i) {
-            Eigen::Matrix4d T = Tij(Th[i], ALPHA[i], D[i], A[i]);
+            Eigen::Matrix4d T = Tij(Th[i], ALPHA[i], D[i]*scaleFactor, A[i]* scaleFactor);
             Tm.push_back(T);
             T60 *= T;
         }
