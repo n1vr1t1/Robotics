@@ -178,7 +178,6 @@ namespace motion
             A_scaled[i] = A[i] * scaleFactor;
             D_scaled[i] = D[i] * scaleFactor;
         }
-        float Alpha[6] = {M_PI / 2, 0, 0, M_PI / 2, -M_PI / 2, 0};
     
         Matrix4f T60;
         T60.block<3, 3>(0, 0) = R60;
@@ -206,8 +205,8 @@ namespace motion
         float th5_2_1 = acos((p61z_2 - D_scaled[3]) / D_scaled[5]);
         float th5_2_2 = -acos((p61z_2 - D_scaled[3]) / D_scaled[5]);
     
-        Matrix4f T10_1 = Tij(th1_1, Alpha[0], D_scaled[0], A_scaled[0]);
-        Matrix4f T10_2 = Tij(th1_2, Alpha[0], D_scaled[0], A_scaled[0]);
+        Matrix4f T10_1 = Tij(th1_1, ALPHA[0], D_scaled[0], A_scaled[0]);
+        Matrix4f T10_2 = Tij(th1_2, ALPHA[0], D_scaled[0], A_scaled[0]);
     
         Matrix4f T16_1 = (T10_1.inverse() * T60).inverse();
         Matrix4f T16_2 = (T10_2.inverse() * T60).inverse();
@@ -250,15 +249,15 @@ namespace motion
         Matrix4f T61_1 = T16_1.inverse();
         Matrix4f T61_2 = T16_2.inverse();
     
-        Matrix4f T54_1_1 = Tij(th5_1_1, Alpha[4], D_scaled[4], A_scaled[4]);
-        Matrix4f T54_1_2 = Tij(th5_1_2, Alpha[4], D_scaled[4], A_scaled[4]);
-        Matrix4f T54_2_1 = Tij(th5_2_1, Alpha[4], D_scaled[4], A_scaled[4]);
-        Matrix4f T54_2_2 = Tij(th5_2_2, Alpha[4], D_scaled[4], A_scaled[4]);
+        Matrix4f T54_1_1 = Tij(th5_1_1, ALPHA[4], D_scaled[4], A_scaled[4]);
+        Matrix4f T54_1_2 = Tij(th5_1_2, ALPHA[4], D_scaled[4], A_scaled[4]);
+        Matrix4f T54_2_1 = Tij(th5_2_1, ALPHA[4], D_scaled[4], A_scaled[4]);
+        Matrix4f T54_2_2 = Tij(th5_2_2, ALPHA[4], D_scaled[4], A_scaled[4]);
     
-        Matrix4f T65_1_1 = Tij(th6_1_1, Alpha[5], D_scaled[5], A_scaled[5]);
-        Matrix4f T65_1_2 = Tij(th6_1_2, Alpha[5], D_scaled[5], A_scaled[5]);
-        Matrix4f T65_2_1 = Tij(th6_2_1, Alpha[5], D_scaled[5], A_scaled[5]);
-        Matrix4f T65_2_2 = Tij(th6_2_2, Alpha[5], D_scaled[5], A_scaled[5]);
+        Matrix4f T65_1_1 = Tij(th6_1_1, ALPHA[5], D_scaled[5], A_scaled[5]);
+        Matrix4f T65_1_2 = Tij(th6_1_2, ALPHA[5], D_scaled[5], A_scaled[5]);
+        Matrix4f T65_2_1 = Tij(th6_2_1, ALPHA[5], D_scaled[5], A_scaled[5]);
+        Matrix4f T65_2_2 = Tij(th6_2_2, ALPHA[5], D_scaled[5], A_scaled[5]);
     
         Matrix4f T41_1_1 = T61_1 * (T54_1_1 * T65_1_1).inverse();
         Matrix4f T41_1_2 = T61_1 * (T54_1_2 * T65_1_2).inverse();
@@ -334,32 +333,32 @@ namespace motion
         float xy, xx, th4_1_1_1, th4_1_1_2, th4_1_2_1, th4_1_2_2;
         float th4_2_1_1, th4_2_1_2, th4_2_2_1, th4_2_2_2;
     
-        T21 = Tij(th2_1_1_1, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_1_1_1, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_1_1_1, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_1_1_1, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_1_1;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
         xx = T43(0, 0);
         th4_1_1_1 = atan2(xy, xx);
     
-        T21 = Tij(th2_1_1_2, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_1_1_2, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_1_1_2, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_1_1_2, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_1_1;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
         xx = T43(0, 0);
         th4_1_1_2 = atan2(xy, xx);
     
-        T21 = Tij(th2_1_2_1, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_1_2_1, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_1_2_1, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_1_2_1, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_1_2;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
         xx = T43(0, 0);
         th4_1_2_1 = atan2(xy, xx);
     
-        T21 = Tij(th2_1_2_2, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_1_2_2, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_1_2_2, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_1_2_2, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_1_2;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
@@ -368,16 +367,16 @@ namespace motion
         
         //4_2_...
     
-        T21 = Tij(th2_2_1_1, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_2_1_1, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_2_1_1, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_2_1_1, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_2_1;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
         xx = T43(0, 0);
         th4_2_1_1 = atan2(xy, xx);
     
-        T21 = Tij(th2_2_1_2, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_2_1_2, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_2_1_2, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_2_1_2, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_2_1;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
@@ -385,16 +384,16 @@ namespace motion
         th4_2_1_2 = atan2(xy, xx);
         
     
-        T21 = Tij(th2_2_2_1, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_2_2_1, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_2_2_1, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_2_2_1, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_2_2;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
         xx = T43(0, 0);
         th4_2_2_1 = atan2(xy, xx);
         
-        T21 = Tij(th2_2_2_2, Alpha[1], D_scaled[1], A_scaled[1]);
-        T32 = Tij(th3_2_2_2, Alpha[2], D_scaled[2], A_scaled[2]);
+        T21 = Tij(th2_2_2_2, ALPHA[1], D_scaled[1], A_scaled[1]);
+        T32 = Tij(th3_2_2_2, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_2_2;
         T43 = (T21 * T32).inverse() * T41;
         xy = T43(1, 0);
