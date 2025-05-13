@@ -41,11 +41,6 @@ namespace motion{
         int num_interpolations) const {
         
         std::vector<geometry_msgs::msg::Pose> poses;
-        tf2::Quaternion q_start(start_pose.orientation.x, start_pose.orientation.y,
-                                 start_pose.orientation.z, start_pose.orientation.w);
-        tf2::Quaternion q_end(end_pose.orientation.x, end_pose.orientation.y,
-                               end_pose.orientation.z, end_pose.orientation.w);
-    
         for (int i = 0; i <= num_interpolations; ++i) {
             double t = static_cast<double>(i) / num_interpolations;            
             poses.push_back(s_lerp(start_pose, end_pose, t));
