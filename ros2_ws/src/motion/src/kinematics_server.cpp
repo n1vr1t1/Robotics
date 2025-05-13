@@ -168,9 +168,9 @@ namespace motion
     }
     
     //Eigen::MatrixXd InverseKinServer::ur5Inverse(
-    Eigen::MatrixXd InverseKinServer::ur5Inverse(const Eigen::Vector3f & p60, const Eigen::Matrix3f & R60, float scaleFactor)
-    {
-       MatrixXd solutions(8, 6); // 8 possible solutions, each with 6 joint angles
+    Eigen::MatrixXd InverseKinServer::ur5Inverse(const Eigen::Vector3f & p60, const Eigen::Matrix3f & R60, float scaleFactor){
+        
+        MatrixXd solutions(8, 6); // 8 possible solutions, each with 6 joint angles
         solutions.setConstant(NAN); // Initialize with NaN
     
         float A_scaled[6], D_scaled[6];
