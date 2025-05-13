@@ -65,11 +65,7 @@ namespace motion
     void DirectKinServer::ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
                                     Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm){
         
-        const std::vector<double> A = {0, -0.425, -0.3922, 0, 0, 0};
-        const std::vector<double> D = {0.1625, 0, 0, 0.1333, 0.0997, 0.0996};
-        
         // Apply scale factor
-        std::array<double, 6> A, D;
         for (size_t i = 0; i < 6; ++i) {
             A[i] = A_init[i] * scaleFactor;
             D[i] = D_init[i] * scaleFactor;
