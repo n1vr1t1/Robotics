@@ -310,7 +310,7 @@ Eigen::Matrix4d ComputeTrajectoryService::Tij(double theta, double alpha, double
 }
 
 // Computes base->link i for each i, i.e. Tm[i]
-std::vector<Eigen::Matrix4d> computeChainFK(const Eigen::VectorXd &Th, double scaleFactor)
+std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eigen::VectorXd &Th, double scaleFactor)
 {
     // UR5 DH parameters (typical) ...
     //  NOTE: May need sign adjustments or tweaks to match your UR5 definition.
