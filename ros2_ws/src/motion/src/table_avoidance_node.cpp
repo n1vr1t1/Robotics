@@ -36,7 +36,7 @@ private:
   rclcpp::TimerBase::SharedPtr timer_;
 
 
-  void timerCallback(){
+  void checkEndEffectorHeight(){
     // Attempt to fetch the transform
     try{
       const auto transform_stamped = tf_buffer_.lookupTransform(
