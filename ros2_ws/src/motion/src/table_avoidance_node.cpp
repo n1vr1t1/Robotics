@@ -45,7 +45,7 @@ private:
         tf2::TimePointZero
       );
        // Determine if the end effector is below the threshold
-      const double z_value = transform_stamped.transform.translation.z
+      const double z_value = transform_stamped.transform.translation.z;
       // Publish shutdown signal if necessary
       if (z_value < z_threshold){
          // Log the status
