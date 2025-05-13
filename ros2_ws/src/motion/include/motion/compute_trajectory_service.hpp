@@ -19,6 +19,8 @@
 #include <iostream>
 #include <Eigen/Dense>
 
+constexpr int STEPS = 100;
+
 using namespace std::chrono_literals;  
 
 std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0, double v1, double T);
