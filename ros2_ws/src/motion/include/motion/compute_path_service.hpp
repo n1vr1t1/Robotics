@@ -20,12 +20,6 @@ namespace motion
       rclcpp::Service<custom_msg_interfaces::srv::ComputePath>::SharedPtr service_;
       rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr publisher_;
   
-      // Method to initialize the service
-      void initialize_service();
-  
-      // Method to initialize the publisher
-      void initialize_publisher();
-  
       // Callback for the ComputePath service
       void handle_compute_path(
           const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
