@@ -21,8 +21,6 @@
 
 using namespace std::chrono_literals;  
 
-constexpr size_t JOINT_COUNT = sizeof(JOINT_NAMES) / sizeof(JOINT_NAMES[0]);
-
 std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0, double v1, double T);
 
 trajectory_msgs::msg::JointTrajectory generate_cubic_trajectory(const std::vector<std::array<double, 6>>& waypoints,
