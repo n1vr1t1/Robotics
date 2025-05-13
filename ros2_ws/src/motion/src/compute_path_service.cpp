@@ -48,12 +48,12 @@ namespace motion{
     
         for (int i = 0; i <= num_interpolations; ++i) {
             double t = static_cast<double>(i) / num_interpolations;            
-            poses.push_back(s_lerp(start_pose.position, end_pose.position, t););
+            poses.push_back(s_lerp(start_pose, end_pose, t);
         }
         return poses;
     }
 
-    geometry_msgs::msg::Pose PathPlannerNode::s_lerp(const geometry_msgs::msg::Point& start, const geometry_msgs::msg::Point& end, double t) const {
+    geometry_msgs::msg::Pose PathPlannerNode::s_lerp(const geometry_msgs::msg::Pose& start, const geometry_msgs::msg::Pose& end, double t) const {
         
         geometry_msgs::msg::Pose result;
     
