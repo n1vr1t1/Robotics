@@ -26,8 +26,8 @@ const std::vector<std::string> JOINT_NAMES = {
 std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0, double v1, double T){
     double a0 = q0;
     double a1 = v0;
-    double a2 = (3 * (q1 - q0) / (T * T)) - (2 * v0 / T) - (v1 / T);
-    double a3 = (-2 * (q1 - q0) / (T * T * T)) + ((v1 + v0) / (T * T));
+    double a2 = (3 * (q1 - q0) / std::pow(T, 2)) - (2 * v0 / T) - (v1 / T);
+    double a3 = (-2 * (q1 - q0) / std::pow(T, 3)) + ((v1 + v0) / std::pow(T, 2));
     return {a0, a1, a2, a3};
 }
 
@@ -80,8 +80,7 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory(
         }
 
         // Generate interpolated points
-        int steps = 80;
-        for (int step = 0; step <= steps; ++step) {
+        for (int step = 0; step <= STEPS; ++step) {
             double t = (step / static_cast<double>(steps)) * segment_time;
             trajectory_msgs::msg::JointTrajectoryPoint interpolated_point;
             interpolated_point.positions.resize(6);
@@ -110,8 +109,6 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory(
     return traj_msg;
 }
 
-
-
 // ---------------------------------------------------------------------------
 // 5) The Node Class for "compute_trajectory_service"
 // ---------------------------------------------------------------------------
@@ -120,24 +117,21 @@ ComputeTrajectoryService::ComputeTrajectoryService()
 : Node("compute_trajectory_service"), received_initial_joints_(false)
 {
     // Create the service
-    service_ = this->create_service<custom_msg_interfaces::srv::ComputeTrajectory>(
-        "compute_trajectory",
-        std::bind(&ComputeTrajectoryService::compute_trajectory_callback,
-                  this, std::placeholders::_1, std::placeholders::_2)
-    );
-
+    auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
+                                    std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
+                                    this->compute_trajectory_callback(request, response); };
+    
+    // Create the service
+    service_ = this->create_service<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory", service_callback);
+    RCLCPP_INFO(this->get_logger(), "ComputeTrajectoryService node ready on 'compute_trajectory'");
     // Subscribe to /joint_states topic
-    joint_state_subscriber_ = this->create_subscription<sensor_msgs::msg::JointState>(
-        "/joint_states", 10,
-        std::bind(&ComputeTrajectoryService::joint_state_callback, this, std::placeholders::_1)
-    );
-
+    auto joint_state_callback = [this](const sensor_msgs::msg::JointState::SharedPtr msg) {this->joint_state_callback(msg);};
+    joint_state_subscriber_ = this->create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, joint_state_callback);
+    RCLCPP_INFO(this->get_logger(), "Subscribed to '/joint_states' to capture initial joint values");
+    
     // Create IK client node
     ik_client_node_ = std::make_shared<rclcpp::Node>("compute_ik_client_node");
     ik_client_ = ik_client_node_->create_client<custom_msg_interfaces::srv::ComputeIK>("/compute_ik");
-
-    RCLCPP_INFO(this->get_logger(), "ComputeTrajectoryService node ready on 'compute_trajectory'");
-    RCLCPP_INFO(this->get_logger(), "Subscribed to '/joint_states' to capture initial joint values");
 }
 
 rclcpp::Service<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr service_;
@@ -195,7 +189,6 @@ void ComputeTrajectoryService::joint_state_callback(const sensor_msgs::msg::Join
     }
     //RCLCPP_INFO(this->get_logger(), "Updated joint states:\n%s", oss.str().c_str());
 }
-
 
 
 // ---------------------------------------------------------------------------
@@ -314,9 +307,9 @@ Eigen::Matrix4d ComputeTrajectoryService::Tij(double theta, double alpha, double
 {
     Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
     T <<  std::cos(theta), -std::sin(theta)*std::cos(alpha),  std::sin(theta)*std::sin(alpha),  a*std::cos(theta),
-        std::sin(theta),  std::cos(theta)*std::cos(alpha), -std::cos(theta)*std::sin(alpha),  a*std::sin(theta),
-        0,                std::sin(alpha),                  std::cos(alpha),                  d,
-        0,                0,                                0,                                1;
+          std::sin(theta),  std::cos(theta)*std::cos(alpha), -std::cos(theta)*std::sin(alpha),  a*std::sin(theta),
+                0,                std::sin(alpha),                  std::cos(alpha),                  d,
+                0,                0,                                0,                                1;
     return T;
 }
 
@@ -347,107 +340,103 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
     return Tm;
 }
 
-
-
 // ---------------------------------------------------------------------------
 // 6) The Service Callback: computes waypoints, then generates a cubic trajectory
 // ---------------------------------------------------------------------------
-void ComputeTrajectoryService::compute_trajectory_callback(
-const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
-std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response)
-{
-RCLCPP_INFO(this->get_logger(), "[CALLBACK] compute_trajectory_callback STARTED");
-const size_t num_poses = request->array.poses.size();
-RCLCPP_INFO(this->get_logger(), "Got %zu poses", num_poses);
-
-// Basic checks
-if (num_poses == 0) {
-    RCLCPP_WARN(this->get_logger(), "[WARNING] No poses received!");
-    response->trajectory = trajectory_msgs::msg::JointTrajectory();
-    response->status_message = "No poses provided";
-    return;
-}
-
-if (!ik_client_->wait_for_service(5s)) {
-    RCLCPP_ERROR(this->get_logger(), "IK service not available after waiting");
-    response->trajectory = trajectory_msgs::msg::JointTrajectory();
-    response->status_message = "IK service unavailable";
-    return;
-}
-
-// -----------------------------------------------------------------------
-// Build the global 'waypoints' with (N+1) rows:
-//   row 0 = initial joints,
-//   row i+1 = best solution for poses[i]
-// -----------------------------------------------------------------------
-waypoints.clear();
-waypoints.resize(num_poses + 1);
-
-// Fill row 0 with the initial joint array
-for (size_t j = 0; j < 6; ++j) {
-    waypoints[0][j] = initial_joint_array_[j];
-}
-
-// For each pose i: call IK, pick closest solution to waypoints[i]
-for (size_t i = 0; i < num_poses; ++i) {
-    RCLCPP_INFO(this->get_logger(), "Processing Pose %zu/%zu", i + 1, num_poses);
-
-    auto ik_request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
-    ik_request->header.stamp = this->now();
-    ik_request->header.frame_id = "base";
-    ik_request->target_pose = request->array.poses[i];
-
-    // Call the IK server
-    auto future_result = ik_client_->async_send_request(ik_request);
-    auto ret = rclcpp::spin_until_future_complete(
-        ik_client_node_->get_node_base_interface(),
-        future_result, 10s
-    );
-
-    if (ret == rclcpp::FutureReturnCode::SUCCESS) {
-        auto result = future_result.get();
-        if (!result || result->joint_angles_matrix.data.empty()) {
-            RCLCPP_WARN(this->get_logger(), "IK computation for Pose %zu returned no solution!", i + 1);
-        } else {
-            RCLCPP_INFO(this->get_logger(), "[SUCCESS] IK response for Pose %zu received", i + 1);
-            print_joint_angles_matrix(result->joint_angles_matrix.data);
-
-            // Convert waypoints[i] to vector<double>
-            std::vector<double> prev_joints(waypoints[i].begin(), waypoints[i].end());
-
-            // Pick best row from the 8x6 matrix
-            std::vector<double> best_solution =
-                select_closest_one(prev_joints, result->joint_angles_matrix.data);
-
-            Eigen::VectorXd Th = Eigen::VectorXd::Map(best_solution.data(), best_solution.size());
-
-            // Check for singularity using ROS2 logging
-            if (ur5_singAvoid(Th, 1.0)) {
-                RCLCPP_WARN(rclcpp::get_logger("compute_trajectory_service"), "Selected joint configuration is near a singularity!");
-                std::fill(best_solution.begin(), best_solution.end(), std::numeric_limits<double>::quiet_NaN());
-                //this will stop the trajecotry generation and thus the robot
-            }
-
-            // Store in row i+1
-            for (size_t j = 0; j < 6; ++j) {
-                waypoints[i + 1][j] = best_solution[j];
-            }
-        }
-    } else {
-        RCLCPP_ERROR(this->get_logger(), "IK service call for Pose %zu failed!", i + 1);
+void ComputeTrajectoryService::compute_trajectory_callback(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
+                                                            std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
+    RCLCPP_INFO(this->get_logger(), "[CALLBACK] compute_trajectory_callback STARTED");
+    const size_t num_poses = request->array.poses.size();
+    RCLCPP_INFO(this->get_logger(), "Got %zu poses", num_poses);
+    
+    // Basic checks
+    if (num_poses == 0) {
+        RCLCPP_WARN(this->get_logger(), "[WARNING] No poses received!");
+        response->trajectory = trajectory_msgs::msg::JointTrajectory();
+        response->status_message = "No poses provided";
+        return;
     }
-}
-
-// (Optional) Print final global waypoints
-RCLCPP_INFO(this->get_logger(), "WAYPOINTS (total rows = %zu):", waypoints.size());
-for (size_t i = 0; i < waypoints.size(); ++i) {
-    std::ostringstream row_stream;
-    row_stream << "Row " << i << ": ";
+    
+    if (!ik_client_->wait_for_service(5s)) {
+        RCLCPP_ERROR(this->get_logger(), "IK service not available after waiting");
+        response->trajectory = trajectory_msgs::msg::JointTrajectory();
+        response->status_message = "IK service unavailable";
+        return;
+    }
+    
+    // -----------------------------------------------------------------------
+    // Build the global 'waypoints' with (N+1) rows:
+    //   row 0 = initial joints,
+    //   row i+1 = best solution for poses[i]
+    // -----------------------------------------------------------------------
+    waypoints.clear();
+    waypoints.resize(num_poses + 1);
+    
+    // Fill row 0 with the initial joint array
     for (size_t j = 0; j < 6; ++j) {
-        row_stream << waypoints[i][j] << (j < 5 ? ", " : "");
+        waypoints[0][j] = initial_joint_array_[j];
     }
-    RCLCPP_INFO(this->get_logger(), "%s", row_stream.str().c_str());
-}
+    
+    // For each pose i: call IK, pick closest solution to waypoints[i]
+    for (size_t i = 0; i < num_poses; ++i) {
+        RCLCPP_INFO(this->get_logger(), "Processing Pose %zu/%zu", i + 1, num_poses);
+    
+        auto ik_request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
+        ik_request->header.stamp = this->now();
+        ik_request->header.frame_id = "base";
+        ik_request->target_pose = request->array.poses[i];
+    
+        // Call the IK server
+        auto future_result = ik_client_->async_send_request(ik_request);
+        auto ret = rclcpp::spin_until_future_complete(
+            ik_client_node_->get_node_base_interface(),
+            future_result, 10s
+        );
+    
+        if (ret == rclcpp::FutureReturnCode::SUCCESS) {
+            auto result = future_result.get();
+            if (!result || result->joint_angles_matrix.data.empty()) {
+                RCLCPP_WARN(this->get_logger(), "IK computation for Pose %zu returned no solution!", i + 1);
+            } else {
+                RCLCPP_INFO(this->get_logger(), "[SUCCESS] IK response for Pose %zu received", i + 1);
+                print_joint_angles_matrix(result->joint_angles_matrix.data);
+    
+                // Convert waypoints[i] to vector<double>
+                std::vector<double> prev_joints(waypoints[i].begin(), waypoints[i].end());
+    
+                // Pick best row from the 8x6 matrix
+                std::vector<double> best_solution =
+                    select_closest_one(prev_joints, result->joint_angles_matrix.data);
+    
+                Eigen::VectorXd Th = Eigen::VectorXd::Map(best_solution.data(), best_solution.size());
+    
+                // Check for singularity using ROS2 logging
+                if (ur5_singAvoid(Th, 1.0)) {
+                    RCLCPP_WARN(rclcpp::get_logger("compute_trajectory_service"), "Selected joint configuration is near a singularity!");
+                    std::fill(best_solution.begin(), best_solution.end(), std::numeric_limits<double>::quiet_NaN());
+                    //this will stop the trajecotry generation and thus the robot
+                }
+    
+                // Store in row i+1
+                for (size_t j = 0; j < 6; ++j) {
+                    waypoints[i + 1][j] = best_solution[j];
+                }
+            }
+        } else {
+            RCLCPP_ERROR(this->get_logger(), "IK service call for Pose %zu failed!", i + 1);
+        }
+    }
+    
+    // (Optional) Print final global waypoints
+    RCLCPP_INFO(this->get_logger(), "WAYPOINTS (total rows = %zu):", waypoints.size());
+    for (size_t i = 0; i < waypoints.size(); ++i) {
+        std::ostringstream row_stream;
+        row_stream << "Row " << i << ": ";
+        for (size_t j = 0; j < 6; ++j) {
+            row_stream << waypoints[i][j] << (j < 5 ? ", " : "");
+        }
+        RCLCPP_INFO(this->get_logger(), "%s", row_stream.str().c_str());
+    }
 
     // -----------------------------------------------------------------------
     // 7) Now Generate a Real Trajectory from Those Waypoints (Cubic Spline)
