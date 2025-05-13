@@ -55,6 +55,8 @@ private:
 
   void joint_state_callback(const sensor_msgs::msg::JointState::SharedPtr msg);
 
+  std::vector<double> select_closest_one(const std::vector<double> &prev_joints,const std::vector<double> &joint_angles_matrix)
+
   bool ur5_singAvoid(const Eigen::VectorXd &Th, double scaleFactor);
 
   Eigen::Matrix4d Tij(double theta, double alpha, double d, double a);
