@@ -12,27 +12,24 @@ using Eigen::MatrixXf;
 namespace motion
 {
     
-    DirectKinServer::DirectKinServer() : Node("direct_kin_server")
-    {
-        // Create service
-        service_ = this->create_service<custom_msg_interfaces::srv::ComputeDirKin>(
-            "compute_dir_kin",
-            std::bind(
-                &DirectKinServer::computeDirectKinematics, this,
-                std::placeholders::_1, std::placeholders::_2));
+    DirectKinServer::DirectKinServer() : Node("direct_kin_server"){
+        
+        // Define the service callback
+        auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
+                                       std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response){
+                                       this->computeDirectKinematics(request, response);};
+        // Create the service
+        service_ = this->create_service<custom_msg_interfaces::srv::ComputeDirKin>("compute_dir_kin", service_callback);
         RCLCPP_INFO(this->get_logger(), "Direct Kinematics Service is ready.");
     }
     
-    void DirectKinServer::computeDirectKinematics(
-        const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
-        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response)
-    {
-        try
-        {
+    void DirectKinServer::computeDirectKinematics(const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
+                                                  std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response){
+        try{
             Eigen::Vector3d end_effector_position;
             Eigen::Matrix3d end_effector_orientation;
             std::vector<Eigen::Matrix4d> Tm;
-    
+            
             // Compute direct kinematics
             ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
     
@@ -49,9 +46,7 @@ namespace motion
     
             response->status_message = "Direct kinematics calculated successfully";
             response->frame_id = request->frame_id;
-        }
-        catch (const std::exception& e)
-        {
+        }catch (const std::exception& e){
             RCLCPP_ERROR(this->get_logger(), "Error in direct kinematics calculation: %s", e.what());
             response->status_message = "Failed to calculate direct kinematics";
         }
@@ -67,26 +62,27 @@ namespace motion
         return T;
     }
     
-    void DirectKinServer::ur5Direct(
-        const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
-        Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm)
-    {
-        std::vector<double> A = {0, -0.425, -0.3922, 0, 0, 0};
-        for (auto& a : A) a *= scaleFactor;
-    
-        std::vector<double> D = {0.1625, 0, 0, 0.1333, 0.0997, 0.0996};
-        for (auto& d : D) d *= scaleFactor;
-    
-        std::vector<double> Alpha = {M_PI / 2, 0, 0, M_PI / 2, -M_PI / 2, 0};
-    
-        Tm.push_back(Tij(Th[0], Alpha[0], D[0], A[0]));
-        Tm.push_back(Tij(Th[1], Alpha[1], D[1], A[1]));
-        Tm.push_back(Tij(Th[2], Alpha[2], D[2], A[2]));
-        Tm.push_back(Tij(Th[3], Alpha[3], D[3], A[3]));
-        Tm.push_back(Tij(Th[4], Alpha[4], D[4], A[4]));
-        Tm.push_back(Tij(Th[5], Alpha[5], D[5], A[5]));
-    
-        Eigen::Matrix4d T60 = Tm[0] * Tm[1] * Tm[2] * Tm[3] * Tm[4] * Tm[5];
+    void DirectKinServer::ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
+                                    Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm){
+        
+        const std::vector<double> A = {0, -0.425, -0.3922, 0, 0, 0};
+        const std::vector<double> D = {0.1625, 0, 0, 0.1333, 0.0997, 0.0996};
+        
+        // Apply scale factor
+        std::array<double, 6> A, D;
+        for (size_t i = 0; i < 6; ++i) {
+            A[i] = A_init[i] * scaleFactor;
+            D[i] = D_init[i] * scaleFactor;
+        }
+         
+        // Compute transformation matrices
+        Eigen::Matrix4d T60 = Eigen::Matrix4d::Identity();
+        for (size_t i = 0; i < 6; ++i) {
+            Eigen::Matrix4d T = Tij(Th[i], ALPHA[i], D[i], A[i]);
+            Tm.push_back(T);
+            T60 *= T;
+        }
+
         pe = T60.block<3, 1>(0, 3);
         Re = T60.block<3, 3>(0, 0);
     }
