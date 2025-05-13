@@ -67,8 +67,8 @@ namespace motion
         
         // Apply scale factor
         for (size_t i = 0; i < 6; ++i) {
-            A[i] = A_init[i] * scaleFactor;
-            D[i] = D_init[i] * scaleFactor;
+            A[i] = A[i] * scaleFactor;
+            D[i] = D[i] * scaleFactor;
         }
          
         // Compute transformation matrices
