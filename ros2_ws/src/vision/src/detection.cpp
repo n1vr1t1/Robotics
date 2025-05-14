@@ -75,16 +75,17 @@ private:
             return;
         }
 
-        auto detections = output.view({-1, 6}); // Adjust shape based on model output
+        auto detections = output.view({-1, 3}); // Adjust shape based on model output
         int num_detections = detections.size(0);
 
         std_msgs::msg::Float32MultiArray result_msg;
-        result_msg.data.resize(num_detections * 6);
+        result_msg.data.resize(num_detections * 3);
 
-        for (int i = 0; i < num_detections; ++i) {
-            for (int j = 0; j < 6; ++j) {
-                result_msg.data[i * 6 + j] = detections[i][j].item<float>();
-            }
+        for (int i = 0; i < num_detections; ++i){
+            if(detections[i][1].item<float>() < 0.5) continue; // Confidence threshold
+            result_msg.data[i * 3] = detections[i][0].item<float>(); // Class ID
+            result_msg.data[i * 3 + 1] = detections[i][2].item<float>(); // x normalized
+            result_msg.data[i * 3 + 2] = detections[i][3].item<float>(); // y normalized
         }
 
         publisher->publish(result_msg);
