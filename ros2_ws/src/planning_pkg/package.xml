@@ -12,13 +12,7 @@
   <depend>geometry_msgs</depend>
   <depend>trajectory_msgs</depend>
   <depend>custom_msg_interfaces</depend>
-
   
-  <test_depend>ament_copyright</test_depend>
-  <test_depend>ament_flake8</test_depend>
-  <test_depend>ament_pep257</test_depend>
-  <test_depend>python3-pytest</test_depend>
-
   <export>
     <build_type>ament_python</build_type>
   </export>
