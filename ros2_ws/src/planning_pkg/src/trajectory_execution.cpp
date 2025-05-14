@@ -1,11 +1,13 @@
-#include<rclcpp/rclcpp.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
 #include <std_msgs/msg/string.hpp>
+#include <rclcpp_action/rclcpp_action.hpp>
 #include <control_msgs/action/follow_joint_trajectory.hpp>
 #include <custom_msg_interfaces/srv/interpolation.hpp>
 #include <custom_msg_interfaces/srv/compute_path.hpp>
 #include <custom_msg_interfaces/srv/compute_trajectory.hpp>
-#include <rclcpp_action/rclcpp_action.hpp>
+
 #include <memory>
 #include <chrono>
 #include <functional>
@@ -16,7 +18,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
     public:
         TrajectoryExecutionNode() : Node("trajectory_execution_node"){
             service = this->create_service<custom_msg_interfaces::srv::Interpolation>(
-                "Interpolation",
+                "interpolation",
                 std::bind(&TrajectoryExecutionNode::interpolation_callback, this, std::placeholders::_1, std::placeholders::_2));
 
             path_client = this->create_client<custom_msg_interfaces::srv::ComputePath>("compute_path");
