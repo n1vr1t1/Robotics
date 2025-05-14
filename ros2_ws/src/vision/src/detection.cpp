@@ -7,8 +7,8 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include <torch/script.h>
-#include <torch/torch.h>
+#include <torch/script.h> //might have to change the header file name, coz script.h shouldnt exist, i think
+#include <torch/torch.h> //also this?
 
 #include <memory>
 #include <string>
