@@ -75,8 +75,6 @@ ament_target_dependencies(pose_from_camera_node
   tf2_geometry_msgs
   libstatistics_collector
 )
-message("rclcpp is: ${rclcpp_LIBRARIES}")
-message("or it is: ${rclcpp_LIBS}")
 target_link_libraries(pose_from_camera_node 
   ${rclcpp_LIBRARIES}
   ${std_msgs_LIBRARIES}
