@@ -1,16 +1,18 @@
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/image.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
-#include <std_msgs/msg/float32_multi_array.hpp>
-#include <vision_msgs/msg/detection3_d_array.hpp>
-#include <geometry_msgs/msg/pose.hpp>
-#include <geometry_msgs/msg/pose_array.hpp>
-#include <sensor_msgs/point_cloud2_iterator.hpp>
+#include "rclcpp/rclcpp.hpp"
+#include "sensor_msgs/msg/point_cloud2.hpp"
+#include "sensor_msgs/point_cloud2_iterator.hpp"
+#include "std_msgs/msg/float32_multi_array.hpp"
+#include "geometry_msgs/msg/point_stamped.hpp"
+#include "vision_msgs/msg/detection3_d_array.hpp"
+#include "vision_msgs/msg/object_hypothesis_with_pose.hpp"
+#include "geometry_msgs/msg/pose.hpp"
+#include "tf2_ros/buffer.h"
+#include "tf2_ros/transform_listener.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 #include <memory>
 #include <cmath>
 #include <string>
-#include <vector>
-#include <iterator>
+
 
 namespace std {
     template <>
@@ -26,7 +28,9 @@ namespace std {
 class CameraPoseNode : public rclcpp::Node{
     //("check if pixel coordinates match between the color image and point cloud");
     public:
-        CameraPoseNode(): Node("pose_from_camera_node"){
+        CameraPoseNode(): Node("pose_from_camera_node"),
+                            tf_buffer_(this->get_clock()), 
+                            tf_listener_(std::make_shared<tf2_ros::TransformListener>(tf_buffer_)){
             subscription_pixel = this->create_subscription<std_msgs::msg::Float32MultiArray>(
                 "/inference_result", rclcpp::QoS(8), std::bind(&CameraPoseNode::image_callback, this, std::placeholders::_1));
             subscription_cloud = this->create_subscription<sensor_msgs::msg::PointCloud2>(
@@ -89,9 +93,22 @@ class CameraPoseNode : public rclcpp::Node{
                 vision_msgs::msg::Detection3D detect;
 
                 geometry_msgs::msg::Pose pose;
-                pose.position.x = x;
-                pose.position.y = y;
-                pose.position.z = z;
+                geometry_msgs::msg::PointStamped camera_point, base_point;
+                camera_point.header = current_cloud->header;
+                camera_point.point.x = x;
+                camera_point.point.y = y;
+                camera_point.point.z = z;
+
+                try{
+                    base_point = tf_buffer_.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
+                    pose.position.x = base_point.point.x;
+                    pose.position.y = base_point.point.y;
+                    pose.position.z = base_point.point.z;
+                }catch(const tf2::TransformException &ex){
+                    RCLCPP_WARN(this->get_logger(), "TF transform failed: %s", ex.what());
+                    return;
+                }
+
                 pose.orientation.w = 1.0; //need to initiaze the orientation of x,y, z too
     
                 vision_msgs::msg::ObjectHypothesisWithPose object_hypothesis;
@@ -108,6 +125,8 @@ class CameraPoseNode : public rclcpp::Node{
             publisher->publish(publish_positions);
 
         }
+        tf2_ros::Buffer tf_buffer;
+        std::shared_ptr<tf2_ros::TransformListener> tf_listener;
         rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_cloud;
         rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_pixel;
         rclcpp::Publisher<vision_msgs::msg::Detection3DArray>::SharedPtr publisher;
@@ -115,7 +134,8 @@ class CameraPoseNode : public rclcpp::Node{
 };
 int main(int argc, char** argv) {
     rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<CameraPoseNode>());
+    auto node = std::make_shared<CameraPoseNode>();
+    rclcpp::spin(node);
+    node.reset();
     rclcpp::shutdown();
-    return 0;
 }
