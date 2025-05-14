@@ -21,6 +21,7 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 find_package(libstatistics_collector REQUIRED)
 
 set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/include")
@@ -71,6 +72,7 @@ ament_target_dependencies(pose_from_camera_node
   geometry_msgs
   vision_msgs
   tf2_ros
+  tf2_geometry_msgs
   libstatistics_collector
 )
 message("rclcpp is: ${rclcpp_LIBRARIES}")
@@ -82,6 +84,7 @@ target_link_libraries(pose_from_camera_node
   ${geometry_msgs_LIBRARIES}
   ${vision_msgs_LIBRARIES}
   ${tf2_ros_LIBRARIES}
+  ${tf2_geometry_msgs_LIBRARIES}
   ${libstatistics_collector_LIBRARIES}
 )
 
