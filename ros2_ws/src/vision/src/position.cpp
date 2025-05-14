@@ -55,11 +55,10 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_WARN(this->get_logger(), "No positions data available as yet. Waiting for positions data :)");
                 return;
             }
-            for(size_t i =0; i+5 < positions.size(); i+=6){
+            for(size_t i =0; i+2 < positions.size(); i+=3){
                 float id = positions[i];
-                float confidence = positions[i+1];
-                float x = positions[i+2];
-                float y = positions[i+3];
+                float x = positions[i+1];
+                float y = positions[i+2];
 
                 int width = current_cloud->width;
                 int height = current_cloud->height;
@@ -113,7 +112,6 @@ class CameraPoseNode : public rclcpp::Node{
     
                 vision_msgs::msg::ObjectHypothesisWithPose object_hypothesis;
                 object_hypothesis.hypothesis.class_id = std::to_string(static_cast<int>(id));
-                object_hypothesis.hypothesis.score = confidence;
                 object_hypothesis.pose.pose = pose;
     
                 detect.results.push_back(object_hypothesis);
