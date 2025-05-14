@@ -19,7 +19,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/ComputeDirKin.srv"
   "srv/ComputePath.srv"
   "srv/ComputeTrajectory.srv"
-  "srv/MoveAB.srv"
+  "srv/Interpolation.srv"
   DEPENDENCIES std_msgs geometry_msgs trajectory_msgs
 
 )
