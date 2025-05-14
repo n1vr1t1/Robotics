@@ -27,8 +27,19 @@ ament_target_dependencies(trajectory_execution_node
   custom_msg_interfaces
 )
 
+add_executable(control_node src/control_unit.cpp)
+ament_target_dependencies(control_node
+  rclcpp
+  geometry_msgs
+  std_msgs
+  std_srvs
+  vision_msgs
+  tf2_ros
+  custom_msg_interfaces
+)
 install(TARGETS
   trajectory_execution_node
+  control_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
