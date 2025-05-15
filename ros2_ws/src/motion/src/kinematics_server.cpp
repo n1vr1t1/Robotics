@@ -104,20 +104,23 @@ namespace motion
      auto & pose = request->target_pose;
     
      // Position
-     float x = static_cast<float>(pose.position.x);
+     /*float x = static_cast<float>(pose.position.x);
      float y = static_cast<float>(pose.position.y);
-     float z = static_cast<float>(pose.position.z);
+     float z = static_cast<float>(pose.position.z);*/
+     Eigen::Vector3d position(pose.position.x, pose.position.y, pose.position.z);
+
     
      // Orientation (quaternion)
-     double qx = pose.orientation.x;
+     /*double qx = pose.orientation.x;
      double qy = pose.orientation.y;
      double qz = pose.orientation.z;
-     double qw = pose.orientation.w;
+     double qw = pose.orientation.w;*/
+     Eigen::Quaterniond q_eig = toEigen(pose.orientation);
     
      // Convert quaternion to Eigen rotation matrix (using double precision then cast to float)
      //Eigen::Quaterniond q_eig(qw, qx, qy, qz);
      //Eigen::Quaterniond q_eig = Eigen(pose.orientation);
-     Eigen::Quaterniond q_eig = toEigen(pose.orientation);
+     //Eigen::Quaterniond q_eig = toEigen(pose.orientation);
         
      Eigen::Matrix3d R_d = q_eig.normalized().toRotationMatrix(); // 3x3 double
      Eigen::Matrix3f R_f = R_d.cast<float>(); // cast to float
