@@ -71,11 +71,12 @@ namespace motion
         response->final_pose.position.y = pe(1);
         response->final_pose.position.z = pe(2);
 
-        Eigen::Quaterniond quaternion(Re);
-        response->final_pose.orientation.x = quaternion.x();
-        response->final_pose.orientation.y = quaternion.y();
-        response->final_pose.orientation.z = quaternion.z();
-        response->final_pose.orientation.w = quaternion.w();
+        Eigen::Quaterniond q(Re);
+        response->final_pose.orientation.x = q.x();
+        response->final_pose.orientation.y = q.y();
+        response->final_pose.orientation.z = q.z();
+        response->final_pose.orientation.w = q.w();
+        
 
         return response;        
     }
@@ -102,9 +103,11 @@ namespace motion
                                              std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response){
      // Extract the target pose from the request
      auto & pose = request->target_pose;
-    
+
+     auto position = pose.position;
+     auto orientation = pose.orientation;
      // Position
-     float x = static_cast<float>(pose.position.x);
+     /*float x = static_cast<float>(pose.position.x);
      float y = static_cast<float>(pose.position.y);
      float z = static_cast<float>(pose.position.z);
 
@@ -113,16 +116,18 @@ namespace motion
      double qx = pose.orientation.x;
      double qy = pose.orientation.y;
      double qz = pose.orientation.z;
-     double qw = pose.orientation.w;
+     double qw = pose.orientation.w;*/
     
      // Convert quaternion to Eigen rotation matrix (using double precision then cast to float)
-     Eigen::Quaterniond q_eig(qw, qx, qy, qz);
+     //Eigen::Quaterniond q_eig(qw, qx, qy, qz);
+     Eigen::Quaterniond q_eig(orientation.x, orientation.y, orientation.z, orientation.w);
         
      Eigen::Matrix3d R_d = q_eig.normalized().toRotationMatrix(); // 3x3 double
      Eigen::Matrix3f R_f = R_d.cast<float>(); // cast to float
     
      // Position as Eigen Vector3f
-     Eigen::Vector3f p60(x, y, z);
+     //Eigen::Vector3f p60(x, y, z);
+     Eigen::Vector3f p60(position.x, position.y, position.z);
     
      // Compute the inverse kinematics assuming a scale factor = 1.0
      Eigen::MatrixXd solutions = ur5Inverse(p60, R_f, 1.0f);  // 8x6 
@@ -144,14 +149,12 @@ namespace motion
      response->joint_angles_matrix.data.resize(8 * 6);
     
      // Fill the data in row-major order
-     for (int i = 0; i < 8; ++i)
-     {
-       for (int j = 0; j < 6; ++j)
-       {
-         // Convert float (or double) to double for the message
-         double angle_val = static_cast<double>(solutions(i, j));
-         response->joint_angles_matrix.data[i * 6 + j] = angle_val;
-       }
+     for (int i = 0; i < 8; ++i){
+        for (int j = 0; j < 6; ++j){
+            // Convert float (or double) to double for the message
+            double angle_val = static_cast<double>(solutions(i, j));
+            response->joint_angles_matrix.data[i * 6 + j] = angle_val;
+        }
      }
      // A simple status message
      response->status_message = "Inverse kinematics solutions computed successfully.";
