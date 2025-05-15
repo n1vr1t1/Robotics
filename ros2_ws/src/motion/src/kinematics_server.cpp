@@ -98,10 +98,8 @@ namespace motion
         
     }
     
-    void InverseKinServer::computeIKCallback(
-       const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
-       std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response)
-    {
+    void InverseKinServer::computeIKCallback(const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
+                                             std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response){
      // Extract the target pose from the request
      auto & pose = request->target_pose;
     
@@ -118,17 +116,16 @@ namespace motion
     
      // Convert quaternion to Eigen rotation matrix (using double precision then cast to float)
      Eigen::Quaterniond q_eig(qw, qx, qy, qz);
+     Eigen::Quaterniond q_eig = toEigen(pose.orientation);
+        
      Eigen::Matrix3d R_d = q_eig.normalized().toRotationMatrix(); // 3x3 double
      Eigen::Matrix3f R_f = R_d.cast<float>(); // cast to float
     
      // Position as Eigen Vector3f
      Eigen::Vector3f p60(x, y, z);
     
-     // For simplicity, let's just assume scale factor = 1.0 (as in your code)
-     float scaleFactor = 1.0f;
-    
-     // Compute the inverse kinematics
-     Eigen::MatrixXd solutions = ur5Inverse(p60, R_f, scaleFactor);  // 8x6
+     // Compute the inverse kinematics assuming a scale factor = 1.0
+     Eigen::MatrixXd solutions = ur5Inverse(p60, R_f, 1.0f);  // 8x6 
     
      // Prepare the response multiarray: we have 8 solutions, each with 6 joints
      response->joint_angles_matrix.layout.dim.resize(2);
@@ -156,11 +153,11 @@ namespace motion
          response->joint_angles_matrix.data[i * 6 + j] = angle_val;
        }
      }
-    
      // A simple status message
      response->status_message = "Inverse kinematics solutions computed successfully.";
      RCLCPP_INFO(this->get_logger(), "IK solutions computed and sent back to client.");
     }
+
     
     bool almzero(float x) {
         return abs(x) < 1e-7;
@@ -202,8 +199,8 @@ namespace motion
         float phi1_1 = acos(D_scaled[3] / p50xy);
         float phi1_2 = -phi1_1;
     
-        float th1_1 = psi + phi1_1 + M_PI / 2;
-        float th1_2 = psi + phi1_2 + M_PI / 2;
+        float th1_1 = psi + phi1_1 + PI / 2;
+        float th1_2 = psi + phi1_2 + PI / 2;
     
         float p61z_1 = p60(0) * sin(th1_1) - p60(1) * cos(th1_1);
         float p61z_2 = p60(0) * sin(th1_2) - p60(1) * cos(th1_2);
