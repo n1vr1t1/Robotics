@@ -33,20 +33,8 @@ namespace motion
             // Compute direct kinematics
             response = ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
     
-            // Populate response
-            /*response->final_pose.position.x = end_effector_position(0);
-            response->final_pose.position.y = end_effector_position(1);
-            response->final_pose.position.z = end_effector_position(2);
-    
-            Eigen::Quaterniond quaternion(end_effector_orientation);
-            response->final_pose.orientation.x = quaternion.x();
-            response->final_pose.orientation.y = quaternion.y();
-            response->final_pose.orientation.z = quaternion.z();
-            response->final_pose.orientation.w = quaternion.w();*/
-
              // Set status message and frame ID
             response->status_message = "Direct kinematics calculated successfully";
-            response->frame_id = request->frame_id;
         }catch (const std::exception& e){
             RCLCPP_ERROR(this->get_logger(), "Error in direct kinematics calculation: %s", e.what());
             response->status_message = "Failed to calculate direct kinematics";
@@ -89,19 +77,27 @@ namespace motion
         response->final_pose.orientation.z = quaternion.z();
         response->final_pose.orientation.w = quaternion.w();
 
+        response->frame_id = request->frame_id;
+
         return response;        
     }
     
     // node
-    InverseKinServer::InverseKinServer(const rclcpp::NodeOptions & options): Node("inverse_kin_server_node", options)
-    {
+    InverseKinServer::InverseKinServer(const rclcpp::NodeOptions & options): Node("inverse_kin_server_node", options){
      // Create the service
-     using namespace std::placeholders;
-     service_ = this->create_service<custom_msg_interfaces::srv::ComputeIK>(
-       "compute_ik",
-       std::bind(&InverseKinServer::computeIKCallback, this, _1, _2));
-    
-     RCLCPP_INFO(this->get_logger(), "Inverse Kinematics Service is ready.");
+        using namespace std::placeholders;
+
+        // Define the service callback
+        auto service_callback = [this](
+            const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
+            std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response) {
+            this->computeIKCallback(request, response);
+        };
+        
+        // Create the service
+        service_ = this->create_service<custom_msg_interfaces::srv::ComputeIK>("compute_ik", service_callback);
+        RCLCPP_INFO(this->get_logger(), "Inverse Kinematics Service is ready.");
+        
     }
     
     void InverseKinServer::computeIKCallback(
