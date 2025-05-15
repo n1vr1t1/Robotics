@@ -32,7 +32,7 @@ namespace motion
             
             // Compute direct kinematics
             response = ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
-    
+            response->frame_id = request->frame_id;
              // Set status message and frame ID
             response->status_message = "Direct kinematics calculated successfully";
         }catch (const std::exception& e){
@@ -76,8 +76,6 @@ namespace motion
         response->final_pose.orientation.y = quaternion.y();
         response->final_pose.orientation.z = quaternion.z();
         response->final_pose.orientation.w = quaternion.w();
-
-        response->frame_id = request->frame_id;
 
         return response;        
     }
