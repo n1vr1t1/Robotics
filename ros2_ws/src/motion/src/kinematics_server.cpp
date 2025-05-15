@@ -63,9 +63,11 @@ namespace motion
         return T;
     }
     
-    void DirectKinServer::ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
+    std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> DirectKinServer::ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
                                     Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm){
-         
+
+        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response;
+        
         // Compute transformation matrices
         Eigen::Matrix4d T60 = Eigen::Matrix4d::Identity();
         for (size_t i = 0; i < 6; ++i) {
@@ -76,6 +78,18 @@ namespace motion
 
         pe = T60.block<3, 1>(0, 3);
         Re = T60.block<3, 3>(0, 0);
+
+        response->final_pose.position.x = pe(0);
+        response->final_pose.position.y = pe(1);
+        response->final_pose.position.z = pe(2);
+
+        Eigen::Quaterniond quaternion(Re);
+        response->final_pose.orientation.x = quaternion.x();
+        response->final_pose.orientation.y = quaternion.y();
+        response->final_pose.orientation.z = quaternion.z();
+        response->final_pose.orientation.w = quaternion.w();
+
+        return response;        
     }
     
     // node
