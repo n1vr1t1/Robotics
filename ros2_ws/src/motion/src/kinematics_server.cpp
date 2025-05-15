@@ -115,8 +115,9 @@ namespace motion
      double qw = pose.orientation.w;
     
      // Convert quaternion to Eigen rotation matrix (using double precision then cast to float)
-     Eigen::Quaterniond q_eig(qw, qx, qy, qz);
-     Eigen::Quaterniond q_eig = Eigen(pose.orientation);
+     //Eigen::Quaterniond q_eig(qw, qx, qy, qz);
+     //Eigen::Quaterniond q_eig = Eigen(pose.orientation);
+     Eigen::Quaterniond q_eig = toEigen(pose.orientation);
         
      Eigen::Matrix3d R_d = q_eig.normalized().toRotationMatrix(); // 3x3 double
      Eigen::Matrix3f R_f = R_d.cast<float>(); // cast to float
