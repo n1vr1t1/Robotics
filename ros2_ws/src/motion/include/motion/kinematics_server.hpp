@@ -33,7 +33,7 @@ namespace motion
     
         // Utility functions
         Eigen::Matrix4d Tij(double th, double alpha, double d, double a);
-        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> DirectKinServer::ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
+        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
                                     Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm);
         rclcpp::Service<custom_msg_interfaces::srv::ComputeDirKin>::SharedPtr service_;
     };
