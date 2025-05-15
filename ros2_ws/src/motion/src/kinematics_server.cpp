@@ -101,8 +101,6 @@ namespace motion
     
     void InverseKinServer::computeIKCallback(const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
                                              std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response){
-     // Extract the target pose from the request
-     //auto & pose = request->target_pose;
 
      auto position = (request->target_pose).position;
      auto orientation =  (request->target_pose).orientation;
@@ -119,7 +117,15 @@ namespace motion
     
      // Compute the inverse kinematics assuming a scale factor = 1.0
      Eigen::MatrixXd solutions = ur5Inverse(p60, R_f, 1.0f);  // 8x6 
-    
+
+
+
+
+
+
+
+        
+    //ADJUST IT
      // Prepare the response multiarray: we have 8 solutions, each with 6 joints
      response->joint_angles_matrix.layout.dim.resize(2);
     
@@ -135,6 +141,11 @@ namespace motion
     
      response->joint_angles_matrix.layout.data_offset = 0;
      response->joint_angles_matrix.data.resize(8 * 6);
+
+
+
+        
+        
     
      // Fill the data in row-major order
      for (int i = 0; i < 8; ++i){
@@ -144,7 +155,6 @@ namespace motion
             response->joint_angles_matrix.data[i * 6 + j] = angle_val;
         }
      }
-     // A simple status message
      response->status_message = "Inverse kinematics solutions computed successfully.";
      RCLCPP_INFO(this->get_logger(), "IK solutions computed and sent back to client.");
     }
@@ -165,6 +175,8 @@ namespace motion
     
     //Eigen::MatrixXd InverseKinServer::ur5Inverse(
     Eigen::MatrixXd InverseKinServer::ur5Inverse(const Eigen::Vector3f & p60, const Eigen::Matrix3f & R60, float scaleFactor){
+
+        //CREA VETTORE DI VARIABILI CON FOR LOOP
         
         MatrixXd solutions(8, 6); // 8 possible solutions, each with 6 joint angles
         solutions.setConstant(NAN); // Initialize with NaN
