@@ -31,7 +31,7 @@ namespace motion
             std::vector<Eigen::Matrix4d> Tm;
             
             // Compute direct kinematics
-            response->ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
+            response = ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
     
             // Populate response
             /*response->final_pose.position.x = end_effector_position(0);
