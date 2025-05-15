@@ -31,10 +31,10 @@ namespace motion
             std::vector<Eigen::Matrix4d> Tm;
             
             // Compute direct kinematics
-            ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
+            response->ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
     
             // Populate response
-            response->final_pose.position.x = end_effector_position(0);
+            /*response->final_pose.position.x = end_effector_position(0);
             response->final_pose.position.y = end_effector_position(1);
             response->final_pose.position.z = end_effector_position(2);
     
@@ -42,7 +42,7 @@ namespace motion
             response->final_pose.orientation.x = quaternion.x();
             response->final_pose.orientation.y = quaternion.y();
             response->final_pose.orientation.z = quaternion.z();
-            response->final_pose.orientation.w = quaternion.w();
+            response->final_pose.orientation.w = quaternion.w();*/
 
              // Set status message and frame ID
             response->status_message = "Direct kinematics calculated successfully";
