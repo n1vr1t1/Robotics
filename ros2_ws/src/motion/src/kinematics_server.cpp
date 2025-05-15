@@ -102,10 +102,10 @@ namespace motion
     void InverseKinServer::computeIKCallback(const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
                                              std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response){
      // Extract the target pose from the request
-     auto & pose = request->target_pose;
+     //auto & pose = request->target_pose;
 
-     auto position = & request->target_pose.position;
-     auto orientation =  & request->target_pose.orientation;
+     auto position = request->target_pose.position;
+     auto orientation =  request->target_pose.orientation;
     
      // Convert quaternion to Eigen rotation matrix (using double precision then cast to float)
      Eigen::Quaterniond q_eig(orientation.x, orientation.y, orientation.z, orientation.w);
