@@ -7,10 +7,10 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-//#include <torch/script.h>
-//#include <torch/torch.h>
-#include <Torch/torch.h>
-#include <Torch/script.h>
+#include <torch/script.h>
+#include <torch/torch.h>
+//#include <Torch/torch.h>
+//#include <Torch/script.h>
 
 
 #include <memory>
