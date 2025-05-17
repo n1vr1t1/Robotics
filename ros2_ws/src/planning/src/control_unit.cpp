@@ -49,7 +49,7 @@ class ControlNode : public rclcpp::Node{
     private: 
     void perception_callback(const geometry_msgs::msg::PoseArray::SharedPtr msg){
         // postion_of_all_blocks = msg->detections;
-        if (msg->detections.empty()) {
+        if (msg->poses.empty()) {
             RCLCPP_WARN(this->get_logger(), "No 3D positions and classes data received");
             return;
         }
