@@ -31,7 +31,7 @@ install(DIRECTORY launch/
 )
 
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
-find_package(torch REQUIRED)
+find_package(Torch REQUIRED)
 
 
 
