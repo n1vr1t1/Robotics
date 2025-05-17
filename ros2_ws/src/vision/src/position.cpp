@@ -13,6 +13,8 @@
 #include <cmath>
 #include <string>
 
+#include "custom_msg_interfaces/msg/ClassPoseArray.hpp"
+#include "custom_msg_interfaces/msg/ClassPose.hpp"
 
 namespace std {
     template <>
@@ -29,13 +31,13 @@ class CameraPoseNode : public rclcpp::Node{
     //("check if pixel coordinates match between the color image and point cloud");
     public:
         CameraPoseNode(): Node("pose_from_camera_node"),
-                            tf_buffer(this->get_clock()), 
-                            tf_listener(std::make_shared<tf2_ros::TransformListener>(tf_buffer)){
+                            tf_buffer_(this->get_clock()), 
+                            tf_listener_(std::make_shared<tf2_ros::TransformListener>(tf_buffer_)){
             subscription_pixel = this->create_subscription<std_msgs::msg::Float32MultiArray>(
                 "/inference_result", rclcpp::QoS(8), std::bind(&CameraPoseNode::image_callback, this, std::placeholders::_1));
             subscription_cloud = this->create_subscription<sensor_msgs::msg::PointCloud2>(
                 "/camera/depth/points", rclcpp::QoS(8), std::bind(&CameraPoseNode::cloud_callback, this, std::placeholders::_1));
-            publisher = this->create_publisher<vision_msgs::msg::Detection3DArray>("/inference_3d", 8);
+            publisher = this->create_publisher<custom_msg_interfaces::msg::ClassPoseArray>("/inference_3d", 8);
             current_cloud = nullptr;
         }
 
@@ -48,8 +50,8 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_WARN(this->get_logger(), "No point cloud data available as yet. Waiting for point cloud data :)");
                 return;
             }
-            vision_msgs::msg::Detection3DArray publish_positions;
-            publish_positions.header = current_cloud->header;
+            custom_msg_interfaces::msg::ClassPoseArray publish_positions;
+            publish_positions.len=0;
             auto positions = msg->data;
             if(positions.size() == 0){
                 RCLCPP_WARN(this->get_logger(), "No positions data available as yet. Waiting for positions data :)");
@@ -89,7 +91,7 @@ class CameraPoseNode : public rclcpp::Node{
                     RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index_1d: %f", index_1d);
                     continue;
                 }
-                vision_msgs::msg::Detection3D detect;
+                custom_msg_interfaces::msg::ClassPose detect;
 
                 geometry_msgs::msg::Pose pose;
                 geometry_msgs::msg::PointStamped camera_point, base_point;
@@ -99,7 +101,7 @@ class CameraPoseNode : public rclcpp::Node{
                 camera_point.point.z = z;
 
                 try{
-                    base_point = tf_buffer.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
+                    base_point = tf_buffer_.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
                     pose.position.x = base_point.point.x;
                     pose.position.y = base_point.point.y;
                     pose.position.z = base_point.point.z;
@@ -110,15 +112,13 @@ class CameraPoseNode : public rclcpp::Node{
 
                 pose.orientation.w = 1.0; //need to initiaze the orientation of x,y, z too
     
-                vision_msgs::msg::ObjectHypothesisWithPose object_hypothesis;
-                object_hypothesis.hypothesis.class_id = std::to_string(static_cast<int>(id));
-                object_hypothesis.pose.pose = pose;
-    
-                detect.results.push_back(object_hypothesis);
-                detect.bbox.center = pose;
-    
-                publish_positions.detections.push_back(detect);
-                RCLCPP_INFO(this->get_logger(), "Pose ID: %f, Position: (%f, %f, %f)", id, x, y, z);
+                detect.class_id = std::to_string(static_cast<int>(id));
+                detect.pose = pose;
+
+
+                publish_positions.len++;
+                publish_positions.objects.push_back(detect);
+                RCLCPP_INFO(this->get_logger(), "Pose ID: %f, Confidence: %f, Position: (%f, %f, %f)", id, confidence, x, y, z);
             }
             publisher->publish(publish_positions);
 
@@ -127,7 +127,7 @@ class CameraPoseNode : public rclcpp::Node{
         std::shared_ptr<tf2_ros::TransformListener> tf_listener;
         rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_cloud;
         rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_pixel;
-        rclcpp::Publisher<vision_msgs::msg::Detection3DArray>::SharedPtr publisher;
+        rclcpp::Publisher<custom_msg_interfaces::msg::ClassPoseArray>::SharedPtr publisher;
         sensor_msgs::msg::PointCloud2::SharedPtr current_cloud;
 };
 int main(int argc, char** argv) {
