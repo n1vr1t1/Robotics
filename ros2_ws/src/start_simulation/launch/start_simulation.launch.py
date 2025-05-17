@@ -21,13 +21,13 @@ def generate_launch_description():
 
     motion_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("motion"), "/launch/motion_launch.py"]
+            [FindPackageShare("motion"), "/launch/motion.launch.py"]
         )
     )
 
     planning_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("planning_pkg"), "/launch/planning_launch.py"]
+            [FindPackageShare("planning"), "/launch/planning.launch.py"]
         )
     )
 
