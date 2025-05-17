@@ -1,0 +1,9 @@
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/planning/src/trajectory_execution.cpp: In member function ‘void TrajectoryExecutionNode::action_client_handler(rclcpp_action::ClientGoalHandle<control_msgs::action::FollowJointTrajectory>::SharedPtr, std::shared_ptr<custom_msg_interfaces::srv::Interpolation_Response_<std::allocator<void> > >)’:
+/home/ubuntu/ros2_ws/Robotics/ros2_ws/src/planning/src/trajectory_execution.cpp:167:30: error: no match for ‘operator!=’ (operand types are ‘rclcpp_action::ClientGoalHandle<control_msgs::action::FollowJointTrajectory>::WrappedResult’ and ‘rclcpp::FutureReturnCode’)
+  167 |             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
+      |                ~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                |                                          |
+      |                |                                          rclcpp::FutureReturnCode
+      |                rclcpp_action::ClientGoalHandle<control_msgs::action::FollowJointTrajectory>::WrappedResult
+In file included from /opt/ros/jazzy/include/rclcpp/rclcpp/node_interfaces/node_graph_interface.hpp:33,
+                 from /opt/ros/jazzy/include/rclcpp/rclcpp/client.hpp:45,
