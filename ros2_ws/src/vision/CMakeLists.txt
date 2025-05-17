@@ -24,8 +24,8 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(libstatistics_collector REQUIRED)
 
-set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/share/cmake/Torch")
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
+set(Torch_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/share/cmake/Torch")
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${Torch_DIR}")
 
 find_package(Torch REQUIRED)
 
