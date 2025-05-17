@@ -268,7 +268,7 @@ class ControlNode : public rclcpp::Node{
                 rclcpp::sleep_for(std::chrono::seconds(1));
             }
 
-            rclcpp::Client<custom_msg_interfaces::srv::Interpolation>::SharedFuture future_interpolation = interpolation_client->async_send_request(interpolation_request);
+            rclcpp::Client<custom_msg_interfaces::srv::Interpolation>::SharedFuture future_interpolation = interpolation_client->async_send_request(interpolation_request).future.share();
             auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_interpolation);
             
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
