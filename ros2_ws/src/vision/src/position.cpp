@@ -30,8 +30,8 @@ class CameraPoseNode : public rclcpp::Node{
     //("check if pixel coordinates match between the color image and point cloud");
     public:
         CameraPoseNode(): Node("pose_from_camera_node"),
-                            tf_buffer_(this->get_clock()), 
-                            tf_listener_(std::make_shared<tf2_ros::TransformListener>(tf_buffer_)){
+                            tf_buffer(this->get_clock()), 
+                            tf_listener(std::make_shared<tf2_ros::TransformListener>(tf_buffer)){
             subscription_pixel = this->create_subscription<std_msgs::msg::Float32MultiArray>(
                 "/inference_result", rclcpp::QoS(8), std::bind(&CameraPoseNode::image_callback, this, std::placeholders::_1));
             subscription_cloud = this->create_subscription<sensor_msgs::msg::PointCloud2>(
@@ -101,7 +101,7 @@ class CameraPoseNode : public rclcpp::Node{
                 camera_point.point.z = z;
 
                 try{
-                    base_point = tf_buffer_.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
+                    base_point = tf_buffer.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
                     pose.position.x = base_point.point.x;
                     pose.position.y = base_point.point.y;
                     pose.position.z = base_point.point.z;
@@ -112,11 +112,11 @@ class CameraPoseNode : public rclcpp::Node{
 
                 pose.orientation.w = 1.0; //need to initiaze the orientation of x,y, z too
     
-                publish_positions.class_id.puch_back(id);
-                publish_positions.objects.push_back(pose);
+                publish_positions.class_ids.puch_back(id);
+                publish_positions.poses.push_back(pose);
                 publish_positions.len++;
                 
-                RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Confidence: %f, Position: (%f, %f, %f)", id, confidence, x, y, z);
+                RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
             }
             publisher->publish(publish_positions);
 
