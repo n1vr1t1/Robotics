@@ -212,7 +212,7 @@ class ControlNode : public rclcpp::Node{
     int current_block_index;
     int current_task_index;
     geometry_msgs::msg::Pose current_position;
-    goemetry_msgs::msg::PoseArray planned_poses;
+    geometry_msgs::msg::PoseArray planned_poses;
     tf2_ros::Buffer tf_buffer;
     tf2_ros::TransformListener tf_listener;
 
