@@ -30,8 +30,8 @@ install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )
 
-//set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
-//find_package(torch REQUIRED)
+#set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
+#find_package(torch REQUIRED)
 set(torch_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 find_package(Torch REQUIRED)
 
