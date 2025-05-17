@@ -86,7 +86,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 interpolation_response->message = "Failed path service";
                 return;
             }
-            RCLCPP_INFO(this->get_logger(), "Received path response with %u points", path_response->poses.size());
+            RCLCPP_INFO(this->get_logger(), "Received path response with %zu points", path_response->poses.size());
             std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> trajectory_request = std::make_shared<custom_msg_interfaces::srv::ComputeTrajectory::Request>();
             trajectory_request->array = geometry_msgs::msg::PoseArray();
             
