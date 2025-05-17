@@ -75,8 +75,8 @@ private:
             return;
         }
 
-        auto detections = output.view({-1, 3}); // Adjust shape based on model output
-        int num_detections = detections.size(0);
+        auto detections = output.view({-1, 3});
+        static_cast<int>(detections.size(0));
 
         std_msgs::msg::Float32MultiArray result_msg;
         result_msg.data.resize(num_detections * 3);
