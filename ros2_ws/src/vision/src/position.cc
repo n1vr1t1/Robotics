@@ -13,7 +13,7 @@
 #include <cmath>
 #include <string>
 
-#include "custom_msg_interfaces/msg/ClassPose.hpp"
+#include "custom_msg_interfaces/msg/class_pose.hpp"
 
 namespace std {
     template <>
