@@ -1,4 +1,4 @@
-# Install script for directory: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg
+# Install script for directory: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,7 +43,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/planning/launch" TYPE DIRECTORY FILES "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg/launch/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/planning/launch" TYPE DIRECTORY FILES "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning/launch/")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -150,7 +150,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/planning" TYPE FILE FILES "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/planning" TYPE FILE FILES "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

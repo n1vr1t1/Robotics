@@ -53,7 +53,7 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/uninstall.dir/depend
 

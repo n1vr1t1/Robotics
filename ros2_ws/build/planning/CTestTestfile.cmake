@@ -1,5 +1,5 @@
 # CMake generated Testfile for 
-# Source directory: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg
+# Source directory: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning
 # Build directory: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning
 # 
 # This file includes the relevant testing commands required for 

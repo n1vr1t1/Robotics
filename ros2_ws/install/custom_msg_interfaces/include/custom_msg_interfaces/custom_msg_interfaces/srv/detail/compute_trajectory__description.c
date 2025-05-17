@@ -68,16 +68,16 @@ custom_msg_interfaces__srv__ComputeTrajectory_Event__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "geometry_msgs/msg/detail/pose_array__functions.h"
-#include "geometry_msgs/msg/detail/pose__functions.h"
-#include "std_msgs/msg/detail/header__functions.h"
-#include "geometry_msgs/msg/detail/quaternion__functions.h"
-#include "service_msgs/msg/detail/service_event_info__functions.h"
-#include "builtin_interfaces/msg/detail/time__functions.h"
-#include "builtin_interfaces/msg/detail/duration__functions.h"
-#include "trajectory_msgs/msg/detail/joint_trajectory__functions.h"
-#include "trajectory_msgs/msg/detail/joint_trajectory_point__functions.h"
 #include "geometry_msgs/msg/detail/point__functions.h"
+#include "builtin_interfaces/msg/detail/duration__functions.h"
+#include "std_msgs/msg/detail/header__functions.h"
+#include "builtin_interfaces/msg/detail/time__functions.h"
+#include "geometry_msgs/msg/detail/pose_array__functions.h"
+#include "geometry_msgs/msg/detail/quaternion__functions.h"
+#include "trajectory_msgs/msg/detail/joint_trajectory__functions.h"
+#include "geometry_msgs/msg/detail/pose__functions.h"
+#include "trajectory_msgs/msg/detail/joint_trajectory_point__functions.h"
+#include "service_msgs/msg/detail/service_event_info__functions.h"
 
 // Hashes for external referenced types
 #ifndef NDEBUG

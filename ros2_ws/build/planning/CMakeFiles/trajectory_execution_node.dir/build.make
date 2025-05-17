@@ -53,7 +53,7 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg
+CMAKE_SOURCE_DIR = /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning
@@ -70,18 +70,18 @@ include CMakeFiles/trajectory_execution_node.dir/progress.make
 include CMakeFiles/trajectory_execution_node.dir/flags.make
 
 CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o: CMakeFiles/trajectory_execution_node.dir/flags.make
-CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg/src/trajectory_execution.cpp
+CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning/src/trajectory_execution.cpp
 CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o: CMakeFiles/trajectory_execution_node.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o -MF CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o.d -o CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o -c /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg/src/trajectory_execution.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o -MF CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o.d -o CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.o -c /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning/src/trajectory_execution.cpp
 
 CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg/src/trajectory_execution.cpp > CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning/src/trajectory_execution.cpp > CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.i
 
 CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg/src/trajectory_execution.cpp -o CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning/src/trajectory_execution.cpp -o CMakeFiles/trajectory_execution_node.dir/src/trajectory_execution.cpp.s
 
 # Object files for target trajectory_execution_node
 trajectory_execution_node_OBJECTS = \
@@ -234,6 +234,6 @@ CMakeFiles/trajectory_execution_node.dir/clean:
 .PHONY : CMakeFiles/trajectory_execution_node.dir/clean
 
 CMakeFiles/trajectory_execution_node.dir/depend:
-	cd /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning/CMakeFiles/trajectory_execution_node.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/planning/CMakeFiles/trajectory_execution_node.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/trajectory_execution_node.dir/depend
 

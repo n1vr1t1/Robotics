@@ -4,10 +4,10 @@
 
 #include <string.h>
 
-#include "custom_msg_interfaces/srv/detail/compute_trajectory__struct.h"
 #include "custom_msg_interfaces/srv/detail/compute_trajectory__type_support.h"
-#include "custom_msg_interfaces/srv/detail/compute_trajectory__functions.h"
 #include "rosidl_typesupport_interface/macros.h"
+#include "custom_msg_interfaces/srv/detail/compute_trajectory__struct.h"
+#include "custom_msg_interfaces/srv/detail/compute_trajectory__functions.h"
 
 #ifdef __cplusplus
 extern "C"

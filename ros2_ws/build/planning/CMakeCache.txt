@@ -383,7 +383,7 @@ planning_BINARY_DIR:STATIC=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/plann
 planning_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-planning_SOURCE_DIR:STATIC=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg
+planning_SOURCE_DIR:STATIC=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning
 
 //The directory containing a CMake configuration file for rcl.
 rcl_DIR:PATH=/opt/ros/jazzy/share/rcl/cmake
@@ -605,7 +605,7 @@ CMAKE_GENERATOR_PLATFORM:INTERNAL=
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning_pkg
+CMAKE_HOME_DIRECTORY:INTERNAL=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/planning
 //Install .so files without execute permission.
 CMAKE_INSTALL_SO_NO_EXE:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER
