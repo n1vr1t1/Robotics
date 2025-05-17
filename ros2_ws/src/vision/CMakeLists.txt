@@ -24,45 +24,40 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(libstatistics_collector REQUIRED)
 
-#set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/include")
-
-#include_directories(
-#  include
-#  ${TORCH_INCLUDE_DIRS}
-#)
-
-#set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/share/cmake/Torch")
+set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/share/cmake/Torch")
 #set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
-#find_package(Torch REQUIRED)
+
+find_package(Torch REQUIRED)
 
 #install(DIRECTORY launch/
 #  DESTINATION share/${PROJECT_NAME}/launch
 #)
 
-#add_executable(yolo_detection_node src/detection.cpp)
-#target_include_directories(yolo_detection_node PRIVATE 
-#  ${TORCH_INCLUDE_DIRS}
-#)
-#ament_target_dependencies(yolo_detection_node
-#  rclcpp
-#  std_msgs
-#  sensor_msgs
-#  geometry_msgs
-#  vision_msgs
-#  cv_bridge
-#  image_transport
-#  OpenCV
-#)
-#target_link_libraries(yolo_detection_node
-#  ${rclcpp_LIBS}
-#  ${std_msgs_LIBS}
-#  ${sensor_msgs_LIBS}
-#  ${geometry_msgs_LIBS}
-#  ${vision_msgs_LIBS}
-#  ${cv_bridge_LIBS}
-#  ${image_transport_LIBS}
-#  ${OpenCV_LIBS}
-#)
+add_executable(yolo_detection_node src/detection.cpp)
+target_include_directories(yolo_detection_node PRIVATE 
+  ${TORCH_INCLUDE_DIRS}
+)
+ament_target_dependencies(yolo_detection_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  vision_msgs
+  cv_bridge
+  image_transport
+  OpenCV
+)
+target_link_libraries(yolo_detection_node
+  ${rclcpp_LIBRARIES}
+  ${std_msgs_LIBRARIES}
+  ${sensor_msgs_LIBRARIES}
+  ${geometry_msgs_LIBRARIES}
+  ${vision_msgs_LIBRARIES}
+  ${cv_bridge_LIBRARIES}
+  ${image_transport_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${TORCH_LIBRARIES}
+)
 
 add_executable(pose_from_camera_node src/position.cpp)
 ament_target_dependencies(pose_from_camera_node
@@ -87,7 +82,7 @@ target_link_libraries(pose_from_camera_node
 )
 
 install(TARGETS
-#  yolo_detection_node
+  yolo_detection_node
   pose_from_camera_node
   DESTINATION lib/${PROJECT_NAME}
 )
