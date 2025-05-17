@@ -78,7 +78,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             }
         }
         
-        void path_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath_Response_<std::allocator<void>>> &path_response,
+        void path_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> path_response,
                                 std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
             if(path_response.poses.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
@@ -114,7 +114,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             trajectory_client_handler(future_trajectory.get(), interpolation_response);
 
         }
-        void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory_Response_<std::allocator<void>>> &trajectory_response,
+        void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response,
                                 std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
             if(trajectory_response.trajectory.points.size() == 0 || trajectory_response.trajectory.joint_names.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses or joints received from trajectory service");
