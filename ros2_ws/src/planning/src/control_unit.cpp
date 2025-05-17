@@ -81,7 +81,7 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_WARN(this->get_logger(), "Mismatch between number of blocks detected and length");
             return;
         }
-        RCLCPP_INFO(this->get_logger(), "Received %zu blocks", msg->len);
+        RCLCPP_INFO(this->get_logger(), "Received %u blocks", msg->len);
         for (int i = 0; i < msg->len; ++i){
             auto block = msg->poses[i];
             RCLCPP_INFO(this->get_logger(), "Block ID: %d", msg->class_ids[i]);
