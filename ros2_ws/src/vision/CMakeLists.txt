@@ -47,6 +47,9 @@ ament_target_dependencies(pose_from_camera_node
 
 # ================== yolo_detection_node ==================
 add_executable(yolo_detection_node src/detection.cpp)
+# 🔑 Torch must be added *after* ament_target_dependencies
+target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
+target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
 
 ament_target_dependencies(yolo_detection_node
   rclcpp
@@ -59,9 +62,7 @@ ament_target_dependencies(yolo_detection_node
   OpenCV
 )
 
-# 🔑 Torch must be added *after* ament_target_dependencies
-target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
-target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
+
 
 
 
