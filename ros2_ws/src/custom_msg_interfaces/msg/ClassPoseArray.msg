@@ -1,2 +1,2 @@
 int32 len
-custom_msg_interfaces/msg/ClassPose[] objects
+custom_msg_interfaces/ClassPose[] objects
