@@ -17,7 +17,7 @@
     <depend>custom_msg_interfaces</depend>
     <depend>std_srvs</depend>
     <depend>vision_msgs</depend>
-    <depend>tf2_ros</depend>
+    <build_depend>tf2_ros</build_depend>
 
     <export>
         <build_type>ament_cmake</build_type>
