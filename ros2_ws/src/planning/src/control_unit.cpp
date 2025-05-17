@@ -9,7 +9,7 @@
 #include<tf2_ros/transform_listener.h>
 
 #include "custom_msg_interfaces/srv/interpolation.hpp"
-#include "include\globals.hpp"
+//#include "include\globals.hpp"
 
 class ControlNode : public rclcpp::Node{
     public:
