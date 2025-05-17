@@ -88,7 +88,7 @@ class ControlNode : public rclcpp::Node{
         planned_poses.poses.clear();
 
         //getting current position of gripper
-        planned_poses.poses.push_back(current_position);
+        planned_poses.poses.push_back(current_pose);
 
         // moving to a safe height above the block
         geometry_msgs::msg::Pose block_pose = current_block.pose;
@@ -117,7 +117,7 @@ class ControlNode : public rclcpp::Node{
         destination.position.z = SAFE_HEIGHT;
         planned_poses.poses.push_back(destination);
 
-        current_position = destination;
+        current_pose = destination;
 
         publisher->publish(planned_poses);
         RCLCPP_INFO(this->get_logger(), "Planned poses published");
@@ -212,7 +212,7 @@ class ControlNode : public rclcpp::Node{
     vision_msgs::msg::Detection3DArray position_of_all_blocks;
     int current_block_index;
     int current_task_index;
-    geometry_msgs::msg::Pose current_position;
+    geometry_msgs::msg::Pose current_pose;
     geometry_msgs::msg::PoseArray planned_poses;
     tf2_ros::Buffer tf_buffer;
     tf2_ros::TransformListener tf_listener;
