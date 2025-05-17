@@ -15,6 +15,66 @@ const double SAFE_HEIGHT = 0.5;
 const double TABLE_HEIGHT = 1.0; // MAYBE 0.9
 float CAMERA_COORDINATES[] = {0.7f, 0.0f, 1.580f};
 
+geometry_msgs::msg::Pose get_block_destination(int class_id){
+    geometry_msgs::msg::Pose destination = geometry_msgs::msg::Pose();
+    destination.position.z = 0.028; // Default height
+
+    switch (class_id) {
+        case 0: //X1_Y1_Z2
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            destination.position.z = 0.019;
+            break;
+        case 1: //X1_Y2_Z1
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break;
+        case 2: //X1_Y2_Z2
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break;
+        case 3: //X1_Y2_Z2_CHAMFER
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break;
+        case 4: //X1_Y2_Z2_TWINFILLET
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break;
+        case 5:  //X1_Y3_Z2
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break;
+        case 6: //X1_Y3_Z2_FILLET
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break;
+        case 7:  //X1_Y4_Z1
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break;
+        case 8: //X1_Y4_Z2
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;
+            break; 
+        case 9: //X2_Y2_Z2
+            destination.position.x = 0.0; 
+            destination.position.y = 0.0; 
+            destination.position.z = 0.019; 
+            break; 
+        case 10: //X2_Y2_Z2_FILLET
+            destination.position.x = 0.0;
+            destination.position.y = 0.0;  
+            break;
+        default:
+            destination.position.x = -1;
+            destination.position.y = -1;
+            destination.position.z = -1; // Invalid class ID
+            break;
+    }
+    return destination;
+}
+
 class ControlNode : public rclcpp::Node{
     public:
         ControlNode() : Node("control_node"),
@@ -77,7 +137,7 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_WARN(this->get_logger(), "Mismatch between number of poses and class IDs");
             return;
         }
-        if(msg->poses.size() != msg->len){
+        if (msg->poses.size() != static_cast<size_t>(msg->len)){
             RCLCPP_WARN(this->get_logger(), "Mismatch between number of blocks detected and length");
             return;
         }
@@ -254,72 +314,13 @@ class ControlNode : public rclcpp::Node{
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr execution_status_subscription;
     rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr publisher; //for visualization ?
     custom_msg_interfaces::msg::ClassPose::SharedPtr blocks;
-    int current_task_index;
+    size_t current_task_index;
     geometry_msgs::msg::Pose current_pose;
     geometry_msgs::msg::PoseArray planned_poses; 
     tf2_ros::Buffer tf_buffer;
     tf2_ros::TransformListener tf_listener;
 
 };
-geometry_msgs::msg::Pose get_block_destination(int class_id){
-    geometry_msgs::msg::Pose destination = geometry_msgs::msg::Pose();
-    destination.position.z = 0.028; // Default height
-
-    switch (class_id) {
-        case 0: //X1_Y1_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            destination.position.z = 0.019;
-            break;
-        case 1: //X1_Y2_Z1
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 2: //X1_Y2_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 3: //X1_Y2_Z2_CHAMFER
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 4: //X1_Y2_Z2_TWINFILLET
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 5:  //X1_Y3_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 6: //X1_Y3_Z2_FILLET
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 7:  //X1_Y4_Z1
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 8: //X1_Y4_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break; 
-        case 9: //X2_Y2_Z2
-            destination.position.x = 0.0; 
-            destination.position.y = 0.0; 
-            destination.position.z = 0.019; 
-            break; 
-        case 10: //X2_Y2_Z2_FILLET
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;  
-            break;
-        default:
-            destination.position.x = -1;
-            destination.position.y = -1;
-            destination.position.z = -1; // Invalid class ID
-            break;
-    }
-    return destination;
-}
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
