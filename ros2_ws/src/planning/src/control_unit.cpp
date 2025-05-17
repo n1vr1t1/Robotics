@@ -32,13 +32,13 @@ class ControlNode : public rclcpp::Node{
             current_task_index = 0;
             planned_poses= geometry_msgs::msg::PoseArray();
 
-            current_position = geometry_msgs::msg::Pose().position; 
+            current_pose = geometry_msgs::msg::Pose(); 
             // Initialize the starting position of the gripper
             auto base_gripper_tf = tf_buffer.lookupTransform("base", "gripper", tf2::TimePointZero);
-            current_position.x = base_gripper_tf.transform.translation.x;
-            current_position.y = base_gripper_tf.transform.translation.y;
-            current_position.z = base_gripper_tf.transform.translation.z;
-            current_position.orientation = base_gripper_tf.transform.rotation;
+            current_pose.position.x = base_gripper_tf.transform.translation.x;
+            current_pose.position.y = base_gripper_tf.transform.translation.y;
+            current_pose.position.z = base_gripper_tf.transform.translation.z;
+            current_pose.orientation = base_gripper_tf.transform.rotation;
 
             publisher = this->create_publisher<geometry_msgs::msg::PoseArray>("/planned_poses", rclcpp::QoS(8));
             RCLCPP_INFO(this->get_logger(), "ControlNode node started"); 
