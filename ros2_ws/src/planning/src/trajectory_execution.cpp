@@ -55,7 +55,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
             }
 
-            rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request);
+            rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
 
             auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
@@ -102,7 +102,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 }
                 RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
             }
-            rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedFuture future_trajectory = trajectory_client->async_send_request(trajectory_request);
+            rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedFuture future_trajectory = trajectory_client->async_send_request(trajectory_request).future.share();
             auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_trajectory);
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to call compute_trajectory service");
