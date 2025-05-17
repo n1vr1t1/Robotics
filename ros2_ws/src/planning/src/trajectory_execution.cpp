@@ -35,8 +35,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                     std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> response){
             // Handle the interpolation request here
             RCLCPP_INFO(this->get_logger(), "Received interpol ation request with start (%f, %f, %f) and end (%f, %f, %f)",
-                request->pose_start.x, request->pose_start.y, request->pose_start.z,
-                request->pose_end.x, request->pose_end.y, request->pose_end.z);
+                request->pose_start.position.x, request->pose_start.position.y, request->pose_start.position.z,
+                request->pose_end.position.x, request->pose_end.position.y, request->pose_end.position.z);
 
             std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> path_request = std::make_shared<custom_msg_interfaces::srv::ComputePath::Request>();
             path_request->pose_start = request->pose_start;
@@ -86,7 +86,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 interpolation_response->message = "Failed path service";
                 return;
             }
-            RCLCPP_INFO(this->get_logger(), "Received path response with %zu points", path_response->poses.size());
+            RCLCPP_INFO(this->get_logger(), "Received path response with %u points", path_response->poses.size());
             std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> trajectory_request = std::make_shared<custom_msg_interfaces::srv::ComputeTrajectory::Request>();
             trajectory_request->array = geometry_msgs::msg::PoseArray();
             
