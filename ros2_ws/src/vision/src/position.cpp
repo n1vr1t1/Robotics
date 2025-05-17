@@ -13,8 +13,7 @@
 #include <cmath>
 #include <string>
 
-#include "custom_msg_interfaces/msg/ClassPoseArray.hpp"
-#include "custom_msg_interfaces/msg/ClassPose.hpp"
+#include "custom_msg_interfaces/msg/class_pose.hpp"
 
 namespace std {
     template <>
@@ -37,7 +36,7 @@ class CameraPoseNode : public rclcpp::Node{
                 "/inference_result", rclcpp::QoS(8), std::bind(&CameraPoseNode::image_callback, this, std::placeholders::_1));
             subscription_cloud = this->create_subscription<sensor_msgs::msg::PointCloud2>(
                 "/camera/depth/points", rclcpp::QoS(8), std::bind(&CameraPoseNode::cloud_callback, this, std::placeholders::_1));
-            publisher = this->create_publisher<custom_msg_interfaces::msg::ClassPoseArray>("/inference_3d", 8);
+            publisher = this->create_publisher<custom_msg_interfaces::msg::ClassPose>("/inference_3d", 8);
             current_cloud = nullptr;
         }
 
@@ -50,15 +49,17 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_WARN(this->get_logger(), "No point cloud data available as yet. Waiting for point cloud data :)");
                 return;
             }
-            custom_msg_interfaces::msg::ClassPoseArray publish_positions;
+            
+            custom_msg_interfaces::msg::ClassPose publish_positions;
             publish_positions.len=0;
+
             auto positions = msg->data;
             if(positions.size() == 0){
                 RCLCPP_WARN(this->get_logger(), "No positions data available as yet. Waiting for positions data :)");
                 return;
             }
             for(size_t i =0; i+2 < positions.size(); i+=3){
-                float id = positions[i];
+                float id = static_cast<int>(positions[i]);
                 float x = positions[i+1];
                 float y = positions[i+2];
 
@@ -91,7 +92,6 @@ class CameraPoseNode : public rclcpp::Node{
                     RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index_1d: %f", index_1d);
                     continue;
                 }
-                custom_msg_interfaces::msg::ClassPose detect;
 
                 geometry_msgs::msg::Pose pose;
                 geometry_msgs::msg::PointStamped camera_point, base_point;
@@ -112,13 +112,11 @@ class CameraPoseNode : public rclcpp::Node{
 
                 pose.orientation.w = 1.0; //need to initiaze the orientation of x,y, z too
     
-                detect.class_id = std::to_string(static_cast<int>(id));
-                detect.pose = pose;
-
-
+                publish_positions.class_id.puch_back(id);
+                publish_positions.objects.push_back(pose);
                 publish_positions.len++;
-                publish_positions.objects.push_back(detect);
-                RCLCPP_INFO(this->get_logger(), "Pose ID: %f, Confidence: %f, Position: (%f, %f, %f)", id, confidence, x, y, z);
+                
+                RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Confidence: %f, Position: (%f, %f, %f)", id, confidence, x, y, z);
             }
             publisher->publish(publish_positions);
 
@@ -127,7 +125,7 @@ class CameraPoseNode : public rclcpp::Node{
         std::shared_ptr<tf2_ros::TransformListener> tf_listener;
         rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_cloud;
         rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_pixel;
-        rclcpp::Publisher<custom_msg_interfaces::msg::ClassPoseArray>::SharedPtr publisher;
+        rclcpp::Publisher<custom_msg_interfaces::msg::ClassPose>::SharedPtr publisher;
         sensor_msgs::msg::PointCloud2::SharedPtr current_cloud;
 };
 int main(int argc, char** argv) {
