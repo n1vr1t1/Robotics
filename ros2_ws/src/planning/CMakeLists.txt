@@ -28,6 +28,7 @@ ament_target_dependencies(trajectory_execution_node
   geometry_msgs
   control_msgs
   custom_msg_interfaces
+  tf2_ros
 )
 
 add_executable(control_node src/control_unit.cpp)
