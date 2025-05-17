@@ -244,7 +244,7 @@ class ControlNode : public rclcpp::Node{
         
         auto interpolation_client = this->create_client<custom_msg_interfaces::srv::Interpolation>("interpolation");
 
-        RCLCPP_INFO(this->get_logger(), "Calling interpolation service for task index %d", current_task_index);
+        RCLCPP_INFO(this->get_logger(), "Calling interpolation service for task index %ld", current_task_index);
 
         while (!interpolation_client->wait_for_service(std::chrono::seconds(1))) {
             if (!rclcpp::ok()) {
@@ -286,7 +286,7 @@ class ControlNode : public rclcpp::Node{
         }
 
         if (!success) {
-            RCLCPP_FATAL(this->get_logger(), "Failed to get successful interpolation after %d retries for task index %d. Cannot process current block.", max_retries, current_task_index);
+            RCLCPP_FATAL(this->get_logger(), "Failed to get successful interpolation after %d retries for task index %ld. Cannot process current block.", max_retries, current_task_index);
             return;
         }
     }
