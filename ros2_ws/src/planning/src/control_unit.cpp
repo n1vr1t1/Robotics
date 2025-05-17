@@ -53,7 +53,7 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_WARN(this->get_logger(), "No 3D positions and classes data received");
             return;
         }
-        RCLCPP_INFO(this->get_logger(), "Received %d blocks", msg->poses.size());
+        RCLCPP_INFO(this->get_logger(), "Received %zu blocks", msg->poses.size());
         for (const auto& block : msg->poses) {
             RCLCPP_INFO(this->get_logger(), "Block ID: %d", block.id);
             RCLCPP_INFO(this->get_logger(), "Position: (%f, %f, %f)", block.pose.position.x, block.pose.position.y, block.pose.position.z);
