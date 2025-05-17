@@ -207,7 +207,7 @@ class ControlNode : public rclcpp::Node{
     }
     rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr perception_subscription;
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr execution_status_subscription;
-    rclcpp::String::SharedPtr publisher; //for visualization ?
+    rclcpp::to_string::SharedPtr publisher; //for visualization ?
     vision_msgs::msg::Detection3DArray position_of_all_blocks;
     int current_block_index;
     int current_task_index;
