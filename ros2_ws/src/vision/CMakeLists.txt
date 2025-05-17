@@ -23,6 +23,7 @@ find_package(OpenCV REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(libstatistics_collector REQUIRED)
+find_package(custom_msg_interfaces REQUIRED)
 
 set(Torch_DIR "/home/ubuntu/ros2_ws/Robotics/ros2_ws/external/libtorch/share/cmake/Torch")
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${Torch_DIR}")
@@ -69,16 +70,7 @@ ament_target_dependencies(pose_from_camera_node
   tf2_ros
   tf2_geometry_msgs
   libstatistics_collector
-)
-target_link_libraries(pose_from_camera_node 
-  ${rclcpp_LIBRARIES}
-  ${std_msgs_LIBRARIES}
-  ${sensor_msgs_LIBRARIES}
-  ${geometry_msgs_LIBRARIES}
-  ${vision_msgs_LIBRARIES}
-  ${tf2_ros_LIBRARIES}
-  ${tf2_geometry_msgs_LIBRARIES}
-  ${libstatistics_collector_LIBRARIES}
+  custom_msg_interfaces
 )
 
 install(TARGETS
