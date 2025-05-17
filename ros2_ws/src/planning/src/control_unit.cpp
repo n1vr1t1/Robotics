@@ -32,7 +32,7 @@ class ControlNode : public rclcpp::Node{
             current_task_index = 0;
             planned_poses= geometry_msgs::msg::PoseArray();
 
-            current_position = geometry_msgs::msg::Pose(); 
+            current_position = geometry_msgs::msg::Pose().position; 
             // Initialize the starting position of the gripper
             auto base_gripper_tf = tf_buffer.lookupTransform("base", "gripper", tf2::TimePointZero);
             current_position.x = base_gripper_tf.transform.translation.x;
