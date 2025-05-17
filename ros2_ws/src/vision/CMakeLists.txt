@@ -33,6 +33,18 @@ install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )
 
+# ================== pose_from_camera_node ==================
+add_executable(pose_from_camera_node src/position.cpp)
+
+ament_target_dependencies(pose_from_camera_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  vision_msgs
+  libstatistics_collector
+)
+
 # ================== yolo_detection_node ==================
 add_executable(yolo_detection_node src/detection.cpp)
 
@@ -51,17 +63,7 @@ ament_target_dependencies(yolo_detection_node
 target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
 target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
 
-# ================== pose_from_camera_node ==================
-add_executable(pose_from_camera_node src/position.cpp)
 
-ament_target_dependencies(pose_from_camera_node
-  rclcpp
-  std_msgs
-  sensor_msgs
-  geometry_msgs
-  vision_msgs
-  libstatistics_collector
-)
 
 install(TARGETS
   yolo_detection_node
