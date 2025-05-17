@@ -36,20 +36,20 @@ set(torch_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libto
 find_package(Torch REQUIRED)
 
 
-add_executable(yolo_detection_node src/detection.cpp)
-ament_target_dependencies(yolo_detection_node
-  rclcpp
-  std_msgs
-  sensor_msgs
-  geometry_msgs
-  vision_msgs
-  cv_bridge
-  image_transport
-  OpenCV
-)
+#add_executable(yolo_detection_node src/detection.cpp)
+#ament_target_dependencies(yolo_detection_node
+#  rclcpp
+#  std_msgs
+#  sensor_msgs
+#  geometry_msgs
+#  vision_msgs
+#  cv_bridge
+#  image_transport
+#  OpenCV
+#)
 
-target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
-target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
+#target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
+#target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
 
 
 add_executable(pose_from_camera_node src/position.cpp)
@@ -63,7 +63,7 @@ ament_target_dependencies(pose_from_camera_node
   )
 
 install(TARGETS
-  yolo_detection_node
+#  yolo_detection_node
   pose_from_camera_node
   DESTINATION lib/${PROJECT_NAME}
 )
