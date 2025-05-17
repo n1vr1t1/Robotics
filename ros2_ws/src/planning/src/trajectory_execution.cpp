@@ -80,17 +80,17 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         
         void path_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> path_response,
                                 std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
-            if(path_response.poses.size() == 0){
+            if(path_response->poses.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
                 interpolation_response->success = false;
                 interpolation_response->message = "Failed path service";
                 return;
             }
-            RCLCPP_INFO(this->get_logger(), "Received path response with %zu points", path_response.poses.size());
+            RCLCPP_INFO(this->get_logger(), "Received path response with %zu points", path_response->poses.size());
             std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> trajectory_request = std::make_shared<custom_msg_interfaces::srv::ComputeTrajectory::Request>();
             trajectory_request->array = geometry_msgs::msg::PoseArray();
             
-            trajectory_request->array.poses = path_response.poses;
+            trajectory_request->array.poses = path_response->poses;
             RCLCPP_INFO(this->get_logger(), "Calling service to compute trajectory.");
 
             while (!trajectory_client->wait_for_service(std::chrono::seconds(1))) {
@@ -116,18 +116,18 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         }
         void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response,
                                 std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
-            if(trajectory_response.trajectory.points.size() == 0 || trajectory_response.trajectory.joint_names.size() == 0){
+            if(trajectory_response->trajectory.points.size() == 0 || trajectory_response->trajectory.joint_names.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses or joints received from trajectory service");
                 interpolation_response->success = false;
                 interpolation_response->message = "Failed trajectory service";
                 return;
             }
-            RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", trajectory_response.trajectory.points.size(), trajectory_response.trajectory.joint_names.size());
+            RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", trajectory_response->trajectory.points.size(), trajectory_response->trajectory.joint_names.size());
 
-            // need to check what the possible strings for trajectory_response.status_message are
+            // need to check what the possible strings for trajectory_response->status_message are
             
             auto goal = control_msgs::action::FollowJointTrajectory::Goal();
-            goal.trajectory = trajectory_response.trajectory;
+            goal.trajectory = trajectory_response->trajectory;
             goal.trajectory.header.stamp = this->now();
             
             RCLCPP_INFO(this->get_logger(), "Sending trajectory to action server.");
@@ -162,7 +162,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 interpolation_response->message = "Failed trajectory execution";
                 return;
             }
-            auto future_goal_handle = goal_handle->async_result();
+            auto future_goal_handle = goal_handle->async_get_result();
             auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_goal_handle);
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to execute trajectory");
