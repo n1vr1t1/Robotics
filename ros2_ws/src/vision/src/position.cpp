@@ -59,7 +59,7 @@ class CameraPoseNode : public rclcpp::Node{
                 return;
             }
             for(size_t i =0; i+2 < positions.size(); i+=3){
-                float id = static_cast<int>(positions[i]);
+                int id = static_cast<int>(positions[i]);
                 float x = positions[i+1];
                 float y = positions[i+2];
 
@@ -112,7 +112,7 @@ class CameraPoseNode : public rclcpp::Node{
 
                 pose.orientation.w = 1.0; //need to initiaze the orientation of x,y, z too
     
-                publish_positions.class_ids.puch_back(id);
+                publish_positions.class_ids.push_back(id);
                 publish_positions.poses.push_back(pose);
                 publish_positions.len++;
                 
