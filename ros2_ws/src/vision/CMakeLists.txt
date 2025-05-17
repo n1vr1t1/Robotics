@@ -33,9 +33,8 @@ install(DIRECTORY launch/
 )
 
 add_executable(yolo_detection_node src/detection.cpp)
-#target_include_directories(yolo_detection_node PRIVATE 
-#  ${TORCH_INCLUDE_DIRS}
-#)
+target_link_libraries(yolo_detection_node ${TORCH_LIBRARIES})
+
 ament_target_dependencies(yolo_detection_node
   rclcpp
   std_msgs
