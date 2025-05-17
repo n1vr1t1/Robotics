@@ -45,7 +45,6 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
             RCLCPP_INFO(this->get_logger(), "Calling service to compute path.");
 
-            // waiting every 1s to check if the service is available, time can be changed
             while (!path_client->wait_for_service(std::chrono::seconds(1))) {
                 if (!rclcpp::ok()) {
                     RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for compute PATH service. Exiting interpolation_callback.");
@@ -68,10 +67,10 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
             if(response->success){
                 response->message = "Success";
-                publisher->publish("Success");
+                publisher->publish(response);
             }else{
                 response->message = "Failed";
-                publisher->publish("Failed");
+                publisher->publish(response);
             }
         }
         
