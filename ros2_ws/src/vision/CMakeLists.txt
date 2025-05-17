@@ -9,7 +9,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -21,6 +20,9 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(libstatistics_collector REQUIRED)
+
+
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
 find_package(Torch REQUIRED)
 
 include_directories(
@@ -33,7 +35,7 @@ install(DIRECTORY launch/
 )
 
 add_executable(yolo_detection_node src/detection.cpp)
-target_link_libraries(yolo_detection_node ${TORCH_LIBRARIES})
+#target_link_libraries(yolo_detection_node ${TORCH_LIBRARIES})
 
 ament_target_dependencies(yolo_detection_node
   rclcpp
