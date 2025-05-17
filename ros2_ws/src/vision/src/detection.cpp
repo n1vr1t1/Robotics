@@ -9,9 +9,9 @@
 
 //#include <torch/script.h>
 //#include <torch/torch.h>
-
-#include <Torch/script.h>
 #include <Torch/torch.h>
+#include <Torch/script.h>
+
 
 #include <memory>
 #include <string>
