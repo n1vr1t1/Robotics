@@ -24,20 +24,20 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(libstatistics_collector REQUIRED)
 
-set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/include")
+#set(TORCH_INCLUDE_DIRS "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/include")
 
-include_directories(
-  include
-  ${TORCH_INCLUDE_DIRS}
-)
+#include_directories(
+#  include
+#  ${TORCH_INCLUDE_DIRS}
+#)
 
-set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/share/cmake/Torch")
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
-find_package(Torch REQUIRED)
+#set(LIBTORCH_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/share/cmake/Torch")
+#set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${LIBTORCH_DIR}")
+#find_package(Torch REQUIRED)
 
-install(DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/launch
-)
+#install(DIRECTORY launch/
+#  DESTINATION share/${PROJECT_NAME}/launch
+#)
 
 #add_executable(yolo_detection_node src/detection.cpp)
 #target_include_directories(yolo_detection_node PRIVATE 
