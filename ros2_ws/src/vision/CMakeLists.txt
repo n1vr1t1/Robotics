@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 3.8)
 project(vision)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+# add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
-add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
 
 find_package(ament_cmake REQUIRED)
-
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -23,12 +26,14 @@ include_directories(
   ${TORCH_INCLUDE_DIRS}
 )
 
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
-find_package(Torch REQUIRED)
-
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )
+
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}; "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch")
+find_package(Torch REQUIRED)
+
+
 
 #add_executable(yolo_detection_node src/detection.cpp)
 #target_include_directories(yolo_detection_node PRIVATE 
