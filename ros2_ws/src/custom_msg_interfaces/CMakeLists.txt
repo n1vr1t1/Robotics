@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(custom_msg_interfaces)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wconversion -Wpedantic -Wextra -Wshadow -Werror)
 endif()
 
 # find dependencies
@@ -16,7 +16,6 @@ find_package(trajectory_msgs REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/DetectionResult.msg"
   "msg/ClassPose.msg"
-  "msg/ClassPoseArray.msg"
   "srv/ComputeIK.srv"
   "srv/ComputeDirKin.srv"
   "srv/ComputePath.srv"
