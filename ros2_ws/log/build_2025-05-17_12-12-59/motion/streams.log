@@ -1,0 +1,55 @@
+[0.020s] Invoking command in '/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/motion': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/motion -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/motion
+[0.098s] -- The C compiler identification is GNU 13.2.0
+[0.172s] -- The CXX compiler identification is GNU 13.2.0
+[0.194s] -- Detecting C compiler ABI info
+[0.304s] -- Detecting C compiler ABI info - done
+[0.317s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.318s] -- Detecting C compile features
+[0.318s] -- Detecting C compile features - done
+[0.332s] -- Detecting CXX compiler ABI info
+[0.457s] -- Detecting CXX compiler ABI info - done
+[0.470s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.470s] -- Detecting CXX compile features
+[0.471s] -- Detecting CXX compile features - done
+[0.476s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.714s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.890s] -- Found rclcpp: 28.1.5 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.969s] -- Found rosidl_generator_c: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.995s] -- Found rosidl_generator_cpp: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.026s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.062s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.198s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.205s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.342s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[1.382s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[1.420s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.540s] -- Found custom_msg_interfaces: 0.0.0 (/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces/share/custom_msg_interfaces/cmake)
+[1.713s] -- Found control_msgs: 5.3.0 (/opt/ros/jazzy/share/control_msgs/cmake)
+[1.875s] -- Found rclcpp_action: 28.1.5 (/opt/ros/jazzy/share/rclcpp_action/cmake)
+[1.895s] -- Found std_srvs: 5.3.5 (/opt/ros/jazzy/share/std_srvs/cmake)
+[1.925s] -- Found visualization_msgs: 5.3.5 (/opt/ros/jazzy/share/visualization_msgs/cmake)
+[1.984s] -- Found tf2: 0.36.4 (/opt/ros/jazzy/share/tf2/cmake)
+[1.995s] -- Found tf2_geometry_msgs: 0.36.4 (/opt/ros/jazzy/share/tf2_geometry_msgs/cmake)
+[2.012s] -- Found eigen3_cmake_module: 0.3.0 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[2.014s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.015s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.298s] -- Configuring done (2.3s)
+[2.354s] -- Generating done (0.0s)
+[2.369s] -- Build files have been written to: /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/motion
+[2.386s] Invoked command in '/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/motion' returned '0': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/motion -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/motion
+[2.388s] Invoking command in '/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/motion': AMENT_PREFIX_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/install/custom_msg_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ubuntu/ros2_ws/src/Robotics/ros2_ws/build/motion -- -j16 -l16
+[2.471s] [ 10%] [32mBuilding CXX object CMakeFiles/table_avoidance_node.dir/src/table_avoidance_node.cpp.o[0m
+[2.476s] [ 20%] [32mBuilding CXX object CMakeFiles/inverse_kin_server_node.dir/src/inverse_kin_server.cpp.o[0m
+[2.477s] [ 30%] [32mBuilding CXX object CMakeFiles/compute_path_service.dir/src/compute_path_service.cpp.o[0m
+[2.477s] [ 50%] [32mBuilding CXX object CMakeFiles/direct_kin_server.dir/src/direct_kin_server.cpp.o[0m
+[2.477s] [ 50%] [32mBuilding CXX object CMakeFiles/compute_trajectory_service.dir/src/compute_trajectory_service.cpp.o[0m
+[21.575s] [ 60%] [32m[1mLinking CXX executable direct_kin_server[0m
+[21.761s] [ 70%] [32m[1mLinking CXX executable compute_path_service[0m
+[21.948s] [ 70%] Built target direct_kin_server
+[22.254s] [ 70%] Built target compute_path_service
+[22.452s] [ 80%] [32m[1mLinking CXX executable table_avoidance_node[0m
+[22.826s] [ 80%] Built target table_avoidance_node
+[23.052s] [ 90%] [32m[1mLinking CXX executable inverse_kin_server_node[0m
+[23.313s] [ 90%] Built target inverse_kin_server_node
+[36.458s] [100%] [32m[1mLinking CXX executable compute_trajectory_service[0m
+[37.289s] [100%] Built target compute_trajectory_service
