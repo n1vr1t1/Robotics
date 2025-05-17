@@ -112,18 +112,18 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         }
         void trajectory_client_handler(const custom_msg_interfaces::srv::ComputeTrajectory::Response &trajectory_response,
                                 std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
-            if(trajectory_response->trajectory.points.size() == 0 || trajectory_response->trajectory.joint_names.size() == 0){
+            if(trajectory_response.trajectory.points.size() == 0 || trajectory_response.trajectory.joint_names.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses or joints received from trajectory service");
                 interpolation_response->success = false;
                 interpolation_response->message = "Failed trajectory service";
                 return;
             }
-            RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", trajectory_response->trajectory.points.size(), trajectory_response->trajectory.joint_names.size());
+            RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", trajectory_response.trajectory.points.size(), trajectory_response.trajectory.joint_names.size());
 
-            // need to check what the possible strings for trajectory_response->status_message are
+            // need to check what the possible strings for trajectory_response.status_message are
             
             auto goal = control_msgs::action::FollowJointTrajectory::Goal();
-            goal.trajectory = trajectory_response->trajectory;
+            goal.trajectory = trajectory_response.trajectory;
             goal.trajectory.header.stamp = this->now();
             
             RCLCPP_INFO(this->get_logger(), "Sending trajectory to action server.");
@@ -141,7 +141,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         }
         void action_client_handler(const 
             rclcpp_action::ClientGoalHandle<control_msgs::action::FollowJointTrajectory>::SharedPtr goal_handle, std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
-            if(!goal_handle || !goal_handle->accepted){
+            if(!goal_handle){
                 RCLCPP_ERROR(this->get_logger(), "Trajectory execution rejected from action server");
                 interpolation_response->success = false;
                 interpolation_response->message = "Failed trajectory execution";
