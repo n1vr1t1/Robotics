@@ -162,7 +162,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 interpolation_response->message = "Failed trajectory execution";
                 return;
             }
-            auto future_result = action_client->async_result(goal_handle);
+            auto future_result = action_client->async_get_result(goal_handle);
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to execute trajectory");
                 interpolation_response->success = false;
