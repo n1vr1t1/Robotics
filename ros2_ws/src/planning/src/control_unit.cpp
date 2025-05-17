@@ -22,6 +22,7 @@ class ControlNode : public rclcpp::Node{
                 rclcpp::QoS(8),
                 std::bind(&ControlNode::perception_callback, this, std::placeholders::_1)
             );
+            
             execution_status_subscription = this->create_subscription<std_msgs::msg::String>(
                 "/trajectory_executed",
                 rclcpp::QoS(8),
@@ -33,7 +34,7 @@ class ControlNode : public rclcpp::Node{
 
             current_position = geometry_msgs::msg::Pose(); 
             // Initialize the starting position of the gripper
-            auto base_gripper_tf = tf_buffer.lookup_transform("base", "gripper", tf2::TimePointZero);
+            auto base_gripper_tf = tf_buffer.lookupTransform("base", "gripper", tf2::TimePointZero);
             current_position.x = base_gripper_tf.transform.translation.x;
             current_position.y = base_gripper_tf.transform.translation.y;
             current_position.z = base_gripper_tf.transform.translation.z;
