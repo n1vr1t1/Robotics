@@ -85,11 +85,10 @@ class ControlNode : public rclcpp::Node{
         for (int i = 0; i < msg->len; ++i){
             auto block = msg->poses[i];
             RCLCPP_INFO(this->get_logger(), "Block ID: %d", msg->class_ids[i]);
-            RCLCPP_INFO(this->get_logger(), "Position: (%f, %f, %f)", block.pose.position.x, block.pose.position.y, block.pose.position.z);
-            RCLCPP_INFO(this->get_logger(), "Orientation: (%f, %f, %f, %f)", block.pose.orientation.x, block.pose.orientation.y, block.pose.orientation.z, block.pose.orientation.w);
+            RCLCPP_INFO(this->get_logger(), "Position: (%f, %f, %f)", block.position.x, block.position.y, block.position.z);
+            RCLCPP_INFO(this->get_logger(), "Orientation: (%f, %f, %f, %f)", block.orientation.x, block.orientation.y, block.orientation.z, block.orientation.w);
         }
         blocks = msg;
-        this->destroy_subscription(perception_subscription);
         perception_subscription.reset();
 
         RCLCPP_INFO(this->get_logger(), "Unsubscribed from vision topic");
@@ -262,7 +261,7 @@ class ControlNode : public rclcpp::Node{
     tf2_ros::Buffer tf_buffer;
     tf2_ros::TransformListener tf_listener;
 
-}
+};
 geometry_msgs::msg::Pose get_block_destination(int class_id){
     geometry_msgs::msg::Pose destination = geometry_msgs::msg::Pose();
     destination.position.z = 0.028; // Default height
