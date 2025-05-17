@@ -46,8 +46,10 @@ ament_target_dependencies(yolo_detection_node
   cv_bridge
   image_transport
   OpenCV
-  torch
 )
+
+target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
+target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
 
 
 add_executable(pose_from_camera_node src/position.cpp)
