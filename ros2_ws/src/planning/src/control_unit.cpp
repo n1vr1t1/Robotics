@@ -106,11 +106,11 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_WARN(this->get_logger(), "No more blocks to process");
             return;
         }
-        auto current_block = blocks->poses[current_block_index];
-        auto current_class_id = blocks->class_ids[current_block_index];
-        geometry_msgs::msg::Pose destination = get_block_destination(current_class_id);
+        geometry_msgs::msg::Pose block_pose = blocks->poses[current_block_index];
+        int block_class_id = blocks->class_ids[current_block_index];
+        geometry_msgs::msg::Pose destination = get_block_destination(block_class_id);
         if (destination.position.x == -1 && destination.position.y == -1 && destination.position.z == -1) {
-            RCLCPP_ERROR(this->get_logger(), "Invalid class ID: %d", current_class_id);
+            RCLCPP_ERROR(this->get_logger(), "Invalid class ID: %d", block_class_id);
             return;
         }
         RCLCPP_INFO(this->get_logger(), "Processing block %d", current_block_index);
@@ -123,7 +123,6 @@ class ControlNode : public rclcpp::Node{
         planned_poses.poses.push_back(current_pose);
 
         // moving to a safe height above the block
-        geometry_msgs::msg::Pose block_pose = current_block.pose;
         auto block_z = block_pose.position.z;
         block_pose.position.z = SAFE_HEIGHT;
         planned_poses.poses.push_back(block_pose);
