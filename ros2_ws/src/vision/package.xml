@@ -3,9 +3,10 @@
   <name>vision</name>
   <version>0.1.0</version>
   <description>YOLO-based object detection using LibTorch and OpenCV</description>
-
   <maintainer email="nivriti.raising@studenti.unitn.it">Nivriti Raising</maintainer>
   <license>MIT</license> 
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
   <!-- C++ ROS 2 Core -->
   <depend>rclcpp</depend>
