@@ -145,7 +145,6 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 RCLCPP_ERROR(this->get_logger(), "Trajectory execution rejected from action server");
                 interpolation_response->success = false;
                 interpolation_response->message = "Failed trajectory execution";
-                publisher->publish("Failed"); //might have to change the message
                 return;
             }
             RCLCPP_INFO(this->get_logger(), "Trajectory execution accepted.");
