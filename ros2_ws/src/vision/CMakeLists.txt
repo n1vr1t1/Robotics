@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.8)
 project(vision)
 
 set(CMAKE_CXX_STANDARD 17)
-add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -20,10 +19,11 @@ find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(libstatistics_collector REQUIRED)
 
-# Torch
+# Torch (custom path to your built libtorch)
 set(torch_DIR "/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 find_package(Torch REQUIRED)
 
+# include directories (Torch usually handles this)
 include_directories(
   include
   ${TORCH_INCLUDE_DIRS}
@@ -33,9 +33,8 @@ install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )
 
-# ================== pose_from_camera_node ==================
+# pose_from_camera_node executable
 add_executable(pose_from_camera_node src/position.cpp)
-
 ament_target_dependencies(pose_from_camera_node
   rclcpp
   std_msgs
@@ -45,12 +44,8 @@ ament_target_dependencies(pose_from_camera_node
   libstatistics_collector
 )
 
-# ================== yolo_detection_node ==================
+# yolo_detection_node executable
 add_executable(yolo_detection_node src/detection.cpp)
-# 🔑 Torch must be added *after* ament_target_dependencies
-target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
-target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
-
 ament_target_dependencies(yolo_detection_node
   rclcpp
   std_msgs
@@ -62,9 +57,11 @@ ament_target_dependencies(yolo_detection_node
   OpenCV
 )
 
+# Link Torch libraries AFTER ament_target_dependencies
+target_link_libraries(yolo_detection_node "${TORCH_LIBRARIES}")
 
-
-
+# Add Torch compile flags AFTER ament_target_dependencies
+target_compile_options(yolo_detection_node PRIVATE "${TORCH_CXX_FLAGS}")
 
 install(TARGETS
   yolo_detection_node
