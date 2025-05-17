@@ -17,7 +17,7 @@ class ControlNode : public rclcpp::Node{
         tf_buffer(this->get_clock()),
         tf_listener(tf_buffer, this){
 
-            perception_subscription = this->create_perception_subscription<geometry_msgs::msg::PoseArray>(
+            perception_subscription = this->create_subscription<geometry_msgs::msg::PoseArray>(
                 "/inference_3d",
                 rclcpp::QoS(8),
                 std::bind(&ControlNode::perception_callback, this, std::placeholders::_1)
@@ -205,9 +205,9 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_ERROR(this->get_logger(), "Failed to %s gripper", service_name.c_str());
         }
     }
-    rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr perception_subscription;
+    rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr perception_subscription;
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr execution_status_subscription;
-    rclcpp::to_string::SharedPtr publisher; //for visualization ?
+    rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr publisher; //for visualization ?
     vision_msgs::msg::Detection3DArray position_of_all_blocks;
     int current_block_index;
     int current_task_index;
