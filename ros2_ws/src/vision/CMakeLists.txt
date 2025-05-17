@@ -35,20 +35,20 @@ find_package(Torch REQUIRED)
 
 
 
-#add_executable(yolo_detection_node src/detection.cpp)
+add_executable(yolo_detection_node src/detection.cpp)
 #target_include_directories(yolo_detection_node PRIVATE 
 #  ${TORCH_INCLUDE_DIRS}
 #)
-#ament_target_dependencies(yolo_detection_node
-#  rclcpp
-#  std_msgs
-#  sensor_msgs
-#  geometry_msgs
-#  vision_msgs
-#  cv_bridge
-#  image_transport
-#  OpenCV
-#)
+ament_target_dependencies(yolo_detection_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  vision_msgs
+  cv_bridge
+  image_transport
+  OpenCV
+)
 #target_link_libraries(yolo_detection_node
 #  ${rclcpp_LIBS}
 #  ${std_msgs_LIBS}
@@ -79,7 +79,7 @@ ament_target_dependencies(pose_from_camera_node
 #  )
 
 install(TARGETS
-#  yolo_detection_node
+  yolo_detection_node
   pose_from_camera_node
   DESTINATION lib/${PROJECT_NAME}
 )
