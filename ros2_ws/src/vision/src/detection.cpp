@@ -94,7 +94,17 @@ private:
         
         for (int i = 0; i < output.size(0); ++i) {
             auto pred = output[i];  // shape: [15]
-            float obj_conf = pred[4].item<float>();
+
+            auto class_scores = prediction.slice(0, 5, 15);  // class scores
+            auto max_result = class_scores.max(0);
+            float class_conf = std::get<0>(max_result).item<float>();
+            float obj_conf = prediction[4].item<float>();
+
+            RCLCPP_INFO(this->get_logger(), "Confidence is:%f", obj_conf);
+            
+            
+            float final_conf = obj_conf * class_conf;
+
         
             if (obj_conf < 0.5) continue;
         
