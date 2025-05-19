@@ -1,6 +1,0 @@
-[console_scripts]
-detection_result_republisher = vision.detection_result_republisher:main
-icp_vision_node = vision.icp_pose_estimator:main
-pt_inference_node = vision.pt_inference_node:main
-vision_node = vision.pose_estimator:main
-visualization_node = vision.visualization_node:main
