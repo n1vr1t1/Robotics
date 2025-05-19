@@ -19,7 +19,7 @@ class DetectionNode : public rclcpp::Node {
 public:
     DetectionNode() : Node("yolo_detection_node") {
         try {
-            model = torch::jit::load("/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/vision/model/best.torchscript.pt");
+            model = torch::jit::load("/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/vision/model/best.torchscript");
             model.to(torch::kCPU);
             model.eval();
         } catch (const c10::Error &e) {
