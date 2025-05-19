@@ -29,7 +29,7 @@ public:
         }
 
         subscription = this->create_subscription<sensor_msgs::msg::Image>(
-            "/camera/color/image_raw",
+            "/camera/image_raw/image",
             8,
             std::bind(&DetectionNode::image_callback, this, std::placeholders::_1)
         );
@@ -40,8 +40,10 @@ public:
 
 private:
     void image_callback(const sensor_msgs::msg::Image::SharedPtr msg) {
+        RCLCPP_INFO(this->get_logger(), "Image_callback called");
         cv::Mat img;
         try {
+            RCLCPP_INFO(this->get_logger(), "converting using cvbridge");
             img = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8)->image;
         } catch (cv_bridge::Exception &e) {
             RCLCPP_ERROR(this->get_logger(), "cv_bridge conversion failed: %s", e.what());
@@ -50,6 +52,7 @@ private:
 
         cv::Mat resized_img;
         try {
+            RCLCPP_INFO(this->get_logger(), "resizing image");
             cv::resize(img, resized_img, cv::Size(640, 640));
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
         } catch (const std::exception &e) {
@@ -63,15 +66,17 @@ private:
 
         torch::Tensor output;
         try {
+            RCLCPP_INFO(this->get_logger(), "feeding model the resized image");
             auto output_tuple = model.forward({input_tensor});
             output = output_tuple.toTensor();  // Adjust if model returns a tuple
+            RCLCPP_INFO(this->get_logger(), "done with evaluation");
         } catch (const c10::Error &e) {
             RCLCPP_ERROR(this->get_logger(), "Model inference failed: %s", e.what());
             return;
         }
 
         if (output.numel() == 0) {
-            RCLCPP_INFO(this->get_logger(), "No detections found.");
+            RCLCPP_ERROR(this->get_logger(), "No detections found.");
             return;
         }
 
