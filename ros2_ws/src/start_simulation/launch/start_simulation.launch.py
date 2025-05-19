@@ -27,7 +27,7 @@ def generate_launch_description():
 
     planning_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("planning_pkg"), "/launch/planning_launch.py"]
+            [FindPackageShare("planning"), "/launch/planning.launch.py"]
         )
     )
 
