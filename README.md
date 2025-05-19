@@ -1,10 +1,8 @@
 # Robotics
 
-chmod +x startup.sh 
+source startup.sh 
 
-./startup.sh
-
-colcon build
+colcon build --cmake-args -DCMAKE_PREFIX_PATH="/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch"
 
 source install/setup.bash
 
