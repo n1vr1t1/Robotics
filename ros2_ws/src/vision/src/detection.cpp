@@ -65,11 +65,6 @@ private:
 
         torch::Tensor output;
         try {
-            RCLCPP_INFO(this->get_logger(), "feeding model the resized image");
-            // filepath: c:\Users\Nivriti\Desktop\University\Semester5\Fundamentals of robotics\project\src\detection.cpp
-// ...existing code...
-        torch::Tensor output;
-        try {
             RCLCPP_INFO(this->get_logger(), "feeding model the resized image. Input tensor shape: %s", c10::str(input_tensor.sizes()));
             std::vector<torch::jit::IValue> inputs;
             inputs.push_back(input_tensor);
