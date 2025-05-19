@@ -43,7 +43,7 @@ private:
         cv::Mat img;
         try {
             RCLCPP_INFO(this->get_logger(), "converting using cvbridge");
-            img = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8)->image;
+            img = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image;
         } catch (cv_bridge::Exception &e) {
             RCLCPP_ERROR(this->get_logger(), "cv_bridge conversion failed: %s", e.what());
             return;
@@ -53,15 +53,18 @@ private:
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
             cv::resize(img, resized_img, cv::Size(640, 640));
+
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
         } catch (const std::exception &e) {
             RCLCPP_ERROR(this->get_logger(), "Image preprocessing failed: %s", e.what());
             return;
         }
-        auto input_tensor = torch::from_blob(resized_img.data, {1, resized_img.rows, resized_img.cols, 3}, torch::kFloat32)
-                                .permute({0, 3, 1, 2})
-                                .to(torch::kCPU);
-
+        // auto input_tensor = torch::from_blob(resized_img.data, {1, resized_img.rows, resized_img.cols, 3}, torch::kFloat32)
+                                // .permute({0, 3, 1, 2})
+                                // .to(torch::kCPU);
+        auto input_tensor = torch::from_blob(resized_img.data, {1, 640, 640, 3}, torch::kFloat32);
+        input_tensor = input_tensor.permute({0, 3, 1, 2});
+        
         torch::Tensor output;
         try {
             RCLCPP_INFO(this->get_logger(), "feeding model the resized image. Input tensor shape: %s", c10::str(input_tensor.sizes()).c_str());
