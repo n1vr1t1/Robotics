@@ -91,7 +91,8 @@ private:
         
         std_msgs::msg::Float32MultiArray result_msg;
         std::vector<float> data_vector;
-        
+
+        RCLCPP_INFO(this->get_logger(), "Ouptut size:%d", output.size(0));
         for (int i = 0; i < output.size(0); ++i) {
             auto pred = output[i];  // shape: [15]
 
