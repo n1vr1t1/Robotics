@@ -102,12 +102,9 @@ private:
             auto class_scores = pred.slice(0, 5, 15);  // shape: [10]
             auto max_result = class_scores.max(0);
             int class_id = std::get<1>(max_result).item<int>();
-            float class_conf = std::get<0>(max_result).item<float>();
         
             float cx = pred[0].item<float>();
             float cy = pred[1].item<float>();
-            float w = pred[2].item<float>();
-            float h = pred[3].item<float>();
         
             data_vector.push_back(static_cast<float>(class_id));  // class
             data_vector.push_back(cx);  // x-center (normalized)
@@ -118,7 +115,6 @@ private:
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
 
-        RCLCPP_INFO(this->get_logger(), "Published %d detections.", num_detections);
     }
 
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription;
