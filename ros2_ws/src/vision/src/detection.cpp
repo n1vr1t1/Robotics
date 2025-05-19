@@ -112,10 +112,10 @@ private:
             // Get class with highest score
             // auto class_scores = pred.slice(0, 5, 15);  // shape: [10]
             // auto max_result = class_scores.max(0);
-            int class_id = std::get<1>(max_result);
+            int class_id = std::get<1>(max_result).item<int>();
         
-            float cx = pred[0];
-            float cy = pred[1];
+            float cx = pred[0].item<float>();
+            float cy = pred[1].item<float>();
         
             data_vector.push_back(static_cast<float>(class_id));  // class
             data_vector.push_back(cx);  // x-center (normalized)
