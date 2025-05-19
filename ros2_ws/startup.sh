@@ -2,7 +2,8 @@
 
 ZIP_FILE="external/libtorch.zip"  
 DESTINATION_DIR="external/libtorch"  #
-TORCH_URL="https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.2.2%2Bcpu.zip" 
+#TORCH_URL="https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.2.2%2Bcpu.zip" 
+TORCH_URL="https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.2.0.zip"
 
 if [ ! -f "$ZIP_FILE" ]; then
     echo "Creating external directory"
