@@ -65,7 +65,7 @@ private:
 
         torch::Tensor output;
         try {
-            RCLCPP_INFO(this->get_logger(), "feeding model the resized image. Input tensor shape: %s", c10::str(input_tensor.sizes()));
+            RCLCPP_INFO(this->get_logger(), "feeding model the resized image. Input tensor shape: %s", c10::str(input_tensor.sizes()).c_str());
             std::vector<torch::jit::IValue> inputs;
             inputs.push_back(input_tensor);
             
@@ -73,31 +73,24 @@ private:
             RCLCPP_INFO(this->get_logger(), "Model forward pass completed.");
 
             if (output_ivalue.isTensor()) {
-                output = output_ivalue.toTensor();
-                RCLCPP_INFO(this->get_logger(), "Model output is a tensor. Shape: %s", c10::str(output.sizes()));
+                auto output = output_ivalue.toTensor();
+                RCLCPP_INFO(this->get_logger(), "Model output is a tensor. Shape: %s", c10::str(output.sizes()).c_str());
             } else if (output_ivalue.isTuple()) {
-                RCLCPP_INFO(this->get_logger(), "Model output is a tuple.");
-                auto output_tuple_ptr = output_ivalue.toTuple();
-                // Assuming the main detections are the first element. This might need adjustment.
-                if (output_tuple_ptr && !output_tuple_ptr->elements().empty()) {
-                    if (output_tuple_ptr->elements()[0].isTensor()) {
-                        output = output_tuple_ptr->elements()[0].toTensor();
-                        RCLCPP_INFO(this->get_logger(), "Extracted first tensor from tuple. Shape: %s", c10::str(output.sizes()));
-                    } else {
-                        RCLCPP_ERROR(this->get_logger(), "First element of output tuple is not a tensor.");
-                        return;
-                    }
-                } else {
+                auto output_tuple = output_ivalue.toTuple();
+                auto output = output_tuple->elements()[0].toTensor();
+                RCLCPP_INFO(this->get_logger(), "Extracted first tensor from tuple. Shape: %s", c10::str(output.sizes()).c_str());
+            } else {
+                RCLCPP_ERROR(this->get_logger(), "Model output is not a tensor or a tuple. Type: %s", output_ivalue.tagKind().c_str());
+            } else {
                     RCLCPP_ERROR(this->get_logger(), "Model output tuple is empty or invalid.");
                     return;
                 }
             } else {
-                RCLCPP_ERROR(this->get_logger(), "Model output is not a tensor or a tuple. Type: %s", output_ivalue.tagKind());
+                RCLCPP_ERROR(this->get_logger(), "Model output is not a tensor or a tuple. Type: %s", output_ivalue.tagKind().c_str());
                 return;
             }
-            RCLCPP_INFO(this->get_logger(), "Output tensor obtained. Shape: %s", c10::str(output.sizes()));
-            RCLCPP_INFO(this->get_logger(), "BEFORE-------------------------------------------------------");
-            output = output_tuple.toTensor();  // Adjust if model returns a tuple
+            RCLCPP_INFO(this->get_logger(), "Output tensor obtained. Shape: %s", c10::str(output.sizes()).c_str());
+            // output = output_tuple.toTensor();  // Adjust if model returns a tuple
             RCLCPP_INFO(this->get_logger(), "AFTER-------------------------------------------------------");
             RCLCPP_INFO(this->get_logger(), "done with evaluation");
         } catch (const c10::Error &e) {
