@@ -59,17 +59,17 @@ private:
             RCLCPP_ERROR(this->get_logger(), "Image preprocessing failed: %s", e.what());
             return;
         }
-        RCLCPP_INFO(this->get_logger(), "BEFORE-------------------------------------------------------");
         auto input_tensor = torch::from_blob(resized_img.data, {1, resized_img.rows, resized_img.cols, 3}, torch::kFloat32)
                                 .permute({0, 3, 1, 2})
                                 .to(torch::kCPU);
-        RCLCPP_INFO(this->get_logger(), "AFTER-------------------------------------------------------");
 
         torch::Tensor output;
         try {
             RCLCPP_INFO(this->get_logger(), "feeding model the resized image");
             auto output_tuple = model.forward({input_tensor});
+            RCLCPP_INFO(this->get_logger(), "BEFORE-------------------------------------------------------");
             output = output_tuple.toTensor();  // Adjust if model returns a tuple
+            RCLCPP_INFO(this->get_logger(), "AFTER-------------------------------------------------------");
             RCLCPP_INFO(this->get_logger(), "done with evaluation");
         } catch (const c10::Error &e) {
             RCLCPP_ERROR(this->get_logger(), "Model inference failed: %s", e.what());
