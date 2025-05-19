@@ -110,8 +110,8 @@ private:
             if (final_conf < 0.5) continue;
         
             // Get class with highest score
-            auto class_scores = pred.slice(0, 5, 15);  // shape: [10]
-            auto max_result = class_scores.max(0);
+            // auto class_scores = pred.slice(0, 5, 15);  // shape: [10]
+            // auto max_result = class_scores.max(0);
             int class_id = std::get<1>(max_result);
         
             float cx = pred[0];
