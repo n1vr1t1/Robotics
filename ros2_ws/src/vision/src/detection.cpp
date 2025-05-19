@@ -7,8 +7,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include <torch/script.h> //might have to change the header file name, coz script.h shouldnt exist, i think
-#include <torch/torch.h> //also this?
+#include <torch/script.h>
 
 #include <memory>
 #include <string>
@@ -86,26 +85,39 @@ private:
         }
 
         RCLCPP_INFO(this->get_logger(), "getting detections");
+        output = output.squeeze(0);
         
-        auto detections = output.view({-1, 3});
-        RCLCPP_INFO(this->get_logger(), "getting number of detections");
-        int num_detections = static_cast<int>(detections.size(0));
-        RCLCPP_INFO(this->get_logger(), "number of detections: %d", num_detections);
+        output = output.transpose(0, 1);
         
         std_msgs::msg::Float32MultiArray result_msg;
-        RCLCPP_INFO(this->get_logger(), "resizing result_msg");
-        result_msg.data.resize(num_detections * 3);
+        std::vector<float> data_vector;
         
-        for (int i = 0; i < num_detections; ++i){
-            RCLCPP_INFO(this->get_logger(), "on %d of detection", i);
-            if(detections[i][1].item<float>() < 0.5) continue; // Confidence threshold
-            result_msg.data[i * 3] = detections[1][i][0].item<float>(); // Class ID
-            result_msg.data[i * 3 + 1] = detections[1][i][2].item<float>(); // x normalized
-            result_msg.data[i * 3 + 2] = detections[1][i][3].item<float>(); // y normalized
+        for (int i = 0; i < output.size(0); ++i) {
+            auto pred = output[i];  // shape: [15]
+            float obj_conf = pred[4].item<float>();
+        
+            if (obj_conf < 0.5) continue;
+        
+            // Get class with highest score
+            auto class_scores = pred.slice(0, 5, 15);  // shape: [10]
+            auto max_result = class_scores.max(0);
+            int class_id = std::get<1>(max_result).item<int>();
+            float class_conf = std::get<0>(max_result).item<float>();
+        
+            float cx = pred[0].item<float>();
+            float cy = pred[1].item<float>();
+            float w = pred[2].item<float>();
+            float h = pred[3].item<float>();
+        
+            data_vector.push_back(static_cast<float>(class_id));  // class
+            data_vector.push_back(cx);  // x-center (normalized)
+            data_vector.push_back(cy);  // y-center (normalized)
         }
-        RCLCPP_INFO(this->get_logger(), "out of loop");
-
+        
+        result_msg.data = data_vector;
         publisher->publish(result_msg);
+        RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
+
         RCLCPP_INFO(this->get_logger(), "Published %d detections.", num_detections);
     }
 
