@@ -72,21 +72,9 @@ private:
             auto output_ivalue = model.forward(inputs);
             RCLCPP_INFO(this->get_logger(), "Model forward pass completed.");
 
-            if (output_ivalue.isTensor()) {
-                output = output_ivalue.toTensor();
-                RCLCPP_INFO(this->get_logger(), "Model output is a tensor. Shape: %s", c10::str(output.sizes()).c_str());
-            } else if (output_ivalue.isTuple()) {
-                auto output_tuple = output_ivalue.toTuple();
-                output = output_tuple->elements()[0].toTensor();
-                RCLCPP_INFO(this->get_logger(), "Extracted first tensor from tuple. Shape: %s", c10::str(output.sizes()).c_str());
-            } else {
-                RCLCPP_ERROR(this->get_logger(), "Model output is not a tensor or a tuple. Type: %s", output_ivalue.tagKind().c_str());
-                return;
-            }
+            output = output_ivalue.toTensor();
+
             RCLCPP_INFO(this->get_logger(), "Output tensor obtained. Shape: %s", c10::str(output.sizes()).c_str());
-            // output = output_tuple.toTensor();  // Adjust if model returns a tuple
-            RCLCPP_INFO(this->get_logger(), "AFTER-------------------------------------------------------");
-            RCLCPP_INFO(this->get_logger(), "done with evaluation");
         } catch (const c10::Error &e) {
             RCLCPP_ERROR(this->get_logger(), "Model inference failed: %s", e.what());
             return;
@@ -97,18 +85,24 @@ private:
             return;
         }
 
+        RCLCPP_INFO(this->get_logger(), "getting detections");
+        
         auto detections = output.view({-1, 3});
+        RCLCPP_INFO(this->get_logger(), "getting number of detections");
         int num_detections = static_cast<int>(detections.size(0));
 
         std_msgs::msg::Float32MultiArray result_msg;
+        RCLCPP_INFO(this->get_logger(), "resizing result_msg");
         result_msg.data.resize(num_detections * 3);
 
         for (int i = 0; i < num_detections; ++i){
+            RCLCPP_INFO(this->get_logger(), "on %d of detection", i);
             if(detections[i][1].item<float>() < 0.5) continue; // Confidence threshold
             result_msg.data[i * 3] = detections[i][0].item<float>(); // Class ID
             result_msg.data[i * 3 + 1] = detections[i][2].item<float>(); // x normalized
             result_msg.data[i * 3 + 2] = detections[i][3].item<float>(); // y normalized
         }
+        RCLCPP_INFO(this->get_logger(), "out of loop");
 
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %d detections.", num_detections);
