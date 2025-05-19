@@ -26,7 +26,7 @@ find_package(libstatistics_collector REQUIRED)
 find_package(custom_msg_interfaces REQUIRED)
 
 set(Torch_DIR "/home/ubuntu/ros2_ws/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
-#set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${Torch_DIR}")
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${Torch_DIR}")
 
 find_package(Torch REQUIRED)
 
