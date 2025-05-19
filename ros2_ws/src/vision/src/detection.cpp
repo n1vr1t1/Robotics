@@ -52,7 +52,7 @@ private:
         cv::Mat resized_img;
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
-            cv::resize(img, resized_img, cv::Size(512, 512));
+            cv::resize(img, resized_img, cv::Size(640, 640));
 
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
         } catch (const std::exception &e) {
@@ -62,7 +62,7 @@ private:
         // auto input_tensor = torch::from_blob(resized_img.data, {1, resized_img.rows, resized_img.cols, 3}, torch::kFloat32)
                                 // .permute({0, 3, 1, 2})
                                 // .to(torch::kCPU);
-        auto input_tensor = torch::from_blob(resized_img.data, {1, 512, 512, 3}, torch::kFloat32);
+        auto input_tensor = torch::from_blob(resized_img.data, {1, 640, 640, 3}, torch::kFloat32);
         input_tensor = input_tensor.permute({0, 3, 1, 2});
         
         torch::Tensor output;
