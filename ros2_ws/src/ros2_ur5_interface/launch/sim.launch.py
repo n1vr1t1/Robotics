@@ -48,7 +48,7 @@ def blocks_position():
         #Generating blocks and positions
         if i == 0:
 
-            block_types[i]["x"] = random.uniform(0.1, max_x)
+            block_types[i]["x"] = random.uniform(0.075, max_x)
             block_types[i]["y"] = random.uniform(0.1, max_y)
 
             print(f"Block {i+1} position: ({block_types[i]['x']}, {block_types[i]['y']})")
