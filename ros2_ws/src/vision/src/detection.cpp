@@ -18,7 +18,8 @@ class DetectionNode : public rclcpp::Node {
 public:
     DetectionNode() : Node("yolo_detection_node") {
         try {
-            model = torch::jit::load("/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/vision/model/yolo11s.torchscript");
+            model = torch::jit::load("/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/vision/model/yolo11n.torchscript");
+            // model = torch::jit::load("/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/vision/model/yolo11s.torchscript");
             model.to(torch::kCPU);
             model.eval();
         } catch (const c10::Error &e) {
@@ -40,41 +41,52 @@ public:
 private:
     void image_callback(const sensor_msgs::msg::Image::SharedPtr msg) {
         RCLCPP_INFO(this->get_logger(), "Image_callback called");
-        cv::Mat img;
+        // cv::Mat img;
+        cv::Mat bgr_img;
         try {
-            RCLCPP_INFO(this->get_logger(), "converting using cvbridge");
-            img = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image;
+            RCLCPP_INFO(this->get_logger(), "Converting using cv_bridge (BGR8)");
+            bgr_img = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image;
         } catch (cv_bridge::Exception &e) {
             RCLCPP_ERROR(this->get_logger(), "cv_bridge conversion failed: %s", e.what());
             return;
         }
 
+        cv::Mat rgb_img;
+        RCLCPP_INFO(this->get_logger(), "Converting (BGR8)->(RGB8)");
+        cv::cvtColor(bgr_img, rgb_img, cv::COLOR_BGR2RGB);
+        // try {
+        //     RCLCPP_INFO(this->get_logger(), "converting using cvbridge");
+        //     img = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image;
+        // } catch (cv_bridge::Exception &e) {
+        //     RCLCPP_ERROR(this->get_logger(), "cv_bridge conversion failed: %s", e.what());
+        //     return;
+        // }
+
         cv::Mat resized_img;
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
-            cv::resize(img, resized_img, cv::Size(640, 640));
+            cv::resize(img, resized_img, cv::Size(640, 640)); //512,512
 
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
         } catch (const std::exception &e) {
             RCLCPP_ERROR(this->get_logger(), "Image preprocessing failed: %s", e.what());
             return;
         }
-        // auto input_tensor = torch::from_blob(resized_img.data, {1, resized_img.rows, resized_img.cols, 3}, torch::kFloat32)
-                                // .permute({0, 3, 1, 2})
-                                // .to(torch::kCPU);
-        auto input_tensor = torch::from_blob(resized_img.data, {1, 640, 640, 3}, torch::kFloat32);
-        input_tensor = input_tensor.permute({0, 3, 1, 2});
+
+        cv::Mat input_img = resized_img.clone();
+        auto input_tensor = torch::from_blob(resized_img.data, {1, 640, 640, 3}, //might be 512,512 
+                    torch::TensorOptions().dtype(torch::kFloat32)).permute({0, 3, 1, 2}).contiguous();
         
         torch::Tensor output;
         try {
-            RCLCPP_INFO(this->get_logger(), "feeding model the resized image. Input tensor shape: %s", c10::str(input_tensor.sizes()).c_str());
+            RCLCPP_INFO(this->get_logger(), "Feeding model the resized image. Input tensor shape: %s", c10::str(input_tensor.sizes()).c_str());
             std::vector<torch::jit::IValue> inputs;
             inputs.push_back(input_tensor);
             
             auto output_ivalue = model.forward(inputs);
             RCLCPP_INFO(this->get_logger(), "Model forward pass completed.");
 
-            output = output_ivalue.toTensor();
+            output = output_ivalue.toTensor(); // should be shape: [1, 15, 5376]
 
             RCLCPP_INFO(this->get_logger(), "Output tensor obtained. Shape: %s", c10::str(output.sizes()).c_str());
         } catch (const c10::Error &e) {
@@ -88,9 +100,7 @@ private:
         }
 
         RCLCPP_INFO(this->get_logger(), "getting detections");
-        output = output.squeeze(0);
-        
-        output = output.transpose(0, 1);
+        output = output.squeeze(0).transpose(0, 1); // [5376, 15]
         
         std_msgs::msg::Float32MultiArray result_msg;
         std::vector<float> data_vector;
@@ -99,30 +109,28 @@ private:
         for (int i = 0; i < output.size(0); ++i) {
             auto pred = output[i];  // shape: [15]
 
-            auto class_scores = pred.slice(0, 5, 15);  // class scores
-            auto max_result = class_scores.max(0);
-            float class_conf = std::get<0>(max_result).item<float>();
             float obj_conf = pred[4].item<float>();
+
+            auto class_scores = pred.slice(0, 5, 15);
+            auto max_result = class_scores.max(0);
+            float class_conf = std::get<0>(max_result).item<float>(); //finding highest confidence
 
             if(obj_conf > 0.1) RCLCPP_INFO(this->get_logger(), "Confidence is:%f(obj) %f(class)", obj_conf, class_conf);
             
             
             float final_conf = obj_conf * class_conf;
             
-            if (obj_conf < 0.1) continue;
+            if (class_conf < 0.1) continue;
             RCLCPP_INFO(this->get_logger(), "Final Confidence is:%f", final_conf);
         
-            // Get class with highest score
-            // auto class_scores = pred.slice(0, 5, 15);  // shape: [10]
-            // auto max_result = class_scores.max(0);
-            int class_id = std::get<1>(max_result).item<int>();
+            int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
         
-            float cx = pred[0].item<float>();
-            float cy = pred[1].item<float>();
+            float u = pred[0].item<float>();
+            float v = pred[1].item<float>();
         
-            data_vector.push_back(static_cast<float>(class_id));  // class
-            data_vector.push_back(cx);  // x-center (normalized)
-            data_vector.push_back(cy);  // y-center (normalized)
+            data_vector.push_back(static_cast<float>(class_id));
+            data_vector.push_back(u);
+            data_vector.push_back(v);
         }
         
         result_msg.data = data_vector;
