@@ -90,17 +90,18 @@ private:
         auto detections = output.view({-1, 3});
         RCLCPP_INFO(this->get_logger(), "getting number of detections");
         int num_detections = static_cast<int>(detections.size(0));
-
+        RCLCPP_INFO(this->get_logger(), "number of detections: %d", num_detections);
+        
         std_msgs::msg::Float32MultiArray result_msg;
         RCLCPP_INFO(this->get_logger(), "resizing result_msg");
         result_msg.data.resize(num_detections * 3);
-
+        
         for (int i = 0; i < num_detections; ++i){
             RCLCPP_INFO(this->get_logger(), "on %d of detection", i);
             if(detections[i][1].item<float>() < 0.5) continue; // Confidence threshold
-            result_msg.data[i * 3] = detections[i][0].item<float>(); // Class ID
-            result_msg.data[i * 3 + 1] = detections[i][2].item<float>(); // x normalized
-            result_msg.data[i * 3 + 2] = detections[i][3].item<float>(); // y normalized
+            result_msg.data[i * 3] = detections[1][i][0].item<float>(); // Class ID
+            result_msg.data[i * 3 + 1] = detections[1][i][2].item<float>(); // x normalized
+            result_msg.data[i * 3 + 2] = detections[1][i][3].item<float>(); // y normalized
         }
         RCLCPP_INFO(this->get_logger(), "out of loop");
 
