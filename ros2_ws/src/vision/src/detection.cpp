@@ -7,11 +7,8 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include <torch/script.h>
-#include <torch/torch.h>
-//#include <Torch/torch.h>
-//#include <Torch/script.h>
-
+#include <torch/script.h> //might have to change the header file name, coz script.h shouldnt exist, i think
+#include <torch/torch.h> //also this?
 
 #include <memory>
 #include <string>
@@ -22,7 +19,7 @@ class DetectionNode : public rclcpp::Node {
 public:
     DetectionNode() : Node("yolo_detection_node") {
         try {
-            model = torch::jit::load(model_path);
+            model = torch::jit::load("model/yolo11n_0dropout.pt");
             model.to(torch::kCPU);
             model.eval();
         } catch (const c10::Error &e) {
@@ -78,23 +75,23 @@ private:
             return;
         }
 
-        auto detections = output.view({-1, 6}); // Adjust shape based on model output
-        int num_detections = detections.size(0);
+        auto detections = output.view({-1, 3});
+        int num_detections = static_cast<int>(detections.size(0));
 
         std_msgs::msg::Float32MultiArray result_msg;
-        result_msg.data.resize(num_detections * 6);
+        result_msg.data.resize(num_detections * 3);
 
-        for (int i = 0; i < num_detections; ++i) {
-            for (int j = 0; j < 6; ++j) {
-                result_msg.data[i * 6 + j] = detections[i][j].item<float>();
-            }
+        for (int i = 0; i < num_detections; ++i){
+            if(detections[i][1].item<float>() < 0.5) continue; // Confidence threshold
+            result_msg.data[i * 3] = detections[i][0].item<float>(); // Class ID
+            result_msg.data[i * 3 + 1] = detections[i][2].item<float>(); // x normalized
+            result_msg.data[i * 3 + 2] = detections[i][3].item<float>(); // y normalized
         }
 
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %d detections.", num_detections);
     }
 
-    static constexpr const char* model_path = "model/yolo11n_0dropout.pt";
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription;
     rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr publisher;
     torch::jit::script::Module model;
