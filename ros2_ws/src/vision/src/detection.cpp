@@ -77,7 +77,7 @@ private:
                 RCLCPP_INFO(this->get_logger(), "Model output is a tensor. Shape: %s", c10::str(output.sizes()).c_str());
             } else if (output_ivalue.isTuple()) {
                 auto output_tuple = output_ivalue.toTuple();
-                auto output = output_tuple->elements()[0].toTensor();
+                output = output_tuple->elements()[0].toTensor();
                 RCLCPP_INFO(this->get_logger(), "Extracted first tensor from tuple. Shape: %s", c10::str(output.sizes()).c_str());
             } else {
                 RCLCPP_ERROR(this->get_logger(), "Model output is not a tensor or a tuple. Type: %s", output_ivalue.tagKind().c_str());
