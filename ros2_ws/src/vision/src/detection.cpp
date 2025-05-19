@@ -73,7 +73,7 @@ private:
             RCLCPP_INFO(this->get_logger(), "Model forward pass completed.");
 
             if (output_ivalue.isTensor()) {
-                auto output = output_ivalue.toTensor();
+                output = output_ivalue.toTensor();
                 RCLCPP_INFO(this->get_logger(), "Model output is a tensor. Shape: %s", c10::str(output.sizes()).c_str());
             } else if (output_ivalue.isTuple()) {
                 auto output_tuple = output_ivalue.toTuple();
