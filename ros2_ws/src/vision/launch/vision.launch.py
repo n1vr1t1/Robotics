@@ -19,7 +19,7 @@ def generate_launch_description():
         # Add the vision_node node
         Node(
             package='vision',
-            executable='position',
+            executable='pose_from_camera_node',
             name='pose_from_camera_node',
             output='screen'
         ),
@@ -27,7 +27,7 @@ def generate_launch_description():
         # Add the detection_result_republisher node
         Node(
             package='vision',
-            executable='detection',
+            executable='yolo_detection_node',
             name='yolo_detection_node',
             output='screen'
         ),
