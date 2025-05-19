@@ -8,7 +8,7 @@ def generate_launch_description():
 
         # Add the icp_pose_estimator_node node
         Node(
-            package='planning_pkg',
+            package='planning',
             executable='move_a_to_b_server',
             name='move_a_to_b_server',
             output='screen'
@@ -16,10 +16,9 @@ def generate_launch_description():
         
         # Add the detection_result_republisher node
         Node(
-            package='planning_pkg',
+            package='planning',
             executable='block_frame_publisher',
             name='block_frame_publisher',
             output='screen'
         ),
     ])
-
