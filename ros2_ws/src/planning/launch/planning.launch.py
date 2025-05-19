@@ -6,19 +6,17 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
 
+        Node(
+            package='planning',
+            executable='control_unit',
+            name='control_node',
+            output='screen'
+        ),
         # Add the icp_pose_estimator_node node
         Node(
             package='planning',
-            executable='move_a_to_b_server',
-            name='move_a_to_b_server',
-            output='screen'
-        ),
-        
-        # Add the detection_result_republisher node
-        Node(
-            package='planning',
-            executable='block_frame_publisher',
-            name='block_frame_publisher',
+            executable='trajectory_execution',
+            name='trajectory_execution_node',
             output='screen'
         ),
     ])
