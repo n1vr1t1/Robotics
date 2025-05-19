@@ -11,8 +11,8 @@
 
   <!-- C++ ROS 2 Core -->
   <depend>rclcpp</depend>
+  <depend>custom_msg_interfaces</depend>
   <build_depend>sensor_msgs</build_depend>
-  <build_depend>torch</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>cv_bridge</build_depend>
   <build_depend>image_transport</build_depend>
