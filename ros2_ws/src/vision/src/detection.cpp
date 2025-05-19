@@ -92,30 +92,30 @@ private:
         std_msgs::msg::Float32MultiArray result_msg;
         std::vector<float> data_vector;
 
-        RCLCPP_INFO(this->get_logger(), "Ouptut size:%d", output.size(0));
+        RCLCPP_INFO(this->get_logger(), "Ouptut size:%ld", output.size(0));
         for (int i = 0; i < output.size(0); ++i) {
             auto pred = output[i];  // shape: [15]
 
-            auto class_scores = prediction.slice(0, 5, 15);  // class scores
+            auto class_scores = pred.slice(0, 5, 15);  // class scores
             auto max_result = class_scores.max(0);
             float class_conf = std::get<0>(max_result).item<float>();
-            float obj_conf = prediction[4].item<float>();
+            float obj_conf = pred[4].item<float>();
 
             RCLCPP_INFO(this->get_logger(), "Confidence is:%f", obj_conf);
             
             
             float final_conf = obj_conf * class_conf;
-
-        
-            if (obj_conf < 0.5) continue;
+            RCLCPP_INFO(this->get_logger(), "Final Confidence is:%f", final_conf);
+            
+            if (final_conf < 0.5) continue;
         
             // Get class with highest score
             auto class_scores = pred.slice(0, 5, 15);  // shape: [10]
             auto max_result = class_scores.max(0);
-            int class_id = std::get<1>(max_result).item<int>();
+            int class_id = std::get<1>(max_result);
         
-            float cx = pred[0].item<float>();
-            float cy = pred[1].item<float>();
+            float cx = pred[0];
+            float cy = pred[1];
         
             data_vector.push_back(static_cast<float>(class_id));  // class
             data_vector.push_back(cx);  // x-center (normalized)
