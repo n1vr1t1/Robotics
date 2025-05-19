@@ -47,7 +47,6 @@ ament_target_dependencies(yolo_detection_node
   cv_bridge
   image_transport
   OpenCV
-  torch
 )
 target_link_libraries(yolo_detection_node
   ${rclcpp_LIBRARIES}
