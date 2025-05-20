@@ -122,6 +122,7 @@ private:
             for(int j=0;j<15;i++){
                 RCLCPP_INFO(this->get_logger(), "%d:%f", j, pred[j].item<float>());
             }
+            subscription.reset();
             return;
             float obj_conf = pred[4].item<float>();
 
