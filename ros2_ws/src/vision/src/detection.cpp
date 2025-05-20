@@ -113,9 +113,16 @@ private:
         std::vector<float> data_vector;
 
         RCLCPP_INFO(this->get_logger(), "Ouptut size:%ld", output.size(0));
-        for (int i = 0; i < output.size(0); ++i) {
-            auto pred = output[i];  // shape: [15]
+        // for (int i = 0; i < output.size(0); ++i) {
+        for (int i = 0; i < 20; ++i) {
 
+            auto pred = output[i];  // shape: [15]
+            RCLCPP_INFO(this->get_logger(), "Iter:%d", i);
+            
+            for(int j=0;j<pred.size();i++){
+                RCLCPP_INFO(this->get_logger(), "%d:%f", j, pred[j]);
+            }
+            continue;
             float obj_conf = pred[4].item<float>();
 
             auto class_scores = pred.slice(0, 5, 15);
