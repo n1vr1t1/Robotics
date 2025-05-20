@@ -123,26 +123,26 @@ private:
             if (class_conf < 0.6) continue;
             RCLCPP_INFO(this->get_logger(), "Confidence is:%f", class_conf);
         
-            float class_id = std::get<1>(max_result).item<float>();  // getting the class id of the highest confidence
+            int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
         
-            float x1 = pred[0].item<float>();
-            float y1 = pred[1].item<float>();
-            float x2 = pred[2].item<float>();
-            float y2 = pred[3].item<float>();
+            int x1 = pred[0].item<int>();
+            int y1 = pred[1].item<int>();
+            int x2 = pred[2].item<int>();
+            int y2 = pred[3].item<int>();
 
             cv::rectangle(input_img, cv::Point(x1, y1), cv::Point(x2, y2), cv::Scalar(0, 255, 0), 2);
 
             std::string label = "Class " + std::to_string(class_id) + " (" + std::to_string(class_conf).substr(0, 4) + ")";
-            cv::putText(display_img, label, cv::Point(x1, y1 - 5),
+            cv::putText(input_img, label, cv::Point(x1, y1 - 5),
                         cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
 
-            RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x1, y1, x2, y2);
+            // RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x1, y1, x2, y2);
             
-            data_vector.push_back(class_id);
-            data_vector.push_back(x1);
-            data_vector.push_back(y1);
-            data_vector.push_back(x2);
-            data_vector.push_back(y2);
+            // data_vector.push_back(class_id);
+            // data_vector.push_back(x1);
+            // data_vector.push_back(y1);
+            // data_vector.push_back(x2);
+            // data_vector.push_back(y2);
         }
         subscription.reset();
         return;
