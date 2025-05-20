@@ -120,7 +120,7 @@ private:
             RCLCPP_INFO(this->get_logger(), "Iter:%d", i);
             
             for(int j=0;j<pred.size();i++){
-                RCLCPP_INFO(this->get_logger(), "%d:%f", j, pred[j]);
+                RCLCPP_INFO(this->get_logger(), "%d:%d", j, pred[j]);
             }
             continue;
             float obj_conf = pred[4].item<float>();
