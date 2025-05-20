@@ -119,7 +119,7 @@ private:
             auto pred = output[i];  // shape: [15]
             RCLCPP_INFO(this->get_logger(), "Iter:%d", i);
             
-            for(int j=0;j<pred.size();i++){
+            for(int j=0;j<15;i++){
                 RCLCPP_INFO(this->get_logger(), "%d:%d", j, pred[j]);
             }
             continue;
