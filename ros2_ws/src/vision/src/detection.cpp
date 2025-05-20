@@ -123,7 +123,7 @@ private:
                 RCLCPP_INFO(this->get_logger(), "%d:%f", j, pred[j].item<float>());
             }
             subscription.reset();
-            return;
+            continue;
             float obj_conf = pred[4].item<float>();
 
             auto class_scores = pred.slice(0, 5, 15);
@@ -147,7 +147,7 @@ private:
             data_vector.push_back(u);
             data_vector.push_back(v);
         }
-        
+        return;
         result_msg.data = data_vector;
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
