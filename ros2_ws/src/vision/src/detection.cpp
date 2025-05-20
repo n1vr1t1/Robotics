@@ -113,39 +113,30 @@ private:
         std::vector<float> data_vector;
 
         RCLCPP_INFO(this->get_logger(), "Ouptut size:%ld", output.size(0));
-        // for (int i = 0; i < output.size(0); ++i) {
-        for (int i = 0; i < 5; ++i) {
-
+        for (int i = 0; i < output.size(0); ++i) {
             auto pred = output[i];  // shape: [15]
-            RCLCPP_INFO(this->get_logger(), "Iter:%d", i);
             
-            for(int j=0;j<15;j++){
-                RCLCPP_INFO(this->get_logger(), "%d:%f", j, pred[j].item<float>());
-            }
-            subscription.reset();
-            continue;
-            float obj_conf = pred[4].item<float>();
+            auto class_scores = pred.slice(0, 4, 15); // getting all the class prediction scores
+            auto max_result = class_scores.max(0); //finding the highest score
+            float class_conf = std::get<0>(max_result).item<float>(); // finding highest confidence
 
-            auto class_scores = pred.slice(0, 5, 15);
-            auto max_result = class_scores.max(0);
-            float class_conf = std::get<0>(max_result).item<float>(); //finding highest confidence
+            if (class_conf < 0.6) continue;
+            RCLCPP_INFO(this->get_logger(), "Confidence is:%f", class_conf);
+        
+            float class_id = std::get<1>(max_result).item<float>();  // getting the class id of the highest confidence
+        
+            float x1 = pred[0].item<float>();
+            float y1 = pred[1].item<float>();
+            float x2 = pred[2].item<float>();
+            float y2 = pred[3].item<float>();
 
-            if(obj_conf > 0.1 || class_conf > 0.1) RCLCPP_INFO(this->get_logger(), "Confidence is:%f(obj) %f(class)", obj_conf, class_conf);
+            RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x1, y1, x2, y2);
             
-            
-            float final_conf = obj_conf * class_conf;
-            
-            if (class_conf < 0.1) continue;
-            RCLCPP_INFO(this->get_logger(), "Final Confidence is:%f", final_conf);
-        
-            int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
-        
-            float u = pred[0].item<float>();
-            float v = pred[1].item<float>();
-        
-            data_vector.push_back(static_cast<float>(class_id));
-            data_vector.push_back(u);
-            data_vector.push_back(v);
+            data_vector.push_back(class_id);
+            data_vector.push_back(x1);
+            data_vector.push_back(y1);
+            data_vector.push_back(x2);
+            data_vector.push_back(y2);
         }
         return;
         result_msg.data = data_vector;
