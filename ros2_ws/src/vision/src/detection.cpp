@@ -81,7 +81,7 @@ private:
         }
 
         cv::Mat input_img = resized_img.clone();
-        auto input_tensor = torch::from_blob(resized_img.data, {1, 512, 512, 3}, //might be 512,512 
+        auto input_tensor = torch::from_blob(input_img.data, {1, 512, 512, 3}, //might be 512,512 
                     torch::TensorOptions().dtype(torch::kFloat32)).permute({0, 3, 1, 2}).contiguous();
         
         torch::Tensor output;
@@ -130,6 +130,12 @@ private:
             float x2 = pred[2].item<float>();
             float y2 = pred[3].item<float>();
 
+            cv::rectangle(input_img, cv::Point(x1, y1), cv::Point(x2, y2), cv::Scalar(0, 255, 0), 2);
+
+            std::string label = "Class " + std::to_string(class_id) + " (" + std::to_string(class_conf).substr(0, 4) + ")";
+            cv::putText(display_img, label, cv::Point(x1, y1 - 5),
+                        cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+
             RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x1, y1, x2, y2);
             
             data_vector.push_back(class_id);
@@ -138,6 +144,7 @@ private:
             data_vector.push_back(x2);
             data_vector.push_back(y2);
         }
+        subscription.reset();
         return;
         result_msg.data = data_vector;
         publisher->publish(result_msg);
