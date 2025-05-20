@@ -72,8 +72,8 @@ private:
 
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
 
-            //cv::imshow("YOLO input image", resized_img);
-            //cv::waitKey(1);
+            cv::imshow("YOLO input image", resized_img);
+            cv::waitKey(1);
             
         } catch (const std::exception &e) {
             RCLCPP_ERROR(this->get_logger(), "Image preprocessing failed: %s", e.what());
