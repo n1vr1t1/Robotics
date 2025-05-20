@@ -144,6 +144,8 @@ private:
             // data_vector.push_back(x2);
             // data_vector.push_back(y2);
         }
+        cv::imshow("Detections", input_img);
+        cv::waitKey(1);
         subscription.reset();
         return;
         result_msg.data = data_vector;
