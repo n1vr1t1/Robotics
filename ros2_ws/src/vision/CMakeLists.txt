@@ -27,7 +27,7 @@ find_package(custom_msg_interfaces REQUIRED)
 
 set(Torch_DIR "/home/ubuntu/ros2_ws/Robotics/ros2_ws/external/libtorch/libtorch/share/cmake/Torch")
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/home/ubuntu/ros2_ws/Robotics/ros2_ws/external/libtorch/libtorch")
-message("cmake path is: ${CMAKE_PREFIX_PATH}")
+#message("cmake path is: ${CMAKE_PREFIX_PATH}")
 
 # Add this after setting Torch_DIR and finding the package
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
