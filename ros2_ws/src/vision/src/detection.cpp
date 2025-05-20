@@ -67,8 +67,8 @@ private:
             RCLCPP_INFO(this->get_logger(), "resizing image");
             cv::resize(rgb_img, resized_img, cv::Size(512, 512)); //640,640
 
-            cv::imshow("YOLO input image", resized_img);
-            cv::waitKey(1);
+            //cv::imshow("YOLO input image", resized_img);
+            //cv::waitKey(1);
 
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
 
