@@ -115,7 +115,7 @@ private:
             auto max_result = class_scores.max(0);
             float class_conf = std::get<0>(max_result).item<float>(); //finding highest confidence
 
-            if(obj_conf > 0.1) RCLCPP_INFO(this->get_logger(), "Confidence is:%f(obj) %f(class)", obj_conf, class_conf);
+            if(obj_conf > 0.1 || class_conf > 0.1) RCLCPP_INFO(this->get_logger(), "Confidence is:%f(obj) %f(class)", obj_conf, class_conf);
             
             
             float final_conf = obj_conf * class_conf;
