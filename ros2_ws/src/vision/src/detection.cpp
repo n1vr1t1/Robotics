@@ -65,7 +65,7 @@ private:
         cv::Mat resized_img;
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
-            cv::resize(img, resized_img, cv::Size(640, 640)); //512,512
+            cv::resize(rgb_img, resized_img, cv::Size(640, 640)); //512,512
 
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
         } catch (const std::exception &e) {
