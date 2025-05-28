@@ -63,7 +63,7 @@ class CameraPoseNode : public rclcpp::Node{
                 return;
             }
             float width = static_cast<float>(current_cloud->width);
-            RCLCPP_INFO(this->get_logger(), "Width: %f", width);
+            // RCLCPP_INFO(this->get_logger(), "Width: %f", width);
             for(size_t i =0; i+2 < positions.size(); i+=3){
                 int id = static_cast<int>(positions[i]);
                 float x = positions[i+1];
@@ -92,6 +92,9 @@ class CameraPoseNode : public rclcpp::Node{
                 x = *iter_x;
                 y = *iter_y;
                 float z = *iter_z;
+                RCLCPP_INFO(this->get_logger(), "Before tansformation");
+                RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
+                
 
                 if(!std::isfinite(x) || !std::isfinite(y) || !std::isfinite(z)){
                     RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index_1d: %f", index_1d);
@@ -120,7 +123,7 @@ class CameraPoseNode : public rclcpp::Node{
                 publish_positions.class_ids.push_back(id);
                 publish_positions.poses.push_back(pose);
                 publish_positions.len++;
-                
+                RCLCPP_INFO(this->get_logger(), "After tansformation");
                 RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
             }
             publisher->publish(publish_positions);
