@@ -39,8 +39,6 @@ class CameraPoseNode : public rclcpp::Node{
                 "/camera/image_raw/points", rclcpp::QoS(8), std::bind(&CameraPoseNode::cloud_callback, this, std::placeholders::_1));
             publisher = this->create_publisher<custom_msg_interfaces::msg::ClassPose>("/inference_3d", 8);
             current_cloud = nullptr;
-
-            marker_pub = this->create_publisher<visualization_msgs::msg::MarkerArray>("/inference_markers", 10);
         }
 
     private:
@@ -62,42 +60,42 @@ class CameraPoseNode : public rclcpp::Node{
                 return;
             }
 
-            std::vector<float> avg_pos_block;
+            // std::vector<float> avg_pos_block;
 
-            avg_pos_block.push_back(positions[0]);
-            avg_pos_block.push_back(positions[1]);
-            avg_pos_block.push_back(positions[2]);
+            // avg_pos_block.push_back(positions[0]);
+            // avg_pos_block.push_back(positions[1]);
+            // avg_pos_block.push_back(positions[2]);
 
-            float instances_num = 0.0f;
-            int block_num = 0;
+            // float instances_num = 0.0f;
+            // int block_num = 0;
             
-            for(size_t i=3; i+2 < positions.size(); i+=3){
-                    if((avg_pos_block[block_num + 1] - positions[i+1] > -10.0 && avg_pos_block[block_num +1] - positions[i+1] < 10.0) &&
-                        (avg_pos_block[block_num +2] - positions[i+2] > -10.0 && avg_pos_block[block_num +2] - positions[i+2] < 10.0)) {
+            // for(size_t i=3; i+2 < positions.size(); i+=3){
+            //         if((avg_pos_block[block_num + 1] - positions[i+1] > -10.0 && avg_pos_block[block_num +1] - positions[i+1] < 10.0) &&
+            //             (avg_pos_block[block_num +2] - positions[i+2] > -10.0 && avg_pos_block[block_num +2] - positions[i+2] < 10.0)) {
 
-                            instances_num++;
-                            avg_pos_block[block_num + 1] + positions[i+1];
-                            avg_pos_block[block_num + 2] + positions[i+2];
-                    }else{
-                            avg_pos_block[block_num + 1] /= instances_num;
-                            avg_pos_block[block_num + 2] /= instances_num;
+            //                 instances_num++;
+            //                 avg_pos_block[block_num + 1] + positions[i+1];
+            //                 avg_pos_block[block_num + 2] + positions[i+2];
+            //         }else{
+            //                 avg_pos_block[block_num + 1] /= instances_num;
+            //                 avg_pos_block[block_num + 2] /= instances_num;
 
-                            instances_num = 0.0;
+            //                 instances_num = 0.0;
                             
-                            block_num++;
-                            avg_pos_block.push_back(positions[i]);
-                            avg_pos_block.push_back(positions[i + 1]);
-                            avg_pos_block.push_back(positions[i + 2]);
+            //                 block_num++;
+            //                 avg_pos_block.push_back(positions[i]);
+            //                 avg_pos_block.push_back(positions[i + 1]);
+            //                 avg_pos_block.push_back(positions[i + 2]);
                         
-                    }
-            }
-            RCLCPP_INFO(this->get_logger(), "%ld → %ld", positions.size()/3, avg_pos_block.size()/3);
+            //         }
+            // }
+            // RCLCPP_INFO(this->get_logger(), "%ld → %ld", positions.size()/3, avg_pos_block.size()/3);
             
             
             int width = static_cast<int>(current_cloud->width);
 
-            visualization_msgs::msg::MarkerArray marker_array;
-            int marker_id=0;
+            // visualization_msgs::msg::MarkerArray marker_array;
+            // int marker_id=0;
             
             for(size_t i =0; i+2 < avg_pos_block.size(); i+=3){
                 int id = static_cast<int>(avg_pos_block[i]);
@@ -143,38 +141,38 @@ class CameraPoseNode : public rclcpp::Node{
                 camera_point.point.y = y;
                 camera_point.point.z = z;
 
-                visualization_msgs::msg::Marker marker;
-                marker.header = current_cloud->header;
-                marker.ns = "detections";
-                marker.id = marker_id;
-                marker.type = visualization_msgs::msg::Marker::CUBE;
-                marker.action = visualization_msgs::msg::Marker::ADD;
-                marker.pose = pose;
-                marker.scale.x = 0.05;
-                marker.scale.y = 0.05;
-                marker.scale.z = 0.05;
-                marker.color.a = 1.0;
-                marker.color.r = 0.0;
-                marker.color.g = 1.0;
-                marker.color.b = 0.0;
-                marker_array.markers.push_back(marker);
+                // visualization_msgs::msg::Marker marker;
+                // marker.header = current_cloud->header;
+                // marker.ns = "detections";
+                // marker.id = marker_id;
+                // marker.type = visualization_msgs::msg::Marker::CUBE;
+                // marker.action = visualization_msgs::msg::Marker::ADD;
+                // marker.pose = pose;
+                // marker.scale.x = 0.05;
+                // marker.scale.y = 0.05;
+                // marker.scale.z = 0.05;
+                // marker.color.a = 1.0;
+                // marker.color.r = 0.0;
+                // marker.color.g = 1.0;
+                // marker.color.b = 0.0;
+                // marker_array.markers.push_back(marker);
 
-                visualization_msgs::msg::Marker label;
-                label.header = current_cloud->header;
-                label.ns = "labels";
-                label.id = marker_id++;
-                label.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
-                label.action = visualization_msgs::msg::Marker::ADD;
-                label.pose = pose;
-                label.pose.position.z += 0.12;  // Lift the label above the box
-                label.scale.z = 0.07;           // Font size
-                label.color.a = 1.0;
-                label.color.r = 1.0;
-                label.color.g = 1.0;
-                label.color.b = 1.0;
-                label.text = std::to_string(id);
+                // visualization_msgs::msg::Marker label;
+                // label.header = current_cloud->header;
+                // label.ns = "labels";
+                // label.id = marker_id++;
+                // label.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+                // label.action = visualization_msgs::msg::Marker::ADD;
+                // label.pose = pose;
+                // label.pose.position.z += 0.12;  // Lift the label above the box
+                // label.scale.z = 0.07;           // Font size
+                // label.color.a = 1.0;
+                // label.color.r = 1.0;
+                // label.color.g = 1.0;
+                // label.color.b = 1.0;
+                // label.text = std::to_string(id);
             
-                marker_array.markers.push_back(label);
+                // marker_array.markers.push_back(label);
 
                 try{
                     base_point = tf_buffer.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
@@ -195,11 +193,6 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, pose.position.x, pose.position.y, pose.position.z);
             }
             publisher->publish(publish_positions);
-            
-            marker_pub->publish(marker_array);
-
-            // subscription_pixel.reset();
-            // subscription_cloud.reset();
 
         }
         tf2_ros::Buffer tf_buffer;
@@ -208,8 +201,6 @@ class CameraPoseNode : public rclcpp::Node{
         rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_pixel;
         rclcpp::Publisher<custom_msg_interfaces::msg::ClassPose>::SharedPtr publisher;
         sensor_msgs::msg::PointCloud2::SharedPtr current_cloud;
-
-        rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_pub;
 
 };
 int main(int argc, char** argv) {
