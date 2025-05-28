@@ -127,8 +127,8 @@ private:
         
             float x = pred[0].item<float>();
             float y = pred[1].item<float>();
-            float w = (pred[2].item<float>())/2.0f;
-            float h = (pred[3].item<float>())/2.0f;
+            // float w = (pred[2].item<float>())/2.0f;
+            // float h = (pred[3].item<float>())/2.0f;
 
             // cv::rectangle(input_img, cv::Point(x-w, y-h), cv::Point(x+w, y+h), cv::Scalar(0, 255, 0), 2);
 
@@ -149,8 +149,8 @@ private:
         result_msg.data = data_vector;
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
-        for(size_t i =0; i+2 < result_msg.size(); i+=3){
-            RCLCPP_INFO(this->get_logger(), "class:%f, x:%f, y:%f", result_msg[i], result_msg[i+1], result_msg[i+2]);
+        for(size_t i =0; i+2 < result_msg.data.size(); i+=3){
+            RCLCPP_INFO(this->get_logger(), "class:%f, x:%f, y:%f", result_msg.data[i], result_msg.data[i+1], result_msg.data[i+2]);
         }
     }
 
