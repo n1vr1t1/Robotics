@@ -125,10 +125,10 @@ private:
         
             int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
         
-            int x = pred[0].item<float>();
-            int y = pred[1].item<float>();
-            int w = (pred[2].item<float>())/2.0;
-            int h = (pred[3].item<float>())/2.0;
+            float x = pred[0].item<float>();
+            float y = pred[1].item<float>();
+            float w = (pred[2].item<float>())/2.0;
+            float h = (pred[3].item<float>())/2.0;
 
             // cv::rectangle(input_img, cv::Point(x-w, y-h), cv::Point(x+w, y+h), cv::Scalar(0, 255, 0), 2);
 
