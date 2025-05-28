@@ -136,7 +136,7 @@ private:
             cv::putText(input_img, label, cv::Point(x1, y1 - 5),
                         cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
 
-            // RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x1, y1, x2, y2);
+            RCLCPP_INFO(this->get_logger(), "class:%d, x1:%d, y1:%d, x2:%d, y2:%d", class_id, x1, y1, x2, y2);
             
             // data_vector.push_back(class_id);
             // data_vector.push_back(x1);
