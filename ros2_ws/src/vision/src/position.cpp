@@ -64,6 +64,8 @@ class CameraPoseNode : public rclcpp::Node{
             }
             float width = static_cast<float>(current_cloud->width);
 
+            RCLCPP_INFO(this->get_logger(), "Cloud: width=%f, height=%d", width, current_cloud->height);
+
             visualization_msgs::msg::MarkerArray marker_array;
             int marker_id=0;
             
