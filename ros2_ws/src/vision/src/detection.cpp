@@ -106,13 +106,12 @@ private:
             return;
         }
 
-        RCLCPP_INFO(this->get_logger(), "getting detections");
+        // RCLCPP_INFO(this->get_logger(), "getting detections");
         output = output.squeeze(0).transpose(0, 1); // [5376, 15]
         
         std_msgs::msg::Float32MultiArray result_msg;
         std::vector<float> data_vector;
 
-        RCLCPP_INFO(this->get_logger(), "Ouptut size:%ld", output.size(0));
         for (int i = 0; i < output.size(0); ++i) {
             auto pred = output[i];  // shape: [15]
             
@@ -121,7 +120,7 @@ private:
             float class_conf = std::get<0>(max_result).item<float>(); // finding highest confidence
 
             if (class_conf < 0.7) continue;
-            RCLCPP_INFO(this->get_logger(), "Confidence is:%f", class_conf);
+            // RCLCPP_INFO(this->get_logger(), "Confidence is:%f", class_conf);
         
             float class_id = std::get<1>(max_result).item<float>();  // getting the class id of the highest confidence
         
