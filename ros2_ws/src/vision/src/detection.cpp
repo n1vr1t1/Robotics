@@ -125,18 +125,18 @@ private:
         
             int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
         
-            int x1 = pred[0].item<int>();
-            int y1 = pred[1].item<int>();
-            int x2 = pred[2].item<int>();
-            int y2 = pred[3].item<int>();
+            int x = pred[0].item<int>();
+            int y = pred[1].item<int>();
+            int w = (pred[2].item<int>())/2;
+            int h = (pred[3].item<int>())/2;
 
-            cv::rectangle(input_img, cv::Point(x1, y1), cv::Point(x2, y2), cv::Scalar(0, 255, 0), 2);
+            cv::rectangle(input_img, cv::Point(x-w, y-h), cv::Point(x+w, y+h), cv::Scalar(0, 255, 0), 2);
 
             std::string label = "Class " + std::to_string(class_id) + " (" + std::to_string(class_conf).substr(0, 4) + ")";
-            cv::putText(input_img, label, cv::Point(x1, y1 - 5),
+            cv::putText(input_img, label, cv::Point(x, y-5),
                         cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
 
-            RCLCPP_INFO(this->get_logger(), "class:%d, x1:%d, y1:%d, x2:%d, y2:%d", class_id, x1, y1, x2, y2);
+            RCLCPP_INFO(this->get_logger(), "class:%d, x1:%d, y1:%d, x2:%d, y2:%d", class_id, x-w, y-h, x+w, y+h);
             
             // data_vector.push_back(class_id);
             // data_vector.push_back(x1);
