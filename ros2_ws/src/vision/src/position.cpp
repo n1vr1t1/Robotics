@@ -62,8 +62,8 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_WARN(this->get_logger(), "No positions data available as yet. Waiting for positions data :)");
                 return;
             }
-            int width = current_cloud->width;
-            RCLCPP_INFO(this->get_logger(), "Width: %d", width);
+            float width = current_cloud->width;
+            RCLCPP_INFO(this->get_logger(), "Width: %f", width);
             for(size_t i =0; i+2 < positions.size(); i+=3){
                 int id = static_cast<int>(positions[i]);
                 float x = positions[i+1];
