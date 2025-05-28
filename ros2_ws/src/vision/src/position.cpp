@@ -15,7 +15,7 @@
 
 #include "custom_msg_interfaces/msg/class_pose.hpp"
 
-//#include "visualization_msgs/msg/marker_array.hpp"
+#include "visualization_msgs/msg/marker_array.hpp"
 
 namespace std {
     template <>
@@ -41,7 +41,7 @@ class CameraPoseNode : public rclcpp::Node{
             publisher = this->create_publisher<custom_msg_interfaces::msg::ClassPose>("/inference_3d", 8);
             current_cloud = nullptr;
 
-            // marker_pub = this->create_publisher<visualization_msgs::msg::MarkerArray>("/inference_markers", 10);
+            marker_pub = this->create_publisher<visualization_msgs::msg::MarkerArray>("/inference_markers", 10);
         }
 
     private:
@@ -63,6 +63,11 @@ class CameraPoseNode : public rclcpp::Node{
                 return;
             }
             float width = static_cast<float>(current_cloud->width);
+
+            visualization_msgs::msg::MarkerArray marker_array;
+
+
+            
             // RCLCPP_INFO(this->get_logger(), "Width: %f", width);
             for(size_t i =0; i+2 < positions.size(); i+=3){
                 int id = static_cast<int>(positions[i]);
@@ -94,7 +99,6 @@ class CameraPoseNode : public rclcpp::Node{
                 float z = *iter_z;
                 RCLCPP_INFO(this->get_logger(), "Before tansformation");
                 RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
-                
 
                 if(!std::isfinite(x) || !std::isfinite(y) || !std::isfinite(z)){
                     RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index_1d: %f", index_1d);
@@ -107,6 +111,22 @@ class CameraPoseNode : public rclcpp::Node{
                 camera_point.point.x = x;
                 camera_point.point.y = y;
                 camera_point.point.z = z;
+
+                visualization_msgs::msg::Marker marker;
+                marker.header = current_cloud->header;
+                marker.ns = "detections";
+                marker.id = id;
+                marker.type = visualization_msgs::msg::Marker::SPHERE;
+                marker.action = visualization_msgs::msg::Marker::ADD;
+                marker.pose = pose;
+                marker.scale.x = 0.05;
+                marker.scale.y = 0.05;
+                marker.scale.z = 0.05;
+                marker.color.a = 1.0;
+                marker.color.r = 0.0;
+                marker.color.g = 1.0;
+                marker.color.b = 0.0;
+                marker_array.markers.push_back(marker);
 
                 try{
                     base_point = tf_buffer.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
@@ -127,28 +147,11 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, pose.position.x, pose.position.y, pose.position.z);
             }
             publisher->publish(publish_positions);
+            
+            marker_pub->publish(marker_array);
 
-            // visualization_msgs::msg::MarkerArray marker_array;
-            
-            // for (int i=0;i<publish_positions.len;i++) {
-            //     visualization_msgs::msg::Marker marker;
-            //     marker.header = current_cloud->header;
-            //     marker.ns = "detections";
-            //     marker.id = block.class_ids;
-            //     marker.type = visualization_msgs::msg::Marker::SPHERE;
-            //     marker.action = visualization_msgs::msg::Marker::ADD;
-            //     marker.pose = block.poses;
-            //     marker.scale.x = 0.05;
-            //     marker.scale.y = 0.05;
-            //     marker.scale.z = 0.05;
-            //     marker.color.a = 1.0;
-            //     marker.color.r = 0.0;
-            //     marker.color.g = 1.0;
-            //     marker.color.b = 0.0;
-            //     marker_array.markers.push_back(marker);
-            // }
-            
-            // marker_pub->publish(marker_array);
+            subscription_pixel.reset();
+            subscription_cloud.reset();
 
         }
         tf2_ros::Buffer tf_buffer;
@@ -158,7 +161,7 @@ class CameraPoseNode : public rclcpp::Node{
         rclcpp::Publisher<custom_msg_interfaces::msg::ClassPose>::SharedPtr publisher;
         sensor_msgs::msg::PointCloud2::SharedPtr current_cloud;
 
-        // rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_pub;
+        rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_pub;
 
 };
 int main(int argc, char** argv) {
