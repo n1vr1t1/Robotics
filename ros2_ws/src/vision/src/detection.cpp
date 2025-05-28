@@ -174,6 +174,8 @@ private:
         for(int i=0;i<avg_pos_block.size();i+=3){
             cv::rectangle(input_img, cv::Point(avg_pos_block[i+1]-10, avg_pos_block[i+2]-10), 
                     cv::Point(avg_pos_block[i+1]+10, avg_pos_block[i+2]+10), cv::Scalar(0, 255, 0), 2);
+            RCLCPP_INFO(this->get_logger(), "%f %f", avg_pos_block[i+1], avg_pos_block[i+2]);
+            
 
                 std::string label = "Class " + std::to_string(avg_pos_block[i]);
                 cv::putText(input_img, label, cv::Point(avg_pos_block[i +1], avg_pos_block[i+2]),
