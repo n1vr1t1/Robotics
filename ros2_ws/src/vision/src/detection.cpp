@@ -149,9 +149,6 @@ private:
         result_msg.data = data_vector;
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
-        for(size_t i =0; i+2 < result_msg.data.size(); i+=3){
-            RCLCPP_INFO(this->get_logger(), "class:%f, x:%f, y:%f", result_msg.data[i], result_msg.data[i+1], result_msg.data[i+2]);
-        }
     }
 
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription;
