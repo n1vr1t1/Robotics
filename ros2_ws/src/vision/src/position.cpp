@@ -15,6 +15,8 @@
 
 #include "custom_msg_interfaces/msg/class_pose.hpp"
 
+#include "visualization_msgs/msg/marker_array.hpp"
+
 namespace std {
     template <>
     struct iterator_traits<sensor_msgs::PointCloud2ConstIterator<float>> {
@@ -38,6 +40,8 @@ class CameraPoseNode : public rclcpp::Node{
                 "/camera/image_raw/points", rclcpp::QoS(8), std::bind(&CameraPoseNode::cloud_callback, this, std::placeholders::_1));
             publisher = this->create_publisher<custom_msg_interfaces::msg::ClassPose>("/inference_3d", 8);
             current_cloud = nullptr;
+
+            // marker_pub = this->create_publisher<visualization_msgs::msg::MarkerArray>("/inference_markers", 10);
         }
 
     private:
@@ -58,23 +62,24 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_WARN(this->get_logger(), "No positions data available as yet. Waiting for positions data :)");
                 return;
             }
+            int width = current_cloud->width;
+            RCLCPP_INFO(this->get_logger(), "Width: %d", width);
             for(size_t i =0; i+2 < positions.size(); i+=3){
                 int id = static_cast<int>(positions[i]);
                 float x = positions[i+1];
                 float y = positions[i+2];
+                
+                // int height = current_cloud->height;
 
-                int width = current_cloud->width;
-                int height = current_cloud->height;
-
-                int u = static_cast<int>(x * static_cast<float>(width));
-                int v = static_cast<int>(y * static_cast<float>(height));
+                // int u = static_cast<int>(x * static_cast<float>(width));
+                // int v = static_cast<int>(y * static_cast<float>(height));
 
 
-                if(u < 0 || u >= width || v < 0 || v >= height){
-                    RCLCPP_WARN(this->get_logger(), "Invalid pixel coordinates: (%d, %d)", u, v);
-                    continue;
-                }
-                float index_1d = static_cast<float>(v * width + u);
+                // if(u < 0 || u >= width || v < 0 || v >= height){
+                //     RCLCPP_WARN(this->get_logger(), "Invalid pixel coordinates: (%d, %d)", u, v);
+                //     continue;
+                // }
+                float index_1d = static_cast<float>(y * width + x);
 
                 sensor_msgs::PointCloud2ConstIterator<float> iter_x(*current_cloud, "x");
                 sensor_msgs::PointCloud2ConstIterator<float> iter_y(*current_cloud, "y");
@@ -120,6 +125,28 @@ class CameraPoseNode : public rclcpp::Node{
             }
             publisher->publish(publish_positions);
 
+            // visualization_msgs::msg::MarkerArray marker_array;
+            
+            // for (int i=0;i<publish_positions.len;i++) {
+            //     visualization_msgs::msg::Marker marker;
+            //     marker.header = current_cloud->header;
+            //     marker.ns = "detections";
+            //     marker.id = block.class_ids;
+            //     marker.type = visualization_msgs::msg::Marker::SPHERE;
+            //     marker.action = visualization_msgs::msg::Marker::ADD;
+            //     marker.pose = block.poses;
+            //     marker.scale.x = 0.05;
+            //     marker.scale.y = 0.05;
+            //     marker.scale.z = 0.05;
+            //     marker.color.a = 1.0;
+            //     marker.color.r = 0.0;
+            //     marker.color.g = 1.0;
+            //     marker.color.b = 0.0;
+            //     marker_array.markers.push_back(marker);
+            // }
+            
+            // marker_pub->publish(marker_array);
+
         }
         tf2_ros::Buffer tf_buffer;
         std::shared_ptr<tf2_ros::TransformListener> tf_listener;
@@ -127,6 +154,9 @@ class CameraPoseNode : public rclcpp::Node{
         rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_pixel;
         rclcpp::Publisher<custom_msg_interfaces::msg::ClassPose>::SharedPtr publisher;
         sensor_msgs::msg::PointCloud2::SharedPtr current_cloud;
+
+        // rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_pub;
+
 };
 int main(int argc, char** argv) {
     rclcpp::init(argc, argv);
