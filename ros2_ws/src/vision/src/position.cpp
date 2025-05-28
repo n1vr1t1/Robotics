@@ -116,7 +116,7 @@ class CameraPoseNode : public rclcpp::Node{
                 marker.header = current_cloud->header;
                 marker.ns = "detections";
                 marker.id = id;
-                marker.type = visualization_msgs::msg::Marker::SPHERE;
+                marker.type = visualization_msgs::msg::Marker::CUBE;
                 marker.action = visualization_msgs::msg::Marker::ADD;
                 marker.pose = pose;
                 marker.scale.x = 0.05;
@@ -127,6 +127,23 @@ class CameraPoseNode : public rclcpp::Node{
                 marker.color.g = 1.0;
                 marker.color.b = 0.0;
                 marker_array.markers.push_back(marker);
+
+                visualization_msgs::msg::Marker label;
+                label.header = current_cloud->header;
+                label.ns = "labels";
+                label.id = marker_id++;
+                label.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+                label.action = visualization_msgs::msg::Marker::ADD;
+                label.pose = pose;
+                label.pose.position.z += 0.12;  // Lift the label above the box
+                label.scale.z = 0.07;           // Font size
+                label.color.a = 1.0;
+                label.color.r = 1.0;
+                label.color.g = 1.0;
+                label.color.b = 1.0;
+                label.text = std::to_string(class_id);
+            
+                marker_array.markers.push_back(label);
 
                 try{
                     base_point = tf_buffer.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
