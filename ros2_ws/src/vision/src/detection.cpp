@@ -125,29 +125,27 @@ private:
         
             int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
         
-            int x = pred[0].item<int>();
-            int y = pred[1].item<int>();
-            int w = (pred[2].item<int>())/2;
-            int h = (pred[3].item<int>())/2;
+            int x = pred[0].item<float>();
+            int y = pred[1].item<float>();
+            int w = (pred[2].item<float>())/2.0;
+            int h = (pred[3].item<float>())/2.0;
 
-            cv::rectangle(input_img, cv::Point(x-w, y-h), cv::Point(x+w, y+h), cv::Scalar(0, 255, 0), 2);
+            // cv::rectangle(input_img, cv::Point(x-w, y-h), cv::Point(x+w, y+h), cv::Scalar(0, 255, 0), 2);
 
-            std::string label = "Class " + std::to_string(class_id) + " (" + std::to_string(class_conf).substr(0, 4) + ")";
-            cv::putText(input_img, label, cv::Point(x, y-5),
-                        cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+            // std::string label = "Class " + std::to_string(class_id) + " (" + std::to_string(class_conf).substr(0, 4) + ")";
+            // cv::putText(input_img, label, cv::Point(x, y-5),
+                        // cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
 
-            RCLCPP_INFO(this->get_logger(), "class:%d, x1:%d, y1:%d, x2:%d, y2:%d", class_id, x-w, y-h, x+w, y+h);
+            RCLCPP_INFO(this->get_logger(), "class:%d, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x-w, y-h, x+w, y+h);
             
-            // data_vector.push_back(class_id);
-            // data_vector.push_back(x1);
-            // data_vector.push_back(y1);
-            // data_vector.push_back(x2);
-            // data_vector.push_back(y2);
+            data_vector.push_back(class_id);
+            data_vector.push_back(x);
+            data_vector.push_back(y);
         }
-        cv::imshow("Detections", input_img);
-        cv::waitKey(1);
-        subscription.reset();
-        return;
+        // cv::imshow("Detections", input_img);
+        // cv::waitKey(1);
+        // subscription.reset();
+        // return;
         result_msg.data = data_vector;
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
