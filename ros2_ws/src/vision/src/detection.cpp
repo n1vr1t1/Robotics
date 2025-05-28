@@ -66,15 +66,8 @@ private:
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
             cv::resize(rgb_img, resized_img, cv::Size(640,640)); //640,640 for s and 512 for n
-
-            //cv::imshow("YOLO input image", resized_img);
-            //cv::waitKey(1);
-
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
 
-            // cv::imshow("YOLO input image", resized_img);
-            // cv::waitKey(1);
-            
         } catch (const std::exception &e) {
             RCLCPP_ERROR(this->get_logger(), "Image preprocessing failed: %s", e.what());
             return;
@@ -168,20 +161,20 @@ private:
                     }
             }
         RCLCPP_INFO(this->get_logger(), "%ld → %ld", data_vector.size()/3, avg_pos_block.size()/3);
-        for(int i=0;i<data_vector.size();i+=3){
-            cv::rectangle(input_img, cv::Point(data_vector[i+1]-10, data_vector[i+2]-10), 
-                    cv::Point(data_vector[i+1]+10, data_vector[i+2]+10), cv::Scalar(0, 255, 0), 2);
-            RCLCPP_INFO(this->get_logger(), "%f %f", data_vector[i+1], data_vector[i+2]);
+        // for(int i=0;i<data_vector.size();i+=3){
+        //     cv::rectangle(input_img, cv::Point(data_vector[i+1]-10, data_vector[i+2]-10), 
+        //             cv::Point(data_vector[i+1]+10, data_vector[i+2]+10), cv::Scalar(0, 255, 0), 2);
+        //     RCLCPP_INFO(this->get_logger(), "%f %f", data_vector[i+1], data_vector[i+2]);
             
 
-                std::string label = "Class " + std::to_string(data_vector[i]);
-                cv::putText(input_img, label, cv::Point(data_vector[i +1], data_vector[i+2]),
-                        cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
-        }
-        cv::imshow("Detections", input_img);
-        cv::waitKey(1);
-        subscription.reset();
-        return;
+        //         std::string label = "Class " + std::to_string(data_vector[i]);
+        //         cv::putText(input_img, label, cv::Point(data_vector[i +1], data_vector[i+2]),
+        //                 cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+        // }
+        // cv::imshow("Detections", input_img);
+        // cv::waitKey(1);
+        // subscription.reset();
+        // return;
         result_msg.data = avg_pos_block;
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", avg_pos_block.size() / 3);
