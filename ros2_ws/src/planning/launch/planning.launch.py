@@ -8,14 +8,14 @@ def generate_launch_description():
 
         Node(
             package='planning',
-            executable='control_unit',
+            executable='control_node',
             name='control_node',
             output='screen'
         ),
         # Add the icp_pose_estimator_node node
         Node(
             package='planning',
-            executable='trajectory_execution',
+            executable='trajectory_execution_node',
             name='trajectory_execution_node',
             output='screen'
         ),
