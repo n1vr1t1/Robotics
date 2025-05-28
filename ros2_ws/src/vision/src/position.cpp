@@ -124,7 +124,7 @@ class CameraPoseNode : public rclcpp::Node{
                 publish_positions.poses.push_back(pose);
                 publish_positions.len++;
                 RCLCPP_INFO(this->get_logger(), "After tansformation");
-                RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
+                RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, pose.position.x, pose.position.y, pose.position.z);
             }
             publisher->publish(publish_positions);
 
