@@ -173,7 +173,7 @@ private:
         // }
         // cv::imshow("Detections", input_img);
         // cv::waitKey(1);
-        // subscription.reset();
+        subscription.reset();
         // return;
         result_msg.data = avg_pos_block;
         publisher->publish(result_msg);
