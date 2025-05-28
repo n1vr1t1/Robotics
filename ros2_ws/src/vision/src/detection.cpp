@@ -120,7 +120,7 @@ private:
             auto max_result = class_scores.max(0); //finding the highest score
             float class_conf = std::get<0>(max_result).item<float>(); // finding highest confidence
 
-            if (class_conf < 0.6) continue;
+            if (class_conf < 0.7) continue;
             RCLCPP_INFO(this->get_logger(), "Confidence is:%f", class_conf);
         
             int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
