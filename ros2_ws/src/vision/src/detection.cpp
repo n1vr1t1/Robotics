@@ -168,14 +168,14 @@ private:
                     }
             }
         RCLCPP_INFO(this->get_logger(), "%ld → %ld", data_vector.size()/3, avg_pos_block.size()/3);
-        for(int i=0;i<avg_pos_block.size();i+=3){
-            cv::rectangle(input_img, cv::Point(avg_pos_block[i+1]-10, avg_pos_block[i+2]-10), 
-                    cv::Point(avg_pos_block[i+1]+10, avg_pos_block[i+2]+10), cv::Scalar(0, 255, 0), 2);
-            RCLCPP_INFO(this->get_logger(), "%f %f", avg_pos_block[i+1], avg_pos_block[i+2]);
+        for(int i=0;i<data_vector.size();i+=3){
+            cv::rectangle(input_img, cv::Point(data_vector[i+1]-10, data_vector[i+2]-10), 
+                    cv::Point(data_vector[i+1]+10, data_vector[i+2]+10), cv::Scalar(0, 255, 0), 2);
+            RCLCPP_INFO(this->get_logger(), "%f %f", data_vector[i+1], data_vector[i+2]);
             
 
-                std::string label = "Class " + std::to_string(avg_pos_block[i]);
-                cv::putText(input_img, label, cv::Point(avg_pos_block[i +1], avg_pos_block[i+2]),
+                std::string label = "Class " + std::to_string(data_vector[i]);
+                cv::putText(input_img, label, cv::Point(data_vector[i +1], data_vector[i+2]),
                         cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
         }
         cv::imshow("Detections", input_img);
