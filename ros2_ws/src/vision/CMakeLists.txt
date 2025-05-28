@@ -78,7 +78,6 @@ ament_target_dependencies(pose_from_camera_node
   tf2_geometry_msgs
   libstatistics_collector
   custom_msg_interfaces
-  visualization_msgs
 )
 
 install(TARGETS
