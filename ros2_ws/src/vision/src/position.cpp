@@ -65,8 +65,7 @@ class CameraPoseNode : public rclcpp::Node{
             float width = static_cast<float>(current_cloud->width);
 
             visualization_msgs::msg::MarkerArray marker_array;
-
-
+            int marker_id=0;
             
             // RCLCPP_INFO(this->get_logger(), "Width: %f", width);
             for(size_t i =0; i+2 < positions.size(); i+=3){
@@ -115,7 +114,7 @@ class CameraPoseNode : public rclcpp::Node{
                 visualization_msgs::msg::Marker marker;
                 marker.header = current_cloud->header;
                 marker.ns = "detections";
-                marker.id = id;
+                marker.id = marker_id;
                 marker.type = visualization_msgs::msg::Marker::CUBE;
                 marker.action = visualization_msgs::msg::Marker::ADD;
                 marker.pose = pose;
@@ -141,7 +140,7 @@ class CameraPoseNode : public rclcpp::Node{
                 label.color.r = 1.0;
                 label.color.g = 1.0;
                 label.color.b = 1.0;
-                label.text = std::to_string(class_id);
+                label.text = std::to_string(id);
             
                 marker_array.markers.push_back(label);
 
