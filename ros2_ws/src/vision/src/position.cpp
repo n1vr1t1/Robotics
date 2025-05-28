@@ -68,21 +68,21 @@ class CameraPoseNode : public rclcpp::Node{
             avg_pos_block.push_back(positions[1]);
             avg_pos_block.push_back(positions[2]);
 
-            int instances_num = 0;
+            float instances_num = 0.0f;
             int block_num = 0;
             
             for(size_t i=3; i+2 < positions.size(); i+=3){
-                    if((avg_pos_block[block_num + 1] - position[i+1] > -0.1 && avg_pos_block[block_num +1] - position[i+1] < 0.1) &&
-                        (avg_pos_block[block_num +2] - position[i+2] > -0.1 && avg_pos_block[block_num +2] - position[i+2] < 0.1)) {
+                    if((avg_pos_block[block_num + 1] - positions[i+1] > -0.1 && avg_pos_block[block_num +1] - positions[i+1] < 0.1) &&
+                        (avg_pos_block[block_num +2] - positions[i+2] > -0.1 && avg_pos_block[block_num +2] - positions[i+2] < 0.1)) {
 
                             instances_num++;
-                            avg_pos_block[block_num + 1] + position[i+1];
-                            avg_pos_block[block_num + 2] + position[i+2];
+                            avg_pos_block[block_num + 1] + positions[i+1];
+                            avg_pos_block[block_num + 2] + positions[i+2];
                     }else{
                             avg_pos_block[block_num + 1] /= instances_num;
                             avg_pos_block[block_num + 2] /= instances_num;
 
-                            instances_num = 0;
+                            instances_num = 0.0;
                             
                             block_num++;
                             avg_pos_block.push_back(positions[i]);
@@ -91,7 +91,7 @@ class CameraPoseNode : public rclcpp::Node{
                         
                     }
             }
-            RCLCPP_INFO(this->get_logger(), "%d → %d", positions.size()/3, avg_pos_block.size()/3);
+            RCLCPP_INFO(this->get_logger(), "%ld → %ld", positions.size()/3, avg_pos_block.size()/3);
             
             
             int width = static_cast<int>(current_cloud->width);
