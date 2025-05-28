@@ -170,7 +170,7 @@ private:
                         
                     }
             }
-        RCLCPP_INFO(this->get_logger(), "%ld → %ld", data_vector.size()/3, avg_pos_block.size()/3);
+        RCLCPP_INFO(this->get_logger(), "%ld → %ld %d", data_vector.size()/3, avg_pos_block.size()/3, block_num);
         for(int i=0;i<avg_pos_block.size();i+=3){
             cv::rectangle(input_img, cv::Point(avg_pos_block[i+1]-10, avg_pos_block[i+2]-10), 
                     cv::Point(avg_pos_block[i+1]+10, avg_pos_block[i+2]+10), cv::Scalar(0, 255, 0), 2);
