@@ -97,10 +97,10 @@ class CameraPoseNode : public rclcpp::Node{
             // visualization_msgs::msg::MarkerArray marker_array;
             // int marker_id=0;
             
-            for(size_t i =0; i+2 < avg_pos_block.size(); i+=3){
-                int id = static_cast<int>(avg_pos_block[i]);
-                int u = static_cast<int>(std::round(avg_pos_block[i+1]));
-                int v = static_cast<int>(std::round(avg_pos_block[i+2]));
+            for(size_t i =0; i+2 < positions.size(); i+=3){
+                int id = static_cast<int>(positions[i]);
+                int u = static_cast<int>(std::round(positions[i+1]));
+                int v = static_cast<int>(std::round(positions[i+2]));
                 int index = v * width + u;
                 
                 // int height = current_cloud->height;
