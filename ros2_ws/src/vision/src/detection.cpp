@@ -65,7 +65,7 @@ private:
         cv::Mat resized_img;
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
-            cv::resize(rgb_img, resized_img, cv::Size(512, 512)); //640,640
+            cv::resize(rgb_img, resized_img, cv::Size(640,640)); //640,640 for s and 512 for n
 
             //cv::imshow("YOLO input image", resized_img);
             //cv::waitKey(1);
@@ -81,7 +81,7 @@ private:
         }
 
         cv::Mat input_img = resized_img.clone();
-        auto input_tensor = torch::from_blob(input_img.data, {1, 512, 512, 3}, //might be 512,512 
+        auto input_tensor = torch::from_blob(input_img.data, {1, 640, 640, 3}, //might be 512,512 
                     torch::TensorOptions().dtype(torch::kFloat32)).permute({0, 3, 1, 2}).contiguous();
         
         torch::Tensor output;
