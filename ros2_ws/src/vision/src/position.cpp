@@ -15,7 +15,7 @@
 
 #include "custom_msg_interfaces/msg/class_pose.hpp"
 
-#include "visualization_msgs/msg/marker_array.hpp"
+//#include "visualization_msgs/msg/marker_array.hpp"
 
 namespace std {
     template <>
