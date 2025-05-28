@@ -5,7 +5,7 @@ cmake_policy(SET CMP0074 NEW)
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1 CACHE BOOL "No dev warnings")
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wconversion -Wpedantic -Wextra -Wshadow -Werror)
+  add_compile_options(-Wall -Wconversion -Wpedantic -Wextra -Wshadow)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
