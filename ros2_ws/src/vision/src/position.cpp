@@ -29,7 +29,6 @@ namespace std {
 }
 
 class CameraPoseNode : public rclcpp::Node{
-    //("check if pixel coordinates match between the color image and point cloud");
     public:
         CameraPoseNode(): Node("pose_from_camera_node"),
                             tf_buffer(this->get_clock()), 
@@ -64,16 +63,14 @@ class CameraPoseNode : public rclcpp::Node{
             }
             float width = static_cast<float>(current_cloud->width);
 
-            RCLCPP_INFO(this->get_logger(), "Cloud: width=%f, height=%d", width, current_cloud->height);
-
             visualization_msgs::msg::MarkerArray marker_array;
             int marker_id=0;
             
-            // RCLCPP_INFO(this->get_logger(), "Width: %f", width);
             for(size_t i =0; i+2 < positions.size(); i+=3){
                 int id = static_cast<int>(positions[i]);
-                float x = positions[i+1];
-                float y = positions[i+2];
+                int u = static_cast<int>(std::round(positions[i+1]));
+                int v = static_cast<int>(std::round(positions[i+2]));
+                int index = v * width + u;
                 
                 // int height = current_cloud->height;
 
@@ -85,24 +82,24 @@ class CameraPoseNode : public rclcpp::Node{
                 //     RCLCPP_WARN(this->get_logger(), "Invalid pixel coordinates: (%d, %d)", u, v);
                 //     continue;
                 // }
-                float index_1d = static_cast<float>(y * width + x);
+                RCLCPP_INFO(this->get_logger(), "Pixel: (%d, %d) → Index: %d", u, v, index);
 
                 sensor_msgs::PointCloud2ConstIterator<float> iter_x(*current_cloud, "x");
                 sensor_msgs::PointCloud2ConstIterator<float> iter_y(*current_cloud, "y");
                 sensor_msgs::PointCloud2ConstIterator<float> iter_z(*current_cloud, "z");
 
-                std::advance(iter_x, index_1d);
-                std::advance(iter_y, index_1d);
-                std::advance(iter_z, index_1d);
+                std::advance(iter_x, index);
+                std::advance(iter_y, index);
+                std::advance(iter_z, index);
 
-                x = *iter_x;
-                y = *iter_y;
+                float x = *iter_x;
+                float y = *iter_y;
                 float z = *iter_z;
                 RCLCPP_INFO(this->get_logger(), "Before tansformation");
                 RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
 
                 if(!std::isfinite(x) || !std::isfinite(y) || !std::isfinite(z)){
-                    RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index_1d: %f", index_1d);
+                    RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index: %f", index);
                     continue;
                 }
 
@@ -168,8 +165,8 @@ class CameraPoseNode : public rclcpp::Node{
             
             marker_pub->publish(marker_array);
 
-            subscription_pixel.reset();
-            subscription_cloud.reset();
+            // subscription_pixel.reset();
+            // subscription_cloud.reset();
 
         }
         tf2_ros::Buffer tf_buffer;
