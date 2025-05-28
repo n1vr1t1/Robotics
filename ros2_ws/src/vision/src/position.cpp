@@ -113,6 +113,8 @@ class CameraPoseNode : public rclcpp::Node{
                 // RCLCPP_INFO(this->get_logger(), "After tansformation");
                 // RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, pose.position.x, pose.position.y, pose.position.z);
             }
+            subscription_pixel.reset();
+            subscription_cloud.reset();
             publisher->publish(publish_positions);
 
         }
