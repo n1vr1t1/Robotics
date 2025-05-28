@@ -145,15 +145,15 @@ private:
             for(size_t i=3; i+2 < data_vector.size(); i+=3){
                     if((avg_pos_block[block_num + 1] - data_vector[i+1] > -5.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 5.0) &&
                         (avg_pos_block[block_num +2] - data_vector[i+2] > -5.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 5.0)) {
-                            RCLCPP_INFO(this->get_logger(), "%d: Averaging from (%f, %f)", block_num, avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
+                            //RCLCPP_INFO(this->get_logger(), "%d: Averaging from (%f, %f)", block_num, avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
 
                             avg_pos_block[block_num + 1] = (avg_pos_block[block_num + 1] + data_vector[i+1])/2.0f;
                             avg_pos_block[block_num + 2] = (avg_pos_block[block_num + 2] + data_vector[i+2])/2.0f;
-                            RCLCPP_INFO(this->get_logger(), "to (%f, %f)", avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
+                            //RCLCPP_INFO(this->get_logger(), "to (%f, %f)", avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
                         
                     }else{
                             block_num+=3.0;
-                            RCLCPP_INFO(this->get_logger(), "to next block: %d", block_num);
+                            //RCLCPP_INFO(this->get_logger(), "to next block: %d", block_num);
                             avg_pos_block.push_back(data_vector[i]);
                             avg_pos_block.push_back(data_vector[i + 1]);
                             avg_pos_block.push_back(data_vector[i + 2]);
