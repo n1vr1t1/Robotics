@@ -136,7 +136,7 @@ private:
             // cv::putText(input_img, label, cv::Point(x, y-5),
                         // cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
 
-            RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x-w, y-h, x+w, y+h);
+            // RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x-w, y-h, x+w, y+h);
             
             data_vector.push_back(class_id);
             data_vector.push_back(x);
@@ -149,7 +149,9 @@ private:
         result_msg.data = data_vector;
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
-
+        for(size_t i =0; i+2 < result_msg.size(); i+=3){
+            RCLCPP_INFO(this->get_logger(), "class:%f, x:%f, y:%f", result_msg[i], result_msg[i+1], result_msg[i+2]);
+        }
     }
 
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription;
