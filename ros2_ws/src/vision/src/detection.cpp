@@ -159,7 +159,7 @@ private:
                             RCLCPP_INFO(this->get_logger(), "to (%f, %f)", avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
                         
                     }else{
-                            block_num++;
+                            block_num+=3.0;
                             RCLCPP_INFO(this->get_logger(), "to next block: %d", block_num);
                             avg_pos_block.push_back(data_vector[i]);
                             avg_pos_block.push_back(data_vector[i + 1]);
@@ -167,7 +167,7 @@ private:
                         
                     }
             }
-        RCLCPP_INFO(this->get_logger(), "%ld → %ld %d", data_vector.size()/3, avg_pos_block.size()/3, block_num);
+        RCLCPP_INFO(this->get_logger(), "%ld → %ld %d", data_vector.size()/3, avg_pos_block.size()/3);
         for(int i=0;i<avg_pos_block.size();i+=3){
             cv::rectangle(input_img, cv::Point(avg_pos_block[i+1]-10, avg_pos_block[i+2]-10), 
                     cv::Point(avg_pos_block[i+1]+10, avg_pos_block[i+2]+10), cv::Scalar(0, 255, 0), 2);
