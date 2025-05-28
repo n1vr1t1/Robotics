@@ -147,22 +147,16 @@ private:
             avg_pos_block.push_back(data_vector[1]);
             avg_pos_block.push_back(data_vector[2]);
 
-            float instances_num = 0.0f;
             int block_num = 0;
             
             for(size_t i=3; i+2 < data_vector.size(); i+=3){
-                    if((avg_pos_block[block_num + 1] - data_vector[i+1] > -20.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 20.0) &&
-                        (avg_pos_block[block_num +2] - data_vector[i+2] > -20.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 20.0)) {
+                    if((avg_pos_block[block_num + 1] - data_vector[i+1] > -5.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 5.0) &&
+                        (avg_pos_block[block_num +2] - data_vector[i+2] > -5.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 5.0)) {
 
                             instances_num++;
-                            avg_pos_block[block_num + 1] + data_vector[i+1];
-                            avg_pos_block[block_num + 2] + data_vector[i+2];
+                            avg_pos_block[block_num + 1] = (avg_pos_block[block_num + 1] + data_vector[i+1])/2.0f;
+                            avg_pos_block[block_num + 2] = (avg_pos_block[block_num + 2] + data_vector[i+2])/2.0f;
                     }else{
-                            avg_pos_block[block_num + 1] /= instances_num;
-                            avg_pos_block[block_num + 2] /= instances_num;
-
-                            instances_num = 0.0;
-                            
                             block_num++;
                             avg_pos_block.push_back(data_vector[i]);
                             avg_pos_block.push_back(data_vector[i + 1]);
