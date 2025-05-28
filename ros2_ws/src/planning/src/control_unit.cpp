@@ -104,7 +104,7 @@ class ControlNode : public rclcpp::Node{
 
             while(rclcpp::ok()){
                 try {
-                    auto base_gripper_tf = tf_buffer.lookupTransform("base", "gripper", tf2::TimePointZero, tf2::durationFromSec(1.0));
+                    auto base_gripper_tf = tf_buffer.lookupTransform("base", "soft_robotics_gripper_base_link", tf2::TimePointZero, tf2::durationFromSec(1.0));
                     current_pose.position.x = base_gripper_tf.transform.translation.x;
                     current_pose.position.y = base_gripper_tf.transform.translation.y;
                     current_pose.position.z = base_gripper_tf.transform.translation.z;
