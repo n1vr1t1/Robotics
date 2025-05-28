@@ -72,8 +72,8 @@ class CameraPoseNode : public rclcpp::Node{
             int block_num = 0;
             
             for(size_t i=3; i+2 < positions.size(); i+=3){
-                    if((avg_pos_block[block_num + 1] - positions[i+1] > -4.0 && avg_pos_block[block_num +1] - positions[i+1] < 4.0) &&
-                        (avg_pos_block[block_num +2] - positions[i+2] > -4.0 && avg_pos_block[block_num +2] - positions[i+2] < 4.0)) {
+                    if((avg_pos_block[block_num + 1] - positions[i+1] > -10.0 && avg_pos_block[block_num +1] - positions[i+1] < 10.0) &&
+                        (avg_pos_block[block_num +2] - positions[i+2] > -10.0 && avg_pos_block[block_num +2] - positions[i+2] < 10.0)) {
 
                             instances_num++;
                             avg_pos_block[block_num + 1] + positions[i+1];
