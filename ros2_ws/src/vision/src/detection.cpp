@@ -141,13 +141,51 @@ private:
             data_vector.push_back(x);
             data_vector.push_back(y);
         }
-        // cv::imshow("Detections", input_img);
-        // cv::waitKey(1);
-        // subscription.reset();
-        // return;
-        result_msg.data = data_vector;
+        std::vector<float> avg_pos_block;
+
+            avg_pos_block.push_back(data_vector[0]);
+            avg_pos_block.push_back(data_vector[1]);
+            avg_pos_block.push_back(data_vector[2]);
+
+            float instances_num = 0.0f;
+            int block_num = 0;
+            
+            for(size_t i=3; i+2 < data_vector.size(); i+=3){
+                    if((avg_pos_block[block_num + 1] - data_vector[i+1] > -10.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 10.0) &&
+                        (avg_pos_block[block_num +2] - data_vector[i+2] > -10.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 10.0)) {
+
+                            instances_num++;
+                            avg_pos_block[block_num + 1] + data_vector[i+1];
+                            avg_pos_block[block_num + 2] + data_vector[i+2];
+                    }else{
+                            avg_pos_block[block_num + 1] /= instances_num;
+                            avg_pos_block[block_num + 2] /= instances_num;
+
+                            instances_num = 0.0;
+                            
+                            block_num++;
+                            avg_pos_block.push_back(data_vector[i]);
+                            avg_pos_block.push_back(data_vector[i + 1]);
+                            avg_pos_block.push_back(data_vector[i + 2]);
+                        
+                    }
+            }
+        RCLCPP_INFO(this->get_logger(), "%ld → %ld", data_vector.size()/3, avg_pos_block.size()/3);
+        for(int i=0;i<avg_pos_block.size();i+=3){
+            cv::rectangle(input_img, cv::Point(avg_pos_block[i+1]-10, avg_pos_block[i+2]-10), 
+                    cv::Point(avg_pos_block[i+1]+10, avg_pos_block[i+2]+10), cv::Scalar(0, 255, 0), 2);
+
+                std::string label = "Class " + std::to_string(avg_pos_block[i]);
+                cv::putText(input_img, label, cv::Point(avg_pos_block[i +1], avg_pos_block[i+2]),
+                        cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
+        }
+        cv::imshow("Detections", input_img);
+        cv::waitKey(1);
+        subscription.reset();
+        return;
+        result_msg.data = avg_pos_block;
         publisher->publish(result_msg);
-        RCLCPP_INFO(this->get_logger(), "Published %zu detections.", data_vector.size() / 3);
+        RCLCPP_INFO(this->get_logger(), "Published %zu detections.", avg_pos_block.size() / 3);
     }
 
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription;
