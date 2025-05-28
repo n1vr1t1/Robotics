@@ -153,7 +153,6 @@ private:
                     if((avg_pos_block[block_num + 1] - data_vector[i+1] > -5.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 5.0) &&
                         (avg_pos_block[block_num +2] - data_vector[i+2] > -5.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 5.0)) {
 
-                            instances_num++;
                             avg_pos_block[block_num + 1] = (avg_pos_block[block_num + 1] + data_vector[i+1])/2.0f;
                             avg_pos_block[block_num + 2] = (avg_pos_block[block_num + 2] + data_vector[i+2])/2.0f;
                     }else{
