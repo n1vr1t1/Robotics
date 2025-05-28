@@ -61,7 +61,7 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_WARN(this->get_logger(), "No positions data available as yet. Waiting for positions data :)");
                 return;
             }
-            float width = static_cast<float>(current_cloud->width);
+            int width = static_cast<int>(current_cloud->width);
 
             visualization_msgs::msg::MarkerArray marker_array;
             int marker_id=0;
