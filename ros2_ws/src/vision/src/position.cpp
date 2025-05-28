@@ -15,8 +15,6 @@
 
 #include "custom_msg_interfaces/msg/class_pose.hpp"
 
-#include "visualization_msgs/msg/marker_array.hpp"
-
 namespace std {
     template <>
     struct iterator_traits<sensor_msgs::PointCloud2ConstIterator<float>> {
@@ -60,42 +58,8 @@ class CameraPoseNode : public rclcpp::Node{
                 return;
             }
 
-            // std::vector<float> avg_pos_block;
-
-            // avg_pos_block.push_back(positions[0]);
-            // avg_pos_block.push_back(positions[1]);
-            // avg_pos_block.push_back(positions[2]);
-
-            // float instances_num = 0.0f;
-            // int block_num = 0;
-            
-            // for(size_t i=3; i+2 < positions.size(); i+=3){
-            //         if((avg_pos_block[block_num + 1] - positions[i+1] > -10.0 && avg_pos_block[block_num +1] - positions[i+1] < 10.0) &&
-            //             (avg_pos_block[block_num +2] - positions[i+2] > -10.0 && avg_pos_block[block_num +2] - positions[i+2] < 10.0)) {
-
-            //                 instances_num++;
-            //                 avg_pos_block[block_num + 1] + positions[i+1];
-            //                 avg_pos_block[block_num + 2] + positions[i+2];
-            //         }else{
-            //                 avg_pos_block[block_num + 1] /= instances_num;
-            //                 avg_pos_block[block_num + 2] /= instances_num;
-
-            //                 instances_num = 0.0;
-                            
-            //                 block_num++;
-            //                 avg_pos_block.push_back(positions[i]);
-            //                 avg_pos_block.push_back(positions[i + 1]);
-            //                 avg_pos_block.push_back(positions[i + 2]);
-                        
-            //         }
-            // }
-            // RCLCPP_INFO(this->get_logger(), "%ld → %ld", positions.size()/3, avg_pos_block.size()/3);
-            
-            
             int width = static_cast<int>(current_cloud->width);
 
-            // visualization_msgs::msg::MarkerArray marker_array;
-            // int marker_id=0;
             
             for(size_t i =0; i+2 < positions.size(); i+=3){
                 int id = static_cast<int>(positions[i]);
@@ -104,16 +68,6 @@ class CameraPoseNode : public rclcpp::Node{
                 int index = v * width + u;
                 
                 // int height = current_cloud->height;
-
-                // int u = static_cast<int>(x * static_cast<float>(width));
-                // int v = static_cast<int>(y * static_cast<float>(height));
-
-
-                // if(u < 0 || u >= width || v < 0 || v >= height){
-                //     RCLCPP_WARN(this->get_logger(), "Invalid pixel coordinates: (%d, %d)", u, v);
-                //     continue;
-                // }
-                RCLCPP_INFO(this->get_logger(), "Pixel: (%d, %d) → Index: %d", u, v, index);
 
                 sensor_msgs::PointCloud2ConstIterator<float> iter_x(*current_cloud, "x");
                 sensor_msgs::PointCloud2ConstIterator<float> iter_y(*current_cloud, "y");
@@ -140,39 +94,6 @@ class CameraPoseNode : public rclcpp::Node{
                 camera_point.point.x = x;
                 camera_point.point.y = y;
                 camera_point.point.z = z;
-
-                // visualization_msgs::msg::Marker marker;
-                // marker.header = current_cloud->header;
-                // marker.ns = "detections";
-                // marker.id = marker_id;
-                // marker.type = visualization_msgs::msg::Marker::CUBE;
-                // marker.action = visualization_msgs::msg::Marker::ADD;
-                // marker.pose = pose;
-                // marker.scale.x = 0.05;
-                // marker.scale.y = 0.05;
-                // marker.scale.z = 0.05;
-                // marker.color.a = 1.0;
-                // marker.color.r = 0.0;
-                // marker.color.g = 1.0;
-                // marker.color.b = 0.0;
-                // marker_array.markers.push_back(marker);
-
-                // visualization_msgs::msg::Marker label;
-                // label.header = current_cloud->header;
-                // label.ns = "labels";
-                // label.id = marker_id++;
-                // label.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
-                // label.action = visualization_msgs::msg::Marker::ADD;
-                // label.pose = pose;
-                // label.pose.position.z += 0.12;  // Lift the label above the box
-                // label.scale.z = 0.07;           // Font size
-                // label.color.a = 1.0;
-                // label.color.r = 1.0;
-                // label.color.g = 1.0;
-                // label.color.b = 1.0;
-                // label.text = std::to_string(id);
-            
-                // marker_array.markers.push_back(label);
 
                 try{
                     base_point = tf_buffer.transform(camera_point, "base_link", tf2::durationFromSec(0.1));
