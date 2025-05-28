@@ -151,8 +151,8 @@ private:
             int block_num = 0;
             
             for(size_t i=3; i+2 < data_vector.size(); i+=3){
-                    if((avg_pos_block[block_num + 1] - data_vector[i+1] > -10.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 10.0) &&
-                        (avg_pos_block[block_num +2] - data_vector[i+2] > -10.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 10.0)) {
+                    if((avg_pos_block[block_num + 1] - data_vector[i+1] > -20.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 20.0) &&
+                        (avg_pos_block[block_num +2] - data_vector[i+2] > -20.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 20.0)) {
 
                             instances_num++;
                             avg_pos_block[block_num + 1] + data_vector[i+1];
