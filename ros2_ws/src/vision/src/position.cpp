@@ -61,15 +61,48 @@ class CameraPoseNode : public rclcpp::Node{
                 RCLCPP_WARN(this->get_logger(), "No positions data available as yet. Waiting for positions data :)");
                 return;
             }
+
+            std::vector<float> avg_pos_block;
+
+            avg_pos_block.push_back(positions[0]);
+            avg_pos_block.push_back(positions[1]);
+            avg_pos_block.push_back(positions[2]);
+
+            int instances_num = 0;
+            int block_num = 0;
+            
+            for(size_t i=3; i+2 < positions.size(); i+=3){
+                    if((avg_pos_block[block_num + 1] - position[i+1] > -0.1 && avg_pos_block[block_num +1] - position[i+1] < 0.1) &&
+                        (avg_pos_block[block_num +2] - position[i+2] > -0.1 && avg_pos_block[block_num +2] - position[i+2] < 0.1)) {
+
+                            instances_num++;
+                            avg_pos_block[block_num + 1] + position[i+1];
+                            avg_pos_block[block_num + 2] + position[i+2];
+                    }else{
+                            avg_pos_block[block_num + 1] /= instances_num;
+                            avg_pos_block[block_num + 2] /= instances_num;
+
+                            instances_num = 0;
+                            
+                            block_num++;
+                            avg_pos_block.push_back(positions[i]);
+                            avg_pos_block.push_back(positions[i + 1]);
+                            avg_pos_block.push_back(positions[i + 2]);
+                        
+                    }
+            }
+            RCLCPP_INFO(this->get_logger(), "%d → %d", positions.size()/3, avg_pos_block.size()/3);
+            
+            
             int width = static_cast<int>(current_cloud->width);
 
             visualization_msgs::msg::MarkerArray marker_array;
             int marker_id=0;
             
-            for(size_t i =0; i+2 < positions.size(); i+=3){
-                int id = static_cast<int>(positions[i]);
-                int u = static_cast<int>(std::round(positions[i+1]));
-                int v = static_cast<int>(std::round(positions[i+2]));
+            for(size_t i =0; i+2 < avg_pos_block.size(); i+=3){
+                int id = static_cast<int>(avg_pos_block[i]);
+                int u = static_cast<int>(std::round(avg_pos_block[i+1]));
+                int v = static_cast<int>(std::round(avg_pos_block[i+2]));
                 int index = v * width + u;
                 
                 // int height = current_cloud->height;
