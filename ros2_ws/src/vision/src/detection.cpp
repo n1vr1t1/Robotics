@@ -123,12 +123,12 @@ private:
             if (class_conf < 0.7) continue;
             RCLCPP_INFO(this->get_logger(), "Confidence is:%f", class_conf);
         
-            int class_id = std::get<1>(max_result).item<int>();  // getting the class id of the highest confidence
+            float class_id = std::get<1>(max_result).item<float>();  // getting the class id of the highest confidence
         
             float x = pred[0].item<float>();
             float y = pred[1].item<float>();
-            float w = (pred[2].item<float>())/2.0;
-            float h = (pred[3].item<float>())/2.0;
+            float w = (pred[2].item<float>())/2.0f;
+            float h = (pred[3].item<float>())/2.0f;
 
             // cv::rectangle(input_img, cv::Point(x-w, y-h), cv::Point(x+w, y+h), cv::Scalar(0, 255, 0), 2);
 
@@ -136,7 +136,7 @@ private:
             // cv::putText(input_img, label, cv::Point(x, y-5),
                         // cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
 
-            RCLCPP_INFO(this->get_logger(), "class:%d, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x-w, y-h, x+w, y+h);
+            RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x-w, y-h, x+w, y+h);
             
             data_vector.push_back(class_id);
             data_vector.push_back(x);
