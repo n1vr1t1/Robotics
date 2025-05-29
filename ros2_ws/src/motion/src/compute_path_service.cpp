@@ -31,6 +31,9 @@ namespace motion{
         );
         response->poses = interpolated_poses;
 
+        RCLCPP_INFO(this->get_logger(), "Sending response to service %zu", response->poses);
+        
+
         RCLCPP_INFO(this->get_logger(), "Publishing poses");
         // Publish for visualization
         publish_pose_array(interpolated_poses);    //70
