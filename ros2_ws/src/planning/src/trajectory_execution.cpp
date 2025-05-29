@@ -146,6 +146,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             auto future_goal = action_client->async_send_goal(goal);
 
             //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_goal);
+            rclcpp::executors::SingleThreadedExecutor temp_executor;
+            auto temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
             temp_executor.add_node(temp_node);
             auto future_result = temp_executor.spin_until_future_complete(future_trajectory);
             temp_executor.remove_node(temp_node);
