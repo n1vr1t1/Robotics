@@ -84,7 +84,7 @@ class CameraPoseNode : public rclcpp::Node{
                 // RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
 
                 if(!std::isfinite(x) || !std::isfinite(y) || !std::isfinite(z)){
-                    RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index: %d", index);
+                    RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index: %d which gives %f %f %f", index, x, y, z);
                     continue;
                 }
 
