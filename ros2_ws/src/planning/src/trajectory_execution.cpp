@@ -59,13 +59,13 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
             //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
             // Create a temporary node to wait on the future
-            auto temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
+            auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
             
             rclcpp::executors::SingleThreadedExecutor temp_executor;
-            temp_executor.add_node(temp_node);
+            temp_executor.add_node(path_temp_node);
             
             auto future_result = temp_executor.spin_until_future_complete(future_path);
-            temp_executor.remove_node(temp_node);
+            temp_executor.remove_node(path_temp_node);
             
             
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
@@ -146,10 +146,10 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
             //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_goal);
             rclcpp::executors::SingleThreadedExecutor temp_executor;
-            auto temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
-            temp_executor.add_node(temp_node);
+            auto traj_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
+            temp_executor.add_node(traj_temp_node);
             auto future_result = temp_executor.spin_until_future_complete(future_goal);
-            temp_executor.remove_node(temp_node);
+            temp_executor.remove_node(traj_temp_node);
             
             
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
