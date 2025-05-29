@@ -15,7 +15,8 @@ def generate_launch_description():
             package='vision',
             executable='pose_from_camera_node',
             name='pose_from_camera_node',
-            output='screen'
+            output='screen',
+            parameters=[{'use_sim_time': True}]
         ),
         
         # Add the detection_result_republisher node
@@ -23,7 +24,8 @@ def generate_launch_description():
             package='vision',
             executable='yolo_detection_node',
             name='yolo_detection_node',
-            output='screen'
+            output='screen',
+            parameters=[{'use_sim_time': True}]
         ),
         
     ])
