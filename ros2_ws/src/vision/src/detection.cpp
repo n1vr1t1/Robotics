@@ -156,7 +156,7 @@ private:
                     }else{
                             avg_pos_block[block_num + 1] /= static_cast<float>(DIM);
                             avg_pos_block[block_num + 2] /= static_cast<float>(DIM);
-                            block_num += 3.0;
+                            block_num += 3;
                             //RCLCPP_INFO(this->get_logger(), "to next block: %d", block_num);
                             avg_pos_block.push_back(data_vector[i]);
                             avg_pos_block.push_back(data_vector[i + 1]);
