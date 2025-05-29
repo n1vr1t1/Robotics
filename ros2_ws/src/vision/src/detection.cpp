@@ -156,7 +156,6 @@ private:
                     }else{
                             avg_pos_block[block_num + 1] /= static_cast<float>(DIM);
                             avg_pos_block[block_num + 2] /= static_cast<float>(DIM);
-                            RCLCPP_INFO(this->get_logger(), "Changed to (%f, %f)", avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
                             block_num += 3.0;
                             //RCLCPP_INFO(this->get_logger(), "to next block: %d", block_num);
                             avg_pos_block.push_back(data_vector[i]);
@@ -165,6 +164,9 @@ private:
                         
                     }
             }
+        avg_pos_block[block_num + 1] /= static_cast<float>(DIM);
+        avg_pos_block[block_num + 2] /= static_cast<float>(DIM);
+        
         RCLCPP_INFO(this->get_logger(), "%ld → %ld", data_vector.size()/3, avg_pos_block.size()/3);
         // for(int i=0;i<data_vector.size();i+=3){
         //     cv::rectangle(input_img, cv::Point(data_vector[i+1]-10, data_vector[i+2]-10), 
