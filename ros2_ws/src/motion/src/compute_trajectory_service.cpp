@@ -25,7 +25,7 @@ const std::vector<std::string> JOINT_NAMES = {
 // ---------------------------------------------------------------------------
 std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0, double v1, double T){
     
-    RCLCPP_INFO(this->get_logger(), "Computing cubic coefficients");
+    //RCLCPP_INFO(this->get_logger(), "Computing cubic coefficients");
     double a0 = q0;
     double a1 = v0;
     double a2 = (3 * (q1 - q0) / std::pow(T, 2)) - (2 * v0 / T) - (v1 / T);
@@ -40,12 +40,12 @@ std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0
 // ---------------------------------------------------------------------------
 trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory (const std::vector<std::array<double, 6>>& waypoints, double segment_time){
 
-    RCLCPP_INFO(this->get_logger(), "Generating cubic trajectory");
+    //RCLCPP_INFO(this->get_logger(), "Generating cubic trajectory");
     trajectory_msgs::msg::JointTrajectory traj_msg;
     traj_msg.joint_names = JOINT_NAMES;
     double total_time = 0.0;
 
-    RCLCPP_INFO(this->get_logger(), "Computing waypoints");
+    //RCLCPP_INFO(this->get_logger(), "Computing waypoints");
     for (size_t i = 0; i < waypoints.size() - 1; ++i) {
         std::array<double, 6> q0 = waypoints[i];
         std::array<double, 6> q1 = waypoints[i + 1];
@@ -76,14 +76,14 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory (const std::vec
         }
 
         // Compute cubic polynomial coefficients
-        RCLCPP_INFO(this->get_logger(), "Compute cubic polynomial coefficients");
+        //RCLCPP_INFO(this->get_logger(), "Compute cubic polynomial coefficients");
         std::array<std::array<double, 4>, 6> coefficients;
         for (size_t j = 0; j < 6; ++j) {
             coefficients[j] = compute_cubic_coefficients(q0[j], q1[j], v0[j], v1[j], segment_time);
         }
 
         // Generate interpolated points
-        RCLCPP_INFO(this->get_logger(), "Generate interpolated points");    
+        //RCLCPP_INFO(this->get_logger(), "Generate interpolated points");    
         for (int step = 0; step <= STEPS; ++step) {
             double t = (step / static_cast<double>(STEPS)) * segment_time;
             trajectory_msgs::msg::JointTrajectoryPoint interpolated_point;
