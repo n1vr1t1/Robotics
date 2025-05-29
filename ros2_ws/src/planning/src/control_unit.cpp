@@ -269,7 +269,11 @@ class ControlNode : public rclcpp::Node{
             }
 
             rclcpp::Client<custom_msg_interfaces::srv::Interpolation>::SharedFuture future_interpolation = interpolation_client->async_send_request(interpolation_request).future.share();
-            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_interpolation);
+            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_interpolation);
+            rclcpp::executors::SingleThreadedExecutor temp_executor;
+            temp_executor.add_node(this->get_node_base_interface());
+            auto future_result = temp_executor.spin_until_future_complete(future_interpolation);
+            temp_executor.remove_node(this->get_node_base_interface());
             
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to call interpolation service (communication issue, attempt %d).", retry_count + 1);
