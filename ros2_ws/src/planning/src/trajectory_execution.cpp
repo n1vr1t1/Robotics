@@ -68,7 +68,18 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
             //the problem is this line
             //auto future_result = temp_executor.spin_until_future_complete(future_path);
-            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            rclcpp::Time start_time = this->now();
+            rclcpp::Duration timeout = rclcpp::Duration::from_seconds(5.0); // adjust as needed
+            
+            while (rclcpp::ok() && this->now() - start_time < timeout) {
+                rclcpp::spin_some(this->get_node_base_interface());
+                if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+                    break;
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(10)); // avoid tight loop
+            }
+            
             RCLCPP_INFO(this->get_logger(), "Stopped spinning");
             temp_executor.remove_node(path_temp_node);
             RCLCPP_INFO(this->get_logger(), "REmoving temp node");
