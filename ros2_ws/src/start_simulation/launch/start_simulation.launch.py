@@ -34,7 +34,7 @@ def generate_launch_description():
     return launch.LaunchDescription([
         ros2_ur5_interface_launch,
         vision_launch,
-    #    motion_launch,
-        planning_launch
+        motion_launch
+   #     planning_launch
     ])
 
