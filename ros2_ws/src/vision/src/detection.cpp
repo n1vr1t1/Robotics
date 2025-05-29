@@ -14,6 +14,8 @@
 #include <vector>
 #include <exception>
 
+const int DIM = 640; //640,640 for s and 512 for n
+
 class DetectionNode : public rclcpp::Node {
 public:
     DetectionNode() : Node("yolo_detection_node") {
@@ -65,7 +67,7 @@ private:
         cv::Mat resized_img;
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
-            cv::resize(rgb_img, resized_img, cv::Size(640,640)); //640,640 for s and 512 for n
+            cv::resize(rgb_img, resized_img, cv::Size(DIM, DIM)); 
             resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
 
         } catch (const std::exception &e) {
@@ -74,7 +76,7 @@ private:
         }
 
         cv::Mat input_img = resized_img.clone();
-        auto input_tensor = torch::from_blob(input_img.data, {1, 640, 640, 3}, //might be 512,512 
+        auto input_tensor = torch::from_blob(input_img.data, {1, DIM, DIM, 3},
                     torch::TensorOptions().dtype(torch::kFloat32)).permute({0, 3, 1, 2}).contiguous();
         
         torch::Tensor output;
@@ -152,7 +154,10 @@ private:
                             //RCLCPP_INFO(this->get_logger(), "to (%f, %f)", avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
                         
                     }else{
-                            block_num+=3.0;
+                            avg_pos_block[block_num + 1] /= static_cast<float>(DIM);
+                            avg_pos_block[block_num + 2] /= static_cast<float>(DIM);
+                            RCLCPP_INFO(this->get_logger(), "Changed to (%f, %f)", avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
+                            block_num += 3.0;
                             //RCLCPP_INFO(this->get_logger(), "to next block: %d", block_num);
                             avg_pos_block.push_back(data_vector[i]);
                             avg_pos_block.push_back(data_vector[i + 1]);
