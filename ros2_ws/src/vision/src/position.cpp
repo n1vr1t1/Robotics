@@ -116,6 +116,8 @@ class CameraPoseNode : public rclcpp::Node{
             subscription_pixel.reset();
             subscription_cloud.reset();
             publisher->publish(publish_positions);
+            RCLCPP_INFO(this->get_logger(), "Published from pose_camera_node");
+            
 
         }
         tf2_ros::Buffer tf_buffer;
