@@ -15,6 +15,7 @@ find_package(std_srvs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(vision_msgs REQUIRED)
 find_package(custom_msg_interfaces REQUIRED) # might need to change?
+find_package(functional REQUIRED)
 
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
@@ -40,6 +41,7 @@ ament_target_dependencies(control_node
   vision_msgs
   tf2_ros
   custom_msg_interfaces
+  functional
 )
 install(TARGETS
   trajectory_execution_node
