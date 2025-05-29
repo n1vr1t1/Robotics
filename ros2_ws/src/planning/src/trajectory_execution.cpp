@@ -25,7 +25,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             trajectory_client = this->create_client<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory"); 
             action_client = rclcpp_action::create_client<control_msgs::action::FollowJointTrajectory>(
             this,
-            "/scaled_joint_trajectory_controller/follow_joint_trajectory");
+            "/scaled_joint_trajectory_controller/joint_trajectory");
             publisher = this->create_publisher<std_msgs::msg::String>("trajectory_executed", rclcpp::QoS(8));
 
             RCLCPP_INFO(this->get_logger(), "TrajectoryExecutionNode initialized");
