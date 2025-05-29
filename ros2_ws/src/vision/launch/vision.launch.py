@@ -16,7 +16,7 @@ def generate_launch_description():
             executable='pose_from_camera_node',
             name='pose_from_camera_node',
             output='screen',
-            parameters=[{'use_sim_time': True}]
+            #parameters=[{'use_sim_time': True}]
         ),
         
         # Add the detection_result_republisher node
@@ -25,7 +25,7 @@ def generate_launch_description():
             executable='yolo_detection_node',
             name='yolo_detection_node',
             output='screen',
-            parameters=[{'use_sim_time': True}]
+            #parameters=[{'use_sim_time': True}]
         ),
         
     ])
