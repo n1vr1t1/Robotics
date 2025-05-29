@@ -66,7 +66,9 @@ class CameraPoseNode : public rclcpp::Node{
                 int id = static_cast<int>(positions[i]);
                 float u = positions[i+1] * width;
                 float v = positions[i+2] * height;
+                RCLCPP_INFO(this->get_logger(), "Got values (%f,%f)", u, v);
                 int index = static_cast<int>(v * width + u);
+                RCLCPP_INFO(this->get_logger(), "index %d", index);
 
                 sensor_msgs::PointCloud2ConstIterator<float> iter_x(*current_cloud, "x");
                 sensor_msgs::PointCloud2ConstIterator<float> iter_y(*current_cloud, "y");
@@ -80,7 +82,7 @@ class CameraPoseNode : public rclcpp::Node{
                 float y = *iter_y;
                 float z = *iter_z;
                 // RCLCPP_INFO(this->get_logger(), "Before tansformation");
-                // RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
+                RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, x, y, z);
 
                 if(!std::isfinite(x) || !std::isfinite(y) || !std::isfinite(z)){
                     RCLCPP_WARN(this->get_logger(), "Invalid point cloud data at index: %d which gives %f %f %f", index, x, y, z);
