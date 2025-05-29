@@ -48,7 +48,7 @@ private:
 
   bool ur5_singAvoid(const Eigen::VectorXd &Th, double scaleFactor);
 
-  Eigen::Matrix4d Tij(double theta, double alpha, double d, double a);
+  //Eigen::Matrix4d Tij(double theta, double alpha, double d, double a);
 
   std::vector<Eigen::Matrix4d> computeChainFK(const Eigen::VectorXd &Th, double scaleFactor);
 
