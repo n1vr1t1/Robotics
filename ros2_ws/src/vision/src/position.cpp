@@ -58,14 +58,14 @@ class CameraPoseNode : public rclcpp::Node{
                 return;
             }
 
-            int width = static_cast<int>(current_cloud->width);
-            int height = static_cast<int>(current_cloud->height);
+            float width = static_cast<float>(current_cloud->width);
+            float height = static_cast<float>(current_cloud->height);
 
             
             for(size_t i =0; i+2 < positions.size(); i+=3){
                 int id = static_cast<int>(positions[i]);
-                int u = static_cast<int>(positions[i+1])* width;
-                int v = static_cast<int>(positions[i+2])* height;
+                int u = static_cast<int>(positions[i+1]* width);
+                int v = static_cast<int>(positions[i+2]* height);
                 int index = v * width + u;
 
                 sensor_msgs::PointCloud2ConstIterator<float> iter_x(*current_cloud, "x");
