@@ -63,7 +63,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             
             rclcpp::executors::SingleThreadedExecutor temp_executor;
             temp_executor.add_node(path_temp_node);
-             RCLCPP_INFO(this->get_logger(), "Adding node to executor");
+            RCLCPP_INFO(this->get_logger(), "Adding node to executor");
+            RCLCPP_INFO(this->get_logger(), "Waiting for service: %s", path_client->get_service_name());
 
             //the problem is this line
             //auto future_result = temp_executor.spin_until_future_complete(future_path);
