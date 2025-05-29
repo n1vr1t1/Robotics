@@ -74,7 +74,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             
             while (rclcpp::ok() && this->now() - start_time < timeout) {
                 rclcpp::spin_some(this->get_node_base_interface());
-                if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+                if (future_path.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
                     break;
                 }
                 std::this_thread::sleep_for(std::chrono::milliseconds(10)); // avoid tight loop
@@ -85,11 +85,11 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             RCLCPP_INFO(this->get_logger(), "REmoving temp node");
 
             
-            if(future_result != rclcpp::FutureReturnCode::SUCCESS){
-                RCLCPP_ERROR(this->get_logger(), "Failed to call compute_path service");
-                response->success = false;
-                response->message = "Failed path service";
-            }
+           // if(future_result != rclcpp::FutureReturnCode::SUCCESS){
+           //     RCLCPP_ERROR(this->get_logger(), "Failed to call compute_path service");
+           //     response->success = false;
+           //     response->message = "Failed path service";
+            //}
             RCLCPP_INFO(this->get_logger(), "Path computed successfully.");
             path_client_handler(future_path.get(), response);
             std_msgs::msg::String message;
