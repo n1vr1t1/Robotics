@@ -13,11 +13,11 @@ def generate_launch_description():
         )
     )
 
-    #vision_launch = IncludeLaunchDescription(
-    #    PythonLaunchDescriptionSource(
-    #        [FindPackageShare("vision"), "/launch/vision.launch.py"]
-    #    )
-    #)
+    vision_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            [FindPackageShare("vision"), "/launch/vision.launch.py"]
+        )
+    )
 
     motion_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -33,7 +33,7 @@ def generate_launch_description():
 
     return launch.LaunchDescription([
         ros2_ur5_interface_launch,
-    #    vision_launch,
+        vision_launch,
         motion_launch,
         planning_launch
     ])
