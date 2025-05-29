@@ -31,7 +31,16 @@ namespace motion{
         );
         response->poses = interpolated_poses;
 
-        RCLCPP_INFO(this->get_logger(), "Sending response to service %zu", response->poses);
+        RCLCPP_INFO(this->get_logger(), "Sending response to service with %zu poses", response->poses.size());
+
+        for (size_t i = 0; i < response->poses.size(); ++i) {
+            const auto& pose = response->poses[i];
+            RCLCPP_INFO(this->get_logger(),
+                "Pose %zu: Position(x=%.2f, y=%.2f, z=%.2f), Orientation(x=%.2f, y=%.2f, z=%.2f, w=%.2f)",
+                i,
+                pose.position.x, pose.position.y, pose.position.z,
+                pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w);
+        }
         
 
         RCLCPP_INFO(this->get_logger(), "Publishing poses");
