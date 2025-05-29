@@ -57,7 +57,18 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
             rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
 
-            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            // Create a temporary node to wait on the future
+            auto temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
+            rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
+            
+            rclcpp::executors::SingleThreadedExecutor temp_executor;
+            temp_executor.add_node(temp_node);
+            
+            auto future_result = temp_executor.spin_until_future_complete(future_path);
+            temp_executor.remove_node(temp_node);
+            
+            
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to call compute_path service");
                 response->success = false;
@@ -104,6 +115,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             }
             rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedFuture future_trajectory = trajectory_client->async_send_request(trajectory_request).future.share();
             auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_trajectory);
+           
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to call compute_trajectory service");
                 interpolation_response->success = false;
@@ -133,7 +145,12 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             RCLCPP_INFO(this->get_logger(), "Sending trajectory to action server.");
             auto future_goal = action_client->async_send_goal(goal);
 
-            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_goal);
+            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_goal);
+            temp_executor.add_node(temp_node);
+            auto future_result = temp_executor.spin_until_future_complete(future_trajectory);
+            temp_executor.remove_node(temp_node);
+            
+            
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to call action service");
                 interpolation_response->success = false;
