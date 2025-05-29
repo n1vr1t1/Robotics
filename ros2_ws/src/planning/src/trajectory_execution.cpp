@@ -54,8 +54,6 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 }
                 RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
             }
-
-            RCLCPP_INFO(this->get_logger(), "After while loop");
             
             rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
 
@@ -66,7 +64,9 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             RCLCPP_INFO(this->get_logger(), "After creating temp node");
             
             rclcpp::executors::SingleThreadedExecutor temp_executor;
+            RCLCPP_INFO(this->get_logger(), "Creating executor");
             temp_executor.add_node(path_temp_node);
+             RCLCPP_INFO(this->get_logger(), "Adding node to executor");
             
             auto future_result = temp_executor.spin_until_future_complete(future_path);
             RCLCPP_INFO(this->get_logger(), "Stopped spinning");
