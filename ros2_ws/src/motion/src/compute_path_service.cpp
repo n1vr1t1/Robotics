@@ -21,16 +21,17 @@ namespace motion{
     }
     
     
-    void PathPlannerNode::handle_compute_path(
-        const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
-        std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response) {
-        
+    void PathPlannerNode::handle_compute_path(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
+                                            std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response) {
+
+        RCLCPP_INFO(this->get_logger(), "Handling compute path");
         // Perform interpolation
         auto interpolated_poses = compute_interpolated_poses(    //40
             request->pose_start, request->pose_end, request->num_interpolations
         );
         response->poses = interpolated_poses;
-    
+
+        RCLCPP_INFO(this->get_logger(), "Publishing poses");
         // Publish for visualization
         publish_pose_array(interpolated_poses);    //70
     }
