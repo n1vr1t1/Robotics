@@ -24,6 +24,8 @@ const std::vector<std::string> JOINT_NAMES = {
 //    subject to position & velocity constraints at t=0 and t=T
 // ---------------------------------------------------------------------------
 std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0, double v1, double T){
+    
+    RCLCPP_INFO(this->get_logger(), "Computing cubic coefficients");
     double a0 = q0;
     double a1 = v0;
     double a2 = (3 * (q1 - q0) / std::pow(T, 2)) - (2 * v0 / T) - (v1 / T);
@@ -36,14 +38,14 @@ std::array<double, 4> compute_cubic_coefficients(double q0, double q1, double v0
 //    Takes the global waypoints (N+1 or however many) and a segment_time
 //    for each segment, returns a JointTrajectory with interpolation
 // ---------------------------------------------------------------------------
-trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory(
-    const std::vector<std::array<double, 6>>& waypoints,
-    double segment_time)
-{
+trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory (const std::vector<std::array<double, 6>>& waypoints, double segment_time){
+
+    RCLCPP_INFO(this->get_logger(), "Generating cubic trajectory");
     trajectory_msgs::msg::JointTrajectory traj_msg;
     traj_msg.joint_names = JOINT_NAMES;
     double total_time = 0.0;
 
+    RCLCPP_INFO(this->get_logger(), "Computing waypoints");
     for (size_t i = 0; i < waypoints.size() - 1; ++i) {
         std::array<double, 6> q0 = waypoints[i];
         std::array<double, 6> q1 = waypoints[i + 1];
@@ -74,12 +76,14 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory(
         }
 
         // Compute cubic polynomial coefficients
+        RCLCPP_INFO(this->get_logger(), "Compute cubic polynomial coefficients");
         std::array<std::array<double, 4>, 6> coefficients;
         for (size_t j = 0; j < 6; ++j) {
             coefficients[j] = compute_cubic_coefficients(q0[j], q1[j], v0[j], v1[j], segment_time);
         }
 
         // Generate interpolated points
+        RCLCPP_INFO(this->get_logger(), "Generate interpolated points");    
         for (int step = 0; step <= STEPS; ++step) {
             double t = (step / static_cast<double>(STEPS)) * segment_time;
             trajectory_msgs::msg::JointTrajectoryPoint interpolated_point;
@@ -113,14 +117,11 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory(
 // 5) The Node Class for "compute_trajectory_service"
 // ---------------------------------------------------------------------------
 
-ComputeTrajectoryService::ComputeTrajectoryService()
-: Node("compute_trajectory_service"), received_initial_joints_(false)
-{
-    // Create the service
+ComputeTrajectoryService::ComputeTrajectoryService() : Node("compute_trajectory_service"), received_initial_joints_(false){
+    // Create the service    
     auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
                                     std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
-                                    this->compute_trajectory_callback(request, response); };
-    
+                                    this->compute_trajectory_callback(request, response); };    
     // Create the service
     service_ = this->create_service<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory", service_callback);
     RCLCPP_INFO(this->get_logger(), "ComputeTrajectoryService node ready on 'compute_trajectory'");
@@ -132,6 +133,7 @@ ComputeTrajectoryService::ComputeTrajectoryService()
     // Create IK client node
     ik_client_node_ = std::make_shared<rclcpp::Node>("compute_ik_client_node");
     ik_client_ = ik_client_node_->create_client<custom_msg_interfaces::srv::ComputeIK>("/compute_ik");
+    RCLCPP_INFO(this->get_logger(), "Create inverse kinematics client");  
 }
 
 rclcpp::Service<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr service_;
@@ -146,6 +148,9 @@ bool received_initial_joints_;
 // Print the 8x6 matrix (8 solutions) for debugging
 // ---------------------------------------------------------------------------
 void ComputeTrajectoryService::print_joint_angles_matrix(const std::vector<double> &matrix) {
+
+    RCLCPP_INFO(this->get_logger(), "Computing joint angles matrix");  
+    
     if (matrix.size() != 8 * 6) {
         RCLCPP_WARN(this->get_logger(), "Unexpected matrix size: %zu (expected 8x6)", matrix.size());
         return;
@@ -167,6 +172,8 @@ void ComputeTrajectoryService::print_joint_angles_matrix(const std::vector<doubl
 // Callback to store the initial joint values (once)
 // ---------------------------------------------------------------------------
 void ComputeTrajectoryService::joint_state_callback(const sensor_msgs::msg::JointState::SharedPtr msg) {
+
+    RCLCPP_INFO(this->get_logger(), "Generate callback to store the initial joint values");  
     // Resize initial_joint_array_ to match the number of joints
     initial_joint_array_.resize(JOINT_NAMES.size(), 0.0);
 
@@ -196,6 +203,9 @@ void ComputeTrajectoryService::joint_state_callback(const sensor_msgs::msg::Join
 // to prev_joints in Euclidean sense
 // ---------------------------------------------------------------------------
 std::vector<double> ComputeTrajectoryService::select_closest_one(const std::vector<double> &prev_joints,const std::vector<double> &joint_angles_matrix) {
+
+    RCLCPP_INFO(this->get_logger(), "Selecting the closes solutions");  
+    
     if (joint_angles_matrix.size() != 8 * 6 || prev_joints.size() != 6) {
         RCLCPP_WARN(this->get_logger(),
                     "Invalid sizes: prev_joints = %zu, joint_angles_matrix = %zu (expected 6 and 48)",
@@ -255,8 +265,9 @@ std::vector<double> ComputeTrajectoryService::select_closest_one(const std::vect
 }
 
 //define the function to check for singularities
-bool ComputeTrajectoryService::ur5_singAvoid(const Eigen::VectorXd &Th, double scaleFactor)
-{
+bool ComputeTrajectoryService::ur5_singAvoid(const Eigen::VectorXd &Th, double scaleFactor){
+
+    RCLCPP_INFO(this->get_logger(), "Avoiding singularities");  
     // 1) Compute all transforms T0->i (i=0..6)
     std::vector<Eigen::Matrix4d> Tm = computeChainFK(Th, scaleFactor);
 
@@ -295,23 +306,19 @@ bool ComputeTrajectoryService::ur5_singAvoid(const Eigen::VectorXd &Th, double s
         return true;
     }
 
-    // Optionally, you could do SVD and check the smallest singular value:
-    // double minSv = J.jacobiSvd().singularValues().minCoeff();
-    // if (minSv < 1e-4) ...
-    //     ...
-
     return false;
 }
 // A small helper for one DH transform: from frame i to i+1
-Eigen::Matrix4d ComputeTrajectoryService::Tij(double theta, double alpha, double d, double a)
-{
-    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
-    T <<  std::cos(theta), -std::sin(theta)*std::cos(alpha),  std::sin(theta)*std::sin(alpha),  a*std::cos(theta),
-          std::sin(theta),  std::cos(theta)*std::cos(alpha), -std::cos(theta)*std::sin(alpha),  a*std::sin(theta),
-                0,                std::sin(alpha),                  std::cos(alpha),                  d,
-                0,                0,                                0,                                1;
-    return T;
-}
+//Eigen::Matrix4d ComputeTrajectoryService::Tij(double theta, double alpha, double d, double a){
+    
+    
+//    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+//    T <<  std::cos(theta), -std::sin(theta)*std::cos(alpha),  std::sin(theta)*std::sin(alpha),  a*std::cos(theta),
+//          std::sin(theta),  std::cos(theta)*std::cos(alpha), -std::cos(theta)*std::sin(alpha),  a*std::sin(theta),
+//                0,                std::sin(alpha),                  std::cos(alpha),                  d,
+//                0,                0,                                0,                                1;
+//    return T;
+//}
 
 // Computes base->link i for each i, i.e. Tm[i]
 std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eigen::VectorXd &Th, double scaleFactor)
@@ -332,8 +339,15 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
 
     // Multiply each successive transform
     for (int i=0; i<6; ++i) {
-        Eigen::Matrix4d Ti = Tij(Th(i), ALPHA[i], D[i], A[i]);
-        Tm[i+1] = Tm[i] * Ti;  // T0->i+1 = T0->i * Ti
+        //Eigen::Matrix4d Ti = Tij(Th(i), ALPHA[i], D[i], A[i]);
+
+        Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+        T <<  std::cos(Th(i)), -std::sin(Th(i))*std::cos(ALPHA[i]),  std::sin(Th(i))*std::sin(ALPHA[i]),  A[i]*std::cos(Th(i)),
+              std::sin(Th(i)),  std::cos(Th(i))*std::cos(ALPHA[i]), -std::cos(Th(i))*std::sin(ALPHA[i]),  A[i]*std::sin(Th(i)),
+                    0,                std::sin(ALPHA[i]),                  std::cos(ALPHA[i]),                  D[i],
+                    0,                0,                                0,                                1;
+        
+        Tm[i+1] = Tm[i] * T;  // T0->i+1 = T0->i * Ti
     }
 
     // Now Tm[6] = T0->6 is the final end-effector
