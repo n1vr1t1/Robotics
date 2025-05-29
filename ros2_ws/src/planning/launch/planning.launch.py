@@ -10,13 +10,15 @@ def generate_launch_description():
             package='planning',
             executable='control_node',
             name='control_node',
-            output='screen'
+            output='screen',
+            parameters=[{'use_sim_time': True}]
         ),
         # Add the icp_pose_estimator_node node
         Node(
             package='planning',
             executable='trajectory_execution_node',
             name='trajectory_execution_node',
-            output='screen'
+            output='screen',
+            parameters=[{'use_sim_time': True}]
         ),
     ])
