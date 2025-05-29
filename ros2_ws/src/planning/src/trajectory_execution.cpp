@@ -67,7 +67,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
             //the problem is this line
             //auto future_result = temp_executor.spin_until_future_complete(future_path);
-            auto future_result = rclcp::spin_until_future_complete(this->get_node_based_interface(), future_path);
+            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
             RCLCPP_INFO(this->get_logger(), "Stopped spinning");
             temp_executor.remove_node(path_temp_node);
             RCLCPP_INFO(this->get_logger(), "REmoving temp node");
