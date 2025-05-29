@@ -268,25 +268,62 @@ class ControlNode : public rclcpp::Node{
                 rclcpp::sleep_for(std::chrono::seconds(1));
             }
 
-            rclcpp::Client<custom_msg_interfaces::srv::Interpolation>::SharedFuture future_interpolation = interpolation_client->async_send_request(interpolation_request).future.share();
+            //rclcpp::Client<custom_msg_interfaces::srv::Interpolation>::SharedFuture future_interpolation = interpolation_client->async_send_request(interpolation_request).future.share();
             //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_interpolation);
-            rclcpp::executors::SingleThreadedExecutor temp_executor;
-            temp_executor.add_node(this->get_node_base_interface());
-            auto future_result = temp_executor.spin_until_future_complete(future_interpolation);
-            temp_executor.remove_node(this->get_node_base_interface());
+            ////rclcpp::executors::SingleThreadedExecutor temp_executor;
+            ////temp_executor.add_node(this->get_node_base_interface());
+            ////auto future_result = temp_executor.spin_until_future_complete(future_interpolation);
+            ////temp_executor.remove_node(this->get_node_base_interface());
             
-            if(future_result != rclcpp::FutureReturnCode::SUCCESS){
-                RCLCPP_ERROR(this->get_logger(), "Failed to call interpolation service (communication issue, attempt %d).", retry_count + 1);
-            } else {
-                auto interpolation_response = future_interpolation.get();
-                if(interpolation_response->success){
-                    RCLCPP_INFO(this->get_logger(), "Interpolation service call successful (attempt %d).", retry_count + 1);
-                    success = true;
-                } else {
-                    RCLCPP_ERROR(this->get_logger(), "Interpolation service reported failure (e.g., unable to generate trajectory, attempt %d).", retry_count + 1);
-                }
-            }
-            retry_count++;
+            //if(future_result != rclcpp::FutureReturnCode::SUCCESS){
+            //    RCLCPP_ERROR(this->get_logger(), "Failed to call interpolation service (communication issue, attempt %d).", retry_count + 1);
+            //} else {
+            //    auto interpolation_response = future_interpolation.get();
+            //    if(interpolation_response->success){
+            //        RCLCPP_INFO(this->get_logger(), "Interpolation service call successful (attempt %d).", retry_count + 1);
+            //        success = true;
+            //    } else {
+            //       RCLCPP_ERROR(this->get_logger(), "Interpolation service reported failure (e.g., unable to generate trajectory, attempt %d).", retry_count + 1);
+            //    }
+            //}
+            //retry_count++;
+
+            // Create a temporary node for this request
+    auto temp_node = std::make_shared<rclcpp::Node>("temp_interpolation_client_node");
+
+    // Create client on temp_node
+    auto temp_client = temp_node->create_client<custom_msg_interfaces::srv::Interpolation>("interpolation");
+
+    // Wait for service once, with timeout
+    if (!temp_client->wait_for_service(std::chrono::seconds(1))) {
+        RCLCPP_ERROR(this->get_logger(), "Interpolation service not available on temporary client.");
+        retry_count++;
+        continue;
+    }
+
+    // Send request
+    auto future_interpolation = temp_client->async_send_request(interpolation_request);
+
+    // Create a temp executor to spin temp_node until future completes
+    rclcpp::executors::SingleThreadedExecutor temp_executor;
+    temp_executor.add_node(temp_node);
+
+    auto future_result = temp_executor.spin_until_future_complete(future_interpolation);
+
+    temp_executor.remove_node(temp_node);
+
+    if (future_result != rclcpp::FutureReturnCode::SUCCESS) {
+        RCLCPP_ERROR(this->get_logger(), "Failed to call interpolation service (communication issue, attempt %d).", retry_count + 1);
+    } else {
+        auto interpolation_response = future_interpolation.get();
+        if(interpolation_response->success){
+            RCLCPP_INFO(this->get_logger(), "Interpolation service call successful (attempt %d).", retry_count + 1);
+            success = true;
+        } else {
+            RCLCPP_ERROR(this->get_logger(), "Interpolation service reported failure (e.g., unable to generate trajectory, attempt %d).", retry_count + 1);
+        }
+    }
+    retry_count++;
         }
 
         if (!success) {
