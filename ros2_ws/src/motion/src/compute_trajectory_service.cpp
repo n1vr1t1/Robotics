@@ -173,7 +173,7 @@ void ComputeTrajectoryService::print_joint_angles_matrix(const std::vector<doubl
 // ---------------------------------------------------------------------------
 void ComputeTrajectoryService::joint_state_callback(const sensor_msgs::msg::JointState::SharedPtr msg) {
 
-    RCLCPP_INFO(this->get_logger(), "Generate callback to store the initial joint values");  
+    //RCLCPP_INFO(this->get_logger(), "Generate callback to store the initial joint values");  
     // Resize initial_joint_array_ to match the number of joints
     initial_joint_array_.resize(JOINT_NAMES.size(), 0.0);
 
