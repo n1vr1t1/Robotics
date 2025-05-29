@@ -289,10 +289,10 @@ class ControlNode : public rclcpp::Node{
             //retry_count++;
 
             // Create a temporary node for this request
-    auto temp_node = std::make_shared<rclcpp::Node>("temp_interpolation_client_node");
+    auto int_temp_node = std::make_shared<rclcpp::Node>("temp_interpolation_client_node");
 
     // Create client on temp_node
-    auto temp_client = temp_node->create_client<custom_msg_interfaces::srv::Interpolation>("interpolation");
+    auto temp_client = int_temp_node->create_client<custom_msg_interfaces::srv::Interpolation>("interpolation");
 
     // Wait for service once, with timeout
     if (!temp_client->wait_for_service(std::chrono::seconds(1))) {
@@ -306,11 +306,11 @@ class ControlNode : public rclcpp::Node{
 
     // Create a temp executor to spin temp_node until future completes
     rclcpp::executors::SingleThreadedExecutor temp_executor;
-    temp_executor.add_node(temp_node);
+    temp_executor.add_node(int_temp_node);
 
     auto future_result = temp_executor.spin_until_future_complete(future_interpolation);
 
-    temp_executor.remove_node(temp_node);
+    temp_executor.remove_node(int_temp_node);
 
     if (future_result != rclcpp::FutureReturnCode::SUCCESS) {
         RCLCPP_ERROR(this->get_logger(), "Failed to call interpolation service (communication issue, attempt %d).", retry_count + 1);
