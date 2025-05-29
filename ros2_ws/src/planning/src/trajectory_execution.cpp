@@ -55,19 +55,24 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
             }
 
+            RCLCPP_INFO(this->get_logger(), "After while loop");
+            
             rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
 
             //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
             // Create a temporary node to wait on the future
             auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
+
+            RCLCPP_INFO(this->get_logger(), "After creating temp node");
             
             rclcpp::executors::SingleThreadedExecutor temp_executor;
             temp_executor.add_node(path_temp_node);
             
             auto future_result = temp_executor.spin_until_future_complete(future_path);
+            RCLCPP_INFO(this->get_logger(), "Stopped spinning");
             temp_executor.remove_node(path_temp_node);
+            RCLCPP_INFO(this->get_logger(), "REmoving temp node");
 
-            RCLCPP_INFO(this->get_logger(), "Received future result");
             
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to call compute_path service");
