@@ -253,6 +253,8 @@ class ControlNode : public rclcpp::Node{
             }
             RCLCPP_INFO(this->get_logger(), "Interpolation service not available, waiting again...");
         }
+RCLCPP_INFO(this->get_logger(), "The service is free to be used");
+        
 
         auto interpolation_request = std::make_shared<custom_msg_interfaces::srv::Interpolation::Request>();
         interpolation_request->pose_start = planned_poses.poses[current_task_index];
