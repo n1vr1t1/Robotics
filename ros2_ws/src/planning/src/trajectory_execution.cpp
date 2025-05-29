@@ -56,33 +56,33 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             }
             
             rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
-
-            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
-            // Create a temporary node to wait on the future
-            auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
-            
-            rclcpp::executors::SingleThreadedExecutor temp_executor;
-            temp_executor.add_node(path_temp_node);
-            RCLCPP_INFO(this->get_logger(), "Adding node to executor");
             RCLCPP_INFO(this->get_logger(), "Waiting for service: %s", path_client->get_service_name());
+
+            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            // Create a temporary node to wait on the future
+            //auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
+            
+            //rclcpp::executors::SingleThreadedExecutor temp_executor;
+            //temp_executor.add_node(path_temp_node);
+            //RCLCPP_INFO(this->get_logger(), "Adding node to executor");
 
             //the problem is this line
             //auto future_result = temp_executor.spin_until_future_complete(future_path);
             //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
-            rclcpp::Time start_time = this->now();
-            rclcpp::Duration timeout = rclcpp::Duration::from_seconds(5.0); // adjust as needed
+            //rclcpp::Time start_time = this->now();
+            //rclcpp::Duration timeout = rclcpp::Duration::from_seconds(5.0); // adjust as needed
             
-            while (rclcpp::ok() && this->now() - start_time < timeout) {
-                rclcpp::spin_some(this->get_node_base_interface());
-                if (future_path.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-                    break;
-                }
-                std::this_thread::sleep_for(std::chrono::milliseconds(10)); // avoid tight loop
-            }
+            //while (rclcpp::ok() && this->now() - start_time < timeout) {
+            //    rclcpp::spin_some(this->get_node_base_interface());
+            //    if (future_path.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+            //        break;
+            //    }
+            //    std::this_thread::sleep_for(std::chrono::milliseconds(10)); // avoid tight loop
+            //}
             
             RCLCPP_INFO(this->get_logger(), "Stopped spinning");
-            temp_executor.remove_node(path_temp_node);
-            RCLCPP_INFO(this->get_logger(), "REmoving temp node");
+            //temp_executor.remove_node(path_temp_node);
+           // RCLCPP_INFO(this->get_logger(), "REmoving temp node");
 
             
            // if(future_result != rclcpp::FutureReturnCode::SUCCESS){
