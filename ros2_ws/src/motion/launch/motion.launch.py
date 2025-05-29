@@ -8,6 +8,7 @@ def generate_launch_description():
             executable='inverse_kin_server_node',
             name='inverse_kin_server',
             output='screen',
+            parameters=[{'use_sim_time': True}]
             #parameters=[{'use_sim_time': False}]
         ),
         launch_ros.actions.Node(
@@ -15,6 +16,7 @@ def generate_launch_description():
             executable='direct_kin_server',
             name='direct_kin_server',
             output='screen',
+            parameters=[{'use_sim_time': True}]
             #parameters=[{'use_sim_time': False}]
         ),
         launch_ros.actions.Node(
@@ -22,6 +24,7 @@ def generate_launch_description():
             executable='compute_trajectory_service',
             name='compute_trajectory_service',
             output='screen',
+            parameters=[{'use_sim_time': True}]
             #parameters=[{'use_sim_time': False}]
         ),
         launch_ros.actions.Node(
@@ -29,6 +32,7 @@ def generate_launch_description():
             executable='compute_path_service',
             name='compute_path_service',
             output='screen',
+            parameters=[{'use_sim_time': True}]
             #parameters=[{'use_sim_time': False}]
         ),
     ])
