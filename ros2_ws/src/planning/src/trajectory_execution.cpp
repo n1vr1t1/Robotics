@@ -60,15 +60,14 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
             // Create a temporary node to wait on the future
             auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
-
-            RCLCPP_INFO(this->get_logger(), "After creating temp node");
             
             rclcpp::executors::SingleThreadedExecutor temp_executor;
-            RCLCPP_INFO(this->get_logger(), "Creating executor");
             temp_executor.add_node(path_temp_node);
              RCLCPP_INFO(this->get_logger(), "Adding node to executor");
-            
-            auto future_result = temp_executor.spin_until_future_complete(future_path);
+
+            //the problem is this line
+            //auto future_result = temp_executor.spin_until_future_complete(future_path);
+            auto future_result = rclcp::spin_until_future_complete(this->get_node_based_interface(), future_path);
             RCLCPP_INFO(this->get_logger(), "Stopped spinning");
             temp_executor.remove_node(path_temp_node);
             RCLCPP_INFO(this->get_logger(), "REmoving temp node");
