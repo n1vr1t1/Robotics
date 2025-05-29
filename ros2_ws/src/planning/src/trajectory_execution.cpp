@@ -66,7 +66,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             
             auto future_result = temp_executor.spin_until_future_complete(future_path);
             temp_executor.remove_node(path_temp_node);
-            
+
+            RCLCPP_INFO(this->get_logger(), "Received future result");
             
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
                 RCLCPP_ERROR(this->get_logger(), "Failed to call compute_path service");
