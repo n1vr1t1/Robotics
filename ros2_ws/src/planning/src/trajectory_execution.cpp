@@ -1,7 +1,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
-#include <std_msgs/msg/string.hpp>
+#include <std_msgs/msg/bool.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <control_msgs/action/follow_joint_trajectory.hpp>
 #include <custom_msg_interfaces/srv/interpolation.hpp>
@@ -201,7 +201,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         // rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedPtr path_client;
         rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr trajectory_client;
-        rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher;
+        rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr publisher;
         rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>::SharedPtr action_client;
         rclcpp::Service<custom_msg_interfaces::srv::Interpolation>::SharedPtr service;
 
