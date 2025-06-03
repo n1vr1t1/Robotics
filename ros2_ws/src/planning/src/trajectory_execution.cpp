@@ -234,6 +234,11 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher;
         rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>::SharedPtr action_client;
         rclcpp::Service<custom_msg_interfaces::srv::Interpolation>::SharedPtr service;
+
+        rclcpp::Publisher<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr extrema_publisher;
+        rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
+
+
 };
 int main(int argc, char **argv)
 {
