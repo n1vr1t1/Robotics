@@ -58,7 +58,7 @@ private:
   std::vector<Eigen::Matrix4d> computeChainFK(const Eigen::VectorXd &Th, double scaleFactor);
 
 
-  void compute_trajectory_callback(const geometry_msgs::msg::PoseArray::SharedPtr msg);
+  void compute_trajectory_callback(geometry_msgs::msg::PoseArray::SharedPtr msg);
   
   //void compute_trajectory_callback(
   //const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
