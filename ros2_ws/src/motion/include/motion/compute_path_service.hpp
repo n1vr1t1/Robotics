@@ -4,6 +4,7 @@
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
 #include <custom_msg_interfaces/srv/compute_path.hpp>
+#include <custom_msg_interfaces/msg/start_end_position.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <vector>
@@ -21,9 +22,11 @@ namespace motion
       rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr publisher_;
   
       // Callback for the ComputePath service
-      void handle_compute_path(
-          const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
-          std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response);
+      void handle_compute_path(const custom_msg_interfaces::msg::StartEndPosition::SharedPtr msg);
+          //const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
+          //std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response);
+
+
   
       // Helper function to compute interpolated poses between two poses
       std::vector<geometry_msgs::msg::Pose> compute_interpolated_poses(
