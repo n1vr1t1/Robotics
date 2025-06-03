@@ -3,7 +3,6 @@
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
-#include <custom_msg_interfaces/srv/compute_path.hpp>
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
