@@ -32,6 +32,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                                     rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::path_callback, this, std::placeholders::_1));
     
             extrema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
+
+            trajectory_publisher = this->create_publisher<custom_msg_interfaces::msg::ViaPoints>("/via_points", 8);
   
 
             RCLCPP_INFO(this->get_logger(), "TrajectoryExecutionNode initialized");
@@ -57,8 +59,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         }
         
-        void path_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
-            if(msg->poses.size() == 0){
+        //void path_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
+        //    if(msg->poses.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
                 return;
             }
@@ -87,6 +89,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             trajectory_client_handler(future_trajectory.get());
 
         }
+
         void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response){
             if(trajectory_response->trajectory.points.size() == 0 || trajectory_response->trajectory.joint_names.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses or joints received from trajectory service");
@@ -161,7 +164,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         rclcpp::Publisher<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr extrema_publisher;
         rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
-
+        rclcpp::Publisher<custom_msg_interfaces::msg::ViaPoints>::SharedPtr trajectory_publisher;
 
 };
 int main(int argc, char **argv)
