@@ -49,9 +49,9 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             request->pose_end.position.x, request->pose_end.position.y, request->pose_end.position.z);
 
             custom_msg_interfaces::msg::StartEndPosition msg;
-            msg->pose_start = request->pose_start;
-            msg->pose_end = request->pose_end;
-            msg->num_interpolations = 4
+            msg.pose_start = request->pose_start;
+            msg.pose_end = request->pose_end;
+            msg.num_interpolations = 4
 
             //std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> path_request = std::make_shared<custom_msg_interfaces::srv::ComputePath::Request>();
             //path_request->pose_start = request->pose_start;
