@@ -33,7 +33,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             subscription_path = this->create_subscription<geometry_msgs::msg::PoseArray>("/computed_path",
                                     rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::path_client_handler, this, std::placeholders::_1, std::placeholders::_2));
     
-            exrtema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
+            extrema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
 
             
 
