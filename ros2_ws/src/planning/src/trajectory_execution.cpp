@@ -55,16 +55,18 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
             }
             
-            rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
-            RCLCPP_INFO(this->get_logger(), "Waiting for service: %s", path_client->get_service_name());
+            auto future_path = path_client->async_send_request(path_request);
+            RCLCPP_INFO(this->get_logger(), "Waiting for path_client service");
 
-            if(future_path.wait_for(std::chrono::seconds(5)) != std::future_status::ready){
-                RCLCPP_ERROR(this->get_logger(), "Timeout waiting for ComputePath service response.");
-                response->success = false;
-                response->message = "Failed.";
-                return;
-            }
-            // auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            // if(future_path.wait_for(std::chrono::seconds(5)) != std::future_status::ready){
+            //     RCLCPP_ERROR(this->get_logger(), "Timeout waiting for ComputePath service response.");
+            //     response->success = false;
+            //     response->message = "Failed.";
+            //     return;
+            // }
+
+            
+            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
             // Create a temporary node to wait on the future
             //auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
             
