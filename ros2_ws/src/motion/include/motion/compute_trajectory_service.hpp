@@ -5,6 +5,7 @@
 #include <geometry_msgs/msg/pose_array.hpp>
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
 #include <trajectory_msgs/msg/joint_trajectory_point.hpp>
+#include <custom_msg_interfaces/msg/via_points.hpp>
 #include <custom_msg_interfaces/srv/compute_trajectory.hpp>
 #include <custom_msg_interfaces/srv/compute_ik.hpp>
 
