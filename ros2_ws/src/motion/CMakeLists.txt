@@ -75,7 +75,7 @@ ament_target_dependencies(compute_trajectory_service
 )
 
 
-add_executable(compute_path_service src/compute_path_service.cpp)
+add_executable(compute_path_service src/compute_path.cpp)
 ament_target_dependencies(compute_path_service 
   rclcpp 
   geometry_msgs 
@@ -89,7 +89,7 @@ install(TARGETS
   inverse_kin_server_node
   direct_kin_server
   compute_trajectory_service
-  compute_path_service
+  compute_path
   DESTINATION lib/${PROJECT_NAME}
 )
 
