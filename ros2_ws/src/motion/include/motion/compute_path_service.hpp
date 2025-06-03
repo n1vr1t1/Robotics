@@ -31,9 +31,6 @@ namespace motion
           const geometry_msgs::msg::Pose& end_pose,
           int num_interpolations) const;
   
-      // Helper function to publish a PoseArray
-      void publish_pose_array(const std::vector<geometry_msgs::msg::Pose>& poses) const;
-  
       // Helper function for linear interpolation
      geometry_msgs::msg::Pose s_lerp(const geometry_msgs::msg::Pose& start, const geometry_msgs::msg::Pose& end, double t) const;
   };
