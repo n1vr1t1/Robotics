@@ -28,8 +28,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             publisher = this->create_publisher<std_msgs::msg::Bool>("trajectory_executed", rclcpp::QoS(8));
 
              //Initializing publisher and subscriber to share the interpolation poses
-            subscription_path = this->create_subscription<geometry_msgs::msg::PoseArray>("/computed_path",
-                                    rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::path_callback, this, std::placeholders::_1));
+            // subscription_path = this->create_subscription<geometry_msgs::msg::PoseArray>("/computed_path",
+            //                         rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::path_callback, this, std::placeholders::_1));
     
             extrema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
 
@@ -164,7 +164,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         rclcpp::Service<custom_msg_interfaces::srv::Interpolation>::SharedPtr service;
 
         rclcpp::Publisher<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr extrema_publisher;
-        rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
+        // rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
         rclcpp::Subscription<custom_msg_interfaces::msg::ViaPoints>::SharedPtr subscription_trajectory;
 
 };
