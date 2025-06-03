@@ -58,7 +58,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedFuture future_path = path_client->async_send_request(path_request).future.share();
             RCLCPP_INFO(this->get_logger(), "Waiting for service: %s", path_client->get_service_name());
 
-            if(future_path.wait_for(std::chrono::seconds(5) != std::future_status::ready){
+            if(future_path.wait_for(std::chrono::seconds(5)) != std::future_status::ready){
                 RCLCPP_ERROR(this->get_logger(), "Timeout waiting for ComputePath service response.");
                 response->success = false;
                 response->message = "Failed.";
