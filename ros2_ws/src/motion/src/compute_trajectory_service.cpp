@@ -360,7 +360,7 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
 //                                                            std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
  void ComputeTrajectoryService::compute_trajectory_callback(const geometry_msgs::msg::PoseArray::SharedPtr msg){
     RCLCPP_INFO(this->get_logger(), "[CALLBACK] compute_trajectory_callback STARTED");
-    const size_t num_poses = msg.array.poses.size();
+    const size_t num_poses = msg.poses.size();
     RCLCPP_INFO(this->get_logger(), "Got %zu poses", num_poses);
 
     custom_msg_interfaces::msg::ViaPoints response;
@@ -398,9 +398,9 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
         RCLCPP_INFO(this->get_logger(), "Processing Pose %zu/%zu", i + 1, num_poses);
     
         auto ik_request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
-        ik_request.header.stamp = this->now();
-        ik_request.header.frame_id = "base";
-        ik_request.target_pose = request->array.poses[i];
+        ik_request->header.stamp = this->now();
+        ik_request->header.frame_id = "base";
+        ik_request->target_pose = msg.poses[i];
     
         // Call the IK server
         auto future_result = ik_client_->async_send_request(ik_request);
