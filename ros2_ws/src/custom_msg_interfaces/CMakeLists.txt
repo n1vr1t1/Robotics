@@ -13,6 +13,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/DetectionResult.msg"
   "msg/ClassPose.msg"
   "msg/StartEndPosition.msg"
+  "msg/ViaPoints.msg"
   "srv/ComputeIK.srv"
   "srv/ComputeDirKin.srv"
   "srv/ComputeTrajectory.srv"
