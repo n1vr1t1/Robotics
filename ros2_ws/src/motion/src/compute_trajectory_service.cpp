@@ -142,16 +142,6 @@ ComputeTrajectoryService::ComputeTrajectoryService() : Node("compute_trajectory_
     
 }
 
-rclcpp::Service<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr service_;
-rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_subscriber_;
-rclcpp::Node::SharedPtr ik_client_node_;
-rclcpp::Client<custom_msg_interfaces::srv::ComputeIK>::SharedPtr ik_client_;
-
-rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
-rclcpp::Publisher<custom_msg_interfaces::msg::ViaPoints>::SharedPtr trajectory_publisher;
-
-std::vector<double> initial_joint_array_;
-bool received_initial_joints_;
 
 // ---------------------------------------------------------------------------
 // Print the 8x6 matrix (8 solutions) for debugging
