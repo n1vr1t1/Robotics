@@ -20,6 +20,8 @@ namespace motion
       // Service and publisher for path planning
       rclcpp::Service<custom_msg_interfaces::srv::ComputePath>::SharedPtr service_;
       rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr publisher_;
+      rclcpp::Service<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr subscription_extrema;
+      rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr path_publisher;
   
       // Callback for the ComputePath service
       void handle_compute_path(const custom_msg_interfaces::msg::StartEndPosition::SharedPtr msg);
