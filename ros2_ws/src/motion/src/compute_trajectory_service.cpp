@@ -119,11 +119,12 @@ trajectory_msgs::msg::JointTrajectory  generate_cubic_trajectory (const std::vec
 
 ComputeTrajectoryService::ComputeTrajectoryService() : Node("compute_trajectory_service"), received_initial_joints_(false){
     // Create the service    
-    auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
-                                    std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
-                                    this->compute_trajectory_callback(request, response); };    
+    //auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
+    //                                std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
+    //                                this->compute_trajectory_callback(request, response); };    
+
     // Create the service
-    service_ = this->create_service<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory", service_callback);
+    //service_ = this->create_service<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory", service_callback);
     RCLCPP_INFO(this->get_logger(), "ComputeTrajectoryService node ready on 'compute_trajectory'");
     // Subscribe to /joint_states topic
     auto joint_state_callback = [this](const sensor_msgs::msg::JointState::SharedPtr msg) {this->joint_state_callback(msg);};
@@ -134,12 +135,20 @@ ComputeTrajectoryService::ComputeTrajectoryService() : Node("compute_trajectory_
     ik_client_node_ = std::make_shared<rclcpp::Node>("compute_ik_client_node");
     ik_client_ = ik_client_node_->create_client<custom_msg_interfaces::srv::ComputeIK>("/compute_ik");
     RCLCPP_INFO(this->get_logger(), "Create inverse kinematics client");  
+
+    subscription_path = this->create_subscription<geometry_msgs::msg::PoseArray>("/computed_path",
+                        rclcpp::QoS(8), std::bind(&ComputeTrajectoryService::compute_trajectory_callback, this, std::placeholders::_1));
+    trajectory_publisher = this->create_publisher<custom_msg_interfaces::msg::ViaPoints>("/computed_trajectory", 8);
+    
 }
 
 rclcpp::Service<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr service_;
 rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_subscriber_;
 rclcpp::Node::SharedPtr ik_client_node_;
 rclcpp::Client<custom_msg_interfaces::srv::ComputeIK>::SharedPtr ik_client_;
+
+rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
+rclcpp::Publisher<custom_msg_interfaces::msg::ViaPoints>::SharedPtr trajectory_publisher;
 
 std::vector<double> initial_joint_array_;
 bool received_initial_joints_;
@@ -357,11 +366,14 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
 // ---------------------------------------------------------------------------
 // 6) The Service Callback: computes waypoints, then generates a cubic trajectory
 // ---------------------------------------------------------------------------
-void ComputeTrajectoryService::compute_trajectory_callback(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
-                                                            std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
+//void ComputeTrajectoryService::compute_trajectory_callback(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
+//                                                            std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
+ void ComputeTrajectoryService::compute_trajectory_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
     RCLCPP_INFO(this->get_logger(), "[CALLBACK] compute_trajectory_callback STARTED");
-    const size_t num_poses = request->array.poses.size();
+    const size_t num_poses = msg->array.poses.size();
     RCLCPP_INFO(this->get_logger(), "Got %zu poses", num_poses);
+
+    custom_msg_interfaces::msg::ViaPoints response;
     
     // Basic checks
     if (num_poses == 0) {
@@ -462,6 +474,8 @@ void ComputeTrajectoryService::compute_trajectory_callback(const std::shared_ptr
     // Send final trajectory in the service response
     response->trajectory = cubic_traj;
     response->status_message = "IK computed, cubic trajectory generated successfully.";
+
+    trajectory_publisher -> publish(response);
 }
 
 
