@@ -145,7 +145,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 }
                 RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
             }
-            rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedFuture future_trajectory = trajectory_client->async_send_request(trajectory_request).future.share();
+            auto future_trajectory = trajectory_client->async_send_request(trajectory_request);
             auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_trajectory);
            
             if(future_result != rclcpp::FutureReturnCode::SUCCESS){
