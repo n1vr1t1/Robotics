@@ -61,34 +61,34 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         
         //void path_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
         //    if(msg->poses.size() == 0){
-                RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
-                return;
-            }
-            RCLCPP_INFO(this->get_logger(), "Received path response with %zu points", msg->poses.size());
-            std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> trajectory_request = std::make_shared<custom_msg_interfaces::srv::ComputeTrajectory::Request>();
-            trajectory_request->array = geometry_msgs::msg::PoseArray();
+        //         RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
+        //         return;
+        //     }
+        //     RCLCPP_INFO(this->get_logger(), "Received path response with %zu points", msg->poses.size());
+        //     std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> trajectory_request = std::make_shared<custom_msg_interfaces::srv::ComputeTrajectory::Request>();
+        //     trajectory_request->array = geometry_msgs::msg::PoseArray();
             
-            trajectory_request->array.poses = msg->poses;
-            RCLCPP_INFO(this->get_logger(), "Calling service to compute trajectory.");
+        //     trajectory_request->array.poses = msg->poses;
+        //     RCLCPP_INFO(this->get_logger(), "Calling service to compute trajectory.");
 
-            while (!trajectory_client->wait_for_service(std::chrono::seconds(1))) {
-                if (!rclcpp::ok()) {
-                    RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for compute TRAJECTORY service. Exiting.");
-                    return;
-                }
-                RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
-            }
-            auto future_trajectory = trajectory_client->async_send_request(trajectory_request);
-            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_trajectory);
+        //     while (!trajectory_client->wait_for_service(std::chrono::seconds(1))) {
+        //         if (!rclcpp::ok()) {
+        //             RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for compute TRAJECTORY service. Exiting.");
+        //             return;
+        //         }
+        //         RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
+        //     }
+        //     auto future_trajectory = trajectory_client->async_send_request(trajectory_request);
+        //     auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_trajectory);
            
-            if(future_result != rclcpp::FutureReturnCode::SUCCESS){
-                RCLCPP_ERROR(this->get_logger(), "Failed to call compute_trajectory service");
-                return;
-            }
-            RCLCPP_INFO(this->get_logger(), "Trajectory computed successfully.");
-            trajectory_client_handler(future_trajectory.get());
+        //     if(future_result != rclcpp::FutureReturnCode::SUCCESS){
+        //         RCLCPP_ERROR(this->get_logger(), "Failed to call compute_trajectory service");
+        //         return;
+        //     }
+        //     RCLCPP_INFO(this->get_logger(), "Trajectory computed successfully.");
+        //     trajectory_client_handler(future_trajectory.get());
 
-        }
+        // }
 
         void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response){
             if(trajectory_response->trajectory.points.size() == 0 || trajectory_response->trajectory.joint_names.size() == 0){
