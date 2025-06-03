@@ -76,7 +76,7 @@ ament_target_dependencies(compute_trajectory_service
 
 
 add_executable(compute_path_service src/compute_path.cpp)
-ament_target_dependencies(compute_path_service 
+ament_target_dependencies(compute_path
   rclcpp 
   geometry_msgs 
   tf2 
