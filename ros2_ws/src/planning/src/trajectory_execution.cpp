@@ -66,7 +66,15 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             // }
 
             
-            auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
+            if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path, std::chrono::seconds(5)) 
+                != rclcpp::FutureReturnCode::SUCCESS) {
+                RCLCPP_ERROR(this->get_logger(), "Timeout or failure waiting for ComputePath service response.");
+                response->success = false;
+                response->message = "Failed to get path response";
+                return;
+            }
+            
             // Create a temporary node to wait on the future
             //auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
             
