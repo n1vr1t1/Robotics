@@ -28,101 +28,81 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             "/scaled_joint_trajectory_controller/joint_trajectory");
             publisher = this->create_publisher<std_msgs::msg::String>("trajectory_executed", rclcpp::QoS(8));
 
+             //Initializing publisher and subscriber to share the interpolation poses
+            subscription_path = this->create_subscription<geometry_msgs::msg::PoseArray>("/computed_path",
+                                    rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::path_client_handler, this, std::placeholders::_1, std::placeholders::_2));
+    
+            exrtema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
+
+            
+
             RCLCPP_INFO(this->get_logger(), "TrajectoryExecutionNode initialized");
         }
     private:
+        //void interpolation_callback(const std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Request> request, 
+        //            std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> response){
         void interpolation_callback(const std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Request> request, 
                     std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> response){
             // Handle the interpolation request here
-            RCLCPP_INFO(this->get_logger(), "Received interpol ation request with start (%f, %f, %f) and end (%f, %f, %f)",
-                request->pose_start.position.x, request->pose_start.position.y, request->pose_start.position.z,
-                request->pose_end.position.x, request->pose_end.position.y, request->pose_end.position.z);
+            RCLCPP_INFO(this->get_logger(), "Received interpolation request with start (%f, %f, %f) and end (%f, %f, %f)",
+            request->pose_start.position.x, request->pose_start.position.y, request->pose_start.position.z,
+            request->pose_end.position.x, request->pose_end.position.y, request->pose_end.position.z);
 
-            std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> path_request = std::make_shared<custom_msg_interfaces::srv::ComputePath::Request>();
-            path_request->pose_start = request->pose_start;
-            path_request->pose_end = request->pose_end;
-            path_request->num_interpolations = 4; // to be changed, need to discuss first
+            custom_msg_interfaces::msg::StartEndPosition> msg;
+            msg->pose_start = request->pose_start;
+            msg->pose_end = request->pose_end;
+            msg->num_interpolations = 4
+
+            //std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> path_request = std::make_shared<custom_msg_interfaces::srv::ComputePath::Request>();
+            //path_request->pose_start = request->pose_start;
+            //path_request->pose_end = request->pose_end;
+            //path_request->num_interpolations = 4; // to be changed, need to discuss first
+
+            extrema_publisher -> publish(msg);
 
             RCLCPP_INFO(this->get_logger(), "Calling service to compute path.");
 
             // waiting every 1s to check if the service is available, time can be changed
-            while (!path_client->wait_for_service(std::chrono::seconds(1))) {
-                if (!rclcpp::ok()) {
-                    RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for compute PATH service. Exiting interpolation_callback.");
-                    response->success = false;
-                    response->message = "Failed to enter path service";
-                }
-                RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
-            }
-            
-            auto future_path = path_client->async_send_request(path_request);
-            RCLCPP_INFO(this->get_logger(), "Waiting for path_client service");
-
-             if(future_path.wait_for(std::chrono::seconds(5)) != std::future_status::ready){
-                 RCLCPP_ERROR(this->get_logger(), "Timeout waiting for ComputePath service response.");
-                 response->success = false;
-                 response->message = "Failed.";
-                 return;
-             }
-
-            
-            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
-            //if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path, std::chrono::seconds(5)) 
-            //    != rclcpp::FutureReturnCode::SUCCESS) {
-            //    RCLCPP_ERROR(this->get_logger(), "Timeout or failure waiting for ComputePath service response.");
-            //    response->success = false;
-            //    response->message = "Failed to get path response";
-            //    return;
-            //}
-            
-            // Create a temporary node to wait on the future
-            //auto path_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
-            
-            //rclcpp::executors::SingleThreadedExecutor temp_executor;
-            //temp_executor.add_node(path_temp_node);
-            //RCLCPP_INFO(this->get_logger(), "Adding node to executor");
-
-            //the problem is this line
-            //auto future_result = temp_executor.spin_until_future_complete(future_path);
-            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_path);
-            //rclcpp::Time start_time = this->now();
-            //rclcpp::Duration timeout = rclcpp::Duration::from_seconds(5.0); // adjust as needed
-            
-            //while (rclcpp::ok() && this->now() - start_time < timeout) {
-            //    rclcpp::spin_some(this->get_node_base_interface());
-            //    if (future_path.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-            //        break;
+            //while (!path_client->wait_for_service(std::chrono::seconds(1))) {
+            //    if (!rclcpp::ok()) {
+            //        RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for compute PATH service. Exiting interpolation_callback.");
+            //        response->success = false;
+            //        response->message = "Failed to enter path service";
             //    }
-            //    std::this_thread::sleep_for(std::chrono::milliseconds(10)); // avoid tight loop
+            //    RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
             //}
-            
-            // RCLCPP_INFO(this->get_logger(), "Stopped spinning");
-            //temp_executor.remove_node(path_temp_node);
-           // RCLCPP_INFO(this->get_logger(), "REmoving temp node");
 
             
-           // if(future_result != rclcpp::FutureReturnCode::SUCCESS){
-           //     RCLCPP_ERROR(this->get_logger(), "Failed to call compute_path service");
-           //     response->success = false;
-           //     response->message = "Failed path service";
-            //}
-            RCLCPP_INFO(this->get_logger(), "Path computed successfully.");
-            path_client_handler(future_path.get(), response);
-            std_msgs::msg::String message;
+            //Check if you want to add it after
+            
+            //auto future_path = path_client->async_send_request(path_request);
+            //RCLCPP_INFO(this->get_logger(), "Waiting for path_client service");
 
-            if(response->success){
-                response->message = "Success";
-                message.data = "Success";
-                publisher->publish(message);
-            }else{
-                response->message = "Failed";
-                message.data = "Failed";
-                publisher->publish(message);
-            }
+             //if(future_path.wait_for(std::chrono::seconds(5)) != std::future_status::ready){
+             //    RCLCPP_ERROR(this->get_logger(), "Timeout waiting for ComputePath service response.");
+             //    response->success = false;
+             //    response->message = "Failed.";
+             //    return;
+             //}
+
+            //RCLCPP_INFO(this->get_logger(), "Path computed successfully.");
+            //path_client_handler(future_path.get(), response);
+            //std_msgs::msg::String message;
+
+            //if(response->success){
+            //    response->message = "Success";
+            //    message.data = "Success";
+            //    publisher->publish(message);
+            //}else{
+            //    response->message = "Failed";
+            //    message.data = "Failed";
+            //    publisher->publish(message);
+            //}
         }
         
-        void path_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> path_response,
-                                std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
+        //void path_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> path_response,
+        //                        std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
+        void path_client_handler(const geometry_msgs::msg::PoseArray path_response, std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
             if(path_response->poses.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
                 interpolation_response->success = false;
