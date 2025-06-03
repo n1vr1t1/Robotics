@@ -48,7 +48,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             request->pose_start.position.x, request->pose_start.position.y, request->pose_start.position.z,
             request->pose_end.position.x, request->pose_end.position.y, request->pose_end.position.z);
 
-            custom_msg_interfaces::msg::StartEndPosition> msg;
+            custom_msg_interfaces::msg::StartEndPosition msg;
             msg->pose_start = request->pose_start;
             msg->pose_end = request->pose_end;
             msg->num_interpolations = 4
@@ -91,7 +91,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         
         //void path_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> path_response,
         //                        std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
-        void path_callback(const geometry_msgs::msg::PoseArray msg){
+        void path_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
             if(msg->poses.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
                 return;
