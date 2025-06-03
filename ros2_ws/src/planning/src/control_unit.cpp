@@ -1,7 +1,7 @@
 #include<rclcpp/rclcpp.hpp>
 #include<geometry_msgs/msg/pose.hpp>
 #include<geometry_msgs/msg/pose_array.hpp>
-#include<std_msgs/msg/string.hpp>
+#include<std_msgs/msg/bool.hpp>
 #include<std_srvs/srv/trigger.hpp>
 #include<vision_msgs/msg/detection3_d_array.hpp>
 #include<vision_msgs/msg/detection3_d.hpp>
