@@ -42,10 +42,6 @@ namespace motion{
                 pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w);
         }
         
-
-        RCLCPP_INFO(this->get_logger(), "Publishing poses");
-        // Publish for visualization
-        publish_pose_array(interpolated_poses);    //70
     }
     
     std::vector<geometry_msgs::msg::Pose> PathPlannerNode::compute_interpolated_poses(
@@ -81,15 +77,7 @@ namespace motion{
         return result;
         
     }
-    
-    void PathPlannerNode::publish_pose_array(const std::vector<geometry_msgs::msg::Pose>& poses) const {
-        geometry_msgs::msg::PoseArray pose_array;
-        pose_array.header.stamp = this->now();
-        pose_array.header.frame_id = "base";
-        pose_array.poses = poses;
-        publisher_->publish(pose_array);
-    }
-    
+       
     
 }
 
