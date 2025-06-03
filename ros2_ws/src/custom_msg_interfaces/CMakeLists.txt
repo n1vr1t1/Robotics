@@ -15,7 +15,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/StartEndPosition.msg"
   "srv/ComputeIK.srv"
   "srv/ComputeDirKin.srv"
-  "srv/ComputePath.srv"
   "srv/ComputeTrajectory.srv"
   "srv/Interpolation.srv"
   DEPENDENCIES std_msgs geometry_msgs trajectory_msgs
