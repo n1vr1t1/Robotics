@@ -6,6 +6,7 @@
 #include <control_msgs/action/follow_joint_trajectory.hpp>
 #include <custom_msg_interfaces/srv/interpolation.hpp>
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
+#include <custom_msg_interfaces/msg/via_points.hpp>
 #include <custom_msg_interfaces/srv/compute_trajectory.hpp>
 
 #include <memory>
