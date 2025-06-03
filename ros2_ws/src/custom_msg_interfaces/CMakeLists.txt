@@ -12,6 +12,8 @@ find_package(trajectory_msgs REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/DetectionResult.msg"
   "msg/ClassPose.msg"
+  "msg/ComputedPath.msg"
+  "msg/StartEndPosition.msg"
   "srv/ComputeIK.srv"
   "srv/ComputeDirKin.srv"
   "srv/ComputePath.srv"
