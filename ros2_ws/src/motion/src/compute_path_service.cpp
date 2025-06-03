@@ -16,21 +16,36 @@ namespace motion{
         //initialize_publisher
         auto qos = rclcpp::QoS(10).transient_local().reliable();
         publisher_ = this->create_publisher<geometry_msgs::msg::PoseArray>("computed_trajectory", qos);
+
+        //Initializing publisher and subscriber to share the interpolation poses
+        subscription_extrema = this->create_subscription<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema",
+                                rclcpp::QoS(8), std::bind(&PathPlannerNode::handle_compute_path, this, std::placeholders::_1));
+
+        path_publisher = this->create_publisher<geometry_msgs::msg::PoseArray>("/computed_path", 8);
             
         RCLCPP_INFO(this->get_logger(), "Path Planner Node is ready");
     }
     
     
-    void PathPlannerNode::handle_compute_path(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
-                                            std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response) {
+    //void PathPlannerNode::handle_compute_path(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
+     //                                       std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response) {
+
+    void PathPlannerNode::handle_compute_path(const custom_msg_interfaces::msg::StartEndPosition::SharedPtr msg) {
 
         RCLCPP_INFO(this->get_logger(), "Handling compute path");
         // Perform interpolation
-        auto interpolated_poses = compute_interpolated_poses(    //40
-            request->pose_start, request->pose_end, request->num_interpolations
-        );
-        response->poses = interpolated_poses;
+        //auto interpolated_poses = compute_interpolated_poses(    //40
+        //    request->pose_start, request->pose_end, request->num_interpolations
+        //);
 
+        auto interpolated_poses = compute_interpolated_poses(    //40
+            msg->pose_start, msg->pose_end, msg->num_interpolations
+        );
+
+        geometry_msgs::msg::PoseArray response;
+        
+        response->poses = interpolated_poses;
+        
         RCLCPP_INFO(this->get_logger(), "Sending response to service with %zu poses", response->poses.size());
 
         for (size_t i = 0; i < response->poses.size(); ++i) {
@@ -41,6 +56,8 @@ namespace motion{
                 pose.position.x, pose.position.y, pose.position.z,
                 pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w);
         }
+
+        path_publisher -> publish(response);
         
     }
     
