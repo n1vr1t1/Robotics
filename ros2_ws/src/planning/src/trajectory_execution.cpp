@@ -33,8 +33,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
     
             extrema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
 
-            trajectory_publisher = this->create_publisher<custom_msg_interfaces::msg::ViaPoints>("/via_points", 8);
-  
+            subscription_trajectory = this->create_subscription<custom_msg_interfaces::msg::ViaPoints>("/computed_trajectory",
+                                    rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::trajectory_client_handler, this, std::placeholders::_1));  
 
             RCLCPP_INFO(this->get_logger(), "TrajectoryExecutionNode initialized");
         }
@@ -90,7 +90,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         // }
 
-        void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response){
+        //void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response){
+        void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::msg::ViaPoints> trajectory_response){    
             if(trajectory_response->trajectory.points.size() == 0 || trajectory_response->trajectory.joint_names.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses or joints received from trajectory service");
                 return;
@@ -164,7 +165,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         rclcpp::Publisher<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr extrema_publisher;
         rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
-        rclcpp::Publisher<custom_msg_interfaces::msg::ViaPoints>::SharedPtr trajectory_publisher;
+        rclcpp::Subscription<custom_msg_interfaces::msg::ViaPoints>::SharedPtr subscription_trajectory;
 
 };
 int main(int argc, char **argv)
