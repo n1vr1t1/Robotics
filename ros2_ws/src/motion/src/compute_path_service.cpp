@@ -6,9 +6,9 @@ namespace motion{
         //initialize service
         
         // Defining variable callback
-        auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
-                                        std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response){
-                                        this->handle_compute_path(request, response);};
+        // auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
+        //                                 std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response){
+        //                                 this->handle_compute_path(request, response);};
 
         // Creating the service using the callback
         service_ = this->create_service<custom_msg_interfaces::srv::ComputePath>("compute_path", service_callback);
@@ -44,12 +44,12 @@ namespace motion{
 
         geometry_msgs::msg::PoseArray response;
         
-        response->poses = interpolated_poses;
+        response.poses = interpolated_poses;
         
-        RCLCPP_INFO(this->get_logger(), "Sending response to service with %zu poses", response->poses.size());
+        RCLCPP_INFO(this->get_logger(), "Sending response to service with %zu poses", response.poses.size());
 
-        for (size_t i = 0; i < response->poses.size(); ++i) {
-            const auto& pose = response->poses[i];
+        for (size_t i = 0; i < response.poses.size(); ++i) {
+            const auto& pose = response.poses[i];
             RCLCPP_INFO(this->get_logger(),
                 "Pose %zu: Position(x=%.2f, y=%.2f, z=%.2f), Orientation(x=%.2f, y=%.2f, z=%.2f, w=%.2f)",
                 i,
