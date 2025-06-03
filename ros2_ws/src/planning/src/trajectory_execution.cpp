@@ -4,10 +4,10 @@
 #include <std_msgs/msg/bool.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <control_msgs/action/follow_joint_trajectory.hpp>
-#include <custom_msg_interfaces/srv/interpolation.hpp>
+// #include <custom_msg_interfaces/srv/interpolation.hpp>
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 #include <custom_msg_interfaces/msg/via_points.hpp>
-#include <custom_msg_interfaces/srv/compute_trajectory.hpp>
+// #include <custom_msg_interfaces/srv/compute_trajectory.hpp>
 
 #include <memory>
 #include <chrono>
@@ -18,47 +18,45 @@
 class TrajectoryExecutionNode : public rclcpp::Node{
     public:
         TrajectoryExecutionNode() : Node("trajectory_execution_node"){
-            service = this->create_service<custom_msg_interfaces::srv::Interpolation>(
-                "interpolation",
-                std::bind(&TrajectoryExecutionNode::interpolation_callback, this, std::placeholders::_1, std::placeholders::_2));
+            subscription_trajectory = this->create_subscription<custom_msg_interfaces::msg::ViaPoints>("/computed_trajectory",
+                                    rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::trajectory_callback, this, std::placeholders::_1));  
+            // action_trajectory = this->create_subscription<custom_msg_interfaces::msg::ViaPoints>("/computed_action", //change to the correct topic name
+            //                         rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::action_callback, this, std::placeholders::_1)); 
 
-            trajectory_client = this->create_client<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory"); 
+            
+            // service = this->create_service<custom_msg_interfaces::srv::Interpolation>(
+            //     "interpolation",
+            //     std::bind(&TrajectoryExecutionNode::interpolation_callback, this, std::placeholders::_1, std::placeholders::_2));
+
+            // trajectory_client = this->create_client<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory"); 
             action_client = rclcpp_action::create_client<control_msgs::action::FollowJointTrajectory>(
             this,
             "/scaled_joint_trajectory_controller/joint_trajectory");
-            publisher = this->create_publisher<std_msgs::msg::Bool>("trajectory_executed", rclcpp::QoS(8));
-
-             //Initializing publisher and subscriber to share the interpolation poses
-            // subscription_path = this->create_subscription<geometry_msgs::msg::PoseArray>("/computed_path",
-            //                         rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::path_callback, this, std::placeholders::_1));
+            
     
-            extrema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
-
-            subscription_trajectory = this->create_subscription<custom_msg_interfaces::msg::ViaPoints>("/computed_trajectory",
-                                    rclcpp::QoS(8), std::bind(&TrajectoryExecutionNode::trajectory_client_handler, this, std::placeholders::_1));  
+            // extrema_publisher = this->create_publisher<custom_msg_interfaces::msg::StartEndPosition>("/path_extrema", 8);
+            publisher = this->create_publisher<std_msgs::msg::Bool>("trajectory_executed", rclcpp::QoS(8));
 
             RCLCPP_INFO(this->get_logger(), "TrajectoryExecutionNode initialized");
         }
     private:
-        //void interpolation_callback(const std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Request> request, 
-        //            std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> response){
-        void interpolation_callback(const std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Request> request, 
-                    std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> response){
-            // Handle the interpolation request here
-            RCLCPP_INFO(this->get_logger(), "Received interpolation request with start (%f, %f, %f) and end (%f, %f, %f)",
-            request->pose_start.position.x, request->pose_start.position.y, request->pose_start.position.z,
-            request->pose_end.position.x, request->pose_end.position.y, request->pose_end.position.z);
+        // void interpolation_callback(const std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Request> request, 
+        //             std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> response){
+        //     // Handle the interpolation request here
+        //     RCLCPP_INFO(this->get_logger(), "Received interpolation request with start (%f, %f, %f) and end (%f, %f, %f)",
+        //     request->pose_start.position.x, request->pose_start.position.y, request->pose_start.position.z,
+        //     request->pose_end.position.x, request->pose_end.position.y, request->pose_end.position.z);
 
-            custom_msg_interfaces::msg::StartEndPosition msg;
-            msg.pose_start = request->pose_start;
-            msg.pose_end = request->pose_end;
-            msg.num_interpolations = 4;
+        //     custom_msg_interfaces::msg::StartEndPosition msg;
+        //     msg.pose_start = request->pose_start;
+        //     msg.pose_end = request->pose_end;
+        //     msg.num_interpolations = 4;
 
-            extrema_publisher -> publish(msg);
+        //     extrema_publisher -> publish(msg);
 
-            RCLCPP_INFO(this->get_logger(), "Calling service to compute path.");
+        //     RCLCPP_INFO(this->get_logger(), "Calling service to compute path.");
 
-        }
+        // }
         
         //void path_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
         //    if(msg->poses.size() == 0){
@@ -92,17 +90,15 @@ class TrajectoryExecutionNode : public rclcpp::Node{
         // }
 
         //void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response){
-        void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::msg::ViaPoints> trajectory_response){    
-            if(trajectory_response->trajectory.points.size() == 0 || trajectory_response->trajectory.joint_names.size() == 0){
-                RCLCPP_ERROR(this->get_logger(), "No poses or joints received from trajectory service");
+        void trajectory_callback(const custom_msg_interfaces::msg::ViaPoints::SharedPtr msg){  
+            if(msg.status_message.len < 30)
+                RCLCPP_ERROR(this->get_logger(), "Error in computing trajectory");
                 return;
             }
-            RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", trajectory_response->trajectory.points.size(), trajectory_response->trajectory.joint_names.size());
+            RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", msg.trajectory.points.size(), msg.trajectory.joint_names.size());
 
-            // need to check what the possible strings for trajectory_response->status_message are
-            
             auto goal = control_msgs::action::FollowJointTrajectory::Goal();
-            goal.trajectory = trajectory_response->trajectory;
+            goal.trajectory = msg.trajectory;
             goal.trajectory.header.stamp = this->now();
             
             RCLCPP_INFO(this->get_logger(), "Sending trajectory to action server.");
@@ -159,12 +155,12 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         }
 
-        rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr trajectory_client;
+        // rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr trajectory_client;
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr publisher;
         rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>::SharedPtr action_client;
-        rclcpp::Service<custom_msg_interfaces::srv::Interpolation>::SharedPtr service;
+        // rclcpp::Service<custom_msg_interfaces::srv::Interpolation>::SharedPtr service;
 
-        rclcpp::Publisher<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr extrema_publisher;
+        // rclcpp::Publisher<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr extrema_publisher;
         // rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
         rclcpp::Subscription<custom_msg_interfaces::msg::ViaPoints>::SharedPtr subscription_trajectory;
 
