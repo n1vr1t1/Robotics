@@ -5,7 +5,6 @@
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <control_msgs/action/follow_joint_trajectory.hpp>
 #include <custom_msg_interfaces/srv/interpolation.hpp>
-#include <custom_msg_interfaces/srv/compute_path.hpp>
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 #include <custom_msg_interfaces/srv/compute_trajectory.hpp>
 
@@ -22,7 +21,6 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 "interpolation",
                 std::bind(&TrajectoryExecutionNode::interpolation_callback, this, std::placeholders::_1, std::placeholders::_2));
 
-            // path_client = this->create_client<custom_msg_interfaces::srv::ComputePath>("compute_path");
             trajectory_client = this->create_client<custom_msg_interfaces::srv::ComputeTrajectory>("compute_trajectory"); 
             action_client = rclcpp_action::create_client<control_msgs::action::FollowJointTrajectory>(
             this,
@@ -53,44 +51,12 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             msg.pose_end = request->pose_end;
             msg.num_interpolations = 4;
 
-            //std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> path_request = std::make_shared<custom_msg_interfaces::srv::ComputePath::Request>();
-            //path_request->pose_start = request->pose_start;
-            //path_request->pose_end = request->pose_end;
-            //path_request->num_interpolations = 4; // to be changed, need to discuss first
-
             extrema_publisher -> publish(msg);
 
             RCLCPP_INFO(this->get_logger(), "Calling service to compute path.");
 
-            // waiting every 1s to check if the service is available, time can be changed
-            //while (!path_client->wait_for_service(std::chrono::seconds(1))) {
-            //    if (!rclcpp::ok()) {
-            //        RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for compute PATH service. Exiting interpolation_callback.");
-            //        response->success = false;
-            //        response->message = "Failed to enter path service";
-            //    }
-            //    RCLCPP_INFO(this->get_logger(), "Service not available, waiting again...");
-            //}
-
-            
-            //Check if you want to add it after
-            
-            //auto future_path = path_client->async_send_request(path_request);
-            //RCLCPP_INFO(this->get_logger(), "Waiting for path_client service");
-
-             //if(future_path.wait_for(std::chrono::seconds(5)) != std::future_status::ready){
-             //    RCLCPP_ERROR(this->get_logger(), "Timeout waiting for ComputePath service response.");
-             //    response->success = false;
-             //    response->message = "Failed.";
-             //    return;
-             //}
-
-            //RCLCPP_INFO(this->get_logger(), "Path computed successfully.");
-            //path_client_handler(future_path.get(), response);
         }
         
-        //void path_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> path_response,
-        //                        std::shared_ptr<custom_msg_interfaces::srv::Interpolation::Response> interpolation_response){
         void path_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
             if(msg->poses.size() == 0){
                 RCLCPP_ERROR(this->get_logger(), "No poses received from path service");
@@ -186,20 +152,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             message.data = true;
             publisher->publish(message);
 
-
-            //Substituted with the code above
-            /*auto future_result = action_client->async_get_result(goal_handle).get();
-            // future_result.wait();
-            if(future_result != rclcpp::FutureReturnCode::SUCCESS){
-                RCLCPP_ERROR(this->get_logger(), "Failed to execute trajectory");
-                interpolation_response->success = false;
-                interpolation_response->message = "Failed execution";
-                return;
-            }
-            RCLCPP_INFO(this->get_logger(), "Trajectory executed successfully.");*/
         }
 
-        // rclcpp::Client<custom_msg_interfaces::srv::ComputePath>::SharedPtr path_client;
         rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr trajectory_client;
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr publisher;
         rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>::SharedPtr action_client;
