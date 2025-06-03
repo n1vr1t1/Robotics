@@ -10,6 +10,7 @@
 
 // #include "custom_msg_interfaces/srv/interpolation.hpp"
 #include "custom_msg_interfaces/msg/class_pose.hpp"
+#include <custom_msg_interfaces/msg/start_end_position.hpp>
 
 const double SAFE_HEIGHT = 0.5;
 const double TABLE_HEIGHT = 1.0; // MAYBE 0.9
