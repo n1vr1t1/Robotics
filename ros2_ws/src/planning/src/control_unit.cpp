@@ -87,7 +87,7 @@ class ControlNode : public rclcpp::Node{
                 std::bind(&ControlNode::perception_callback, this, std::placeholders::_1)
             );
             
-            execution_status_subscription = this->create_subscription<std_msgs::msg::String>(
+            execution_status_subscription = this->create_subscription<std_msgs::msg::Bool>(
                 "/trajectory_executed",
                 rclcpp::QoS(8),
                 std::bind(&ControlNode::current_task_callback, this, std::placeholders::_1)
@@ -215,8 +215,8 @@ class ControlNode : public rclcpp::Node{
 
         processing_current_task();
     }
-    void current_task_callback(const std_msgs::msg::String::SharedPtr msg){
-        if (msg->data.find("Success") != std::string::npos) { //maybe can be converted to bool
+    void current_task_callback(const std_msgs::msg::Bool::SharedPtr msg){
+        if (msg->data){
             current_task_index++;
             processing_current_task();
         }
@@ -340,7 +340,7 @@ class ControlNode : public rclcpp::Node{
         }
     }
     rclcpp::Subscription<custom_msg_interfaces::msg::ClassPose>::SharedPtr perception_subscription;
-    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr execution_status_subscription;
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr execution_status_subscription;
     rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr publisher; //for visualization ?
     custom_msg_interfaces::msg::ClassPose::SharedPtr blocks;
     size_t current_task_index;
