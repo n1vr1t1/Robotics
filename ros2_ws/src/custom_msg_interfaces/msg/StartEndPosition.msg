@@ -1,0 +1,3 @@
+geometry_msgs/Pose pose_start
+geometry_msgs/Pose pose_end
+int32 num_interpolations
