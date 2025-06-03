@@ -358,7 +358,7 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
 // ---------------------------------------------------------------------------
 //void ComputeTrajectoryService::compute_trajectory_callback(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Request> request,
 //                                                            std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response> response){
- void ComputeTrajectoryService::compute_trajectory_callback(const std::shared_ptr<geometry_msgs::msg::PoseArray> msg){
+ void ComputeTrajectoryService::compute_trajectory_callback(const geometry_msgs::msg::PoseArray::SharedPtr msg){
     RCLCPP_INFO(this->get_logger(), "[CALLBACK] compute_trajectory_callback STARTED");
     const size_t num_poses = msg->array.poses.size();
     RCLCPP_INFO(this->get_logger(), "Got %zu poses", num_poses);
