@@ -1,4 +1,4 @@
-#include "motion/compute_path_service.hpp"
+#include "motion/compute_path.hpp"
 
 namespace motion{
     
