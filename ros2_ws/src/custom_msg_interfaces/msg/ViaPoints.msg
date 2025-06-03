@@ -1,0 +1,2 @@
+trajectory_msgs/JointTrajectory trajectory
+string status_message
