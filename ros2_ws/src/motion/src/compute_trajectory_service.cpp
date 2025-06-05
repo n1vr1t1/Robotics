@@ -422,6 +422,19 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
             } else {
                 RCLCPP_INFO(this->get_logger(), "[SUCCESS] IK response for Pose %zu received", i + 1);
                 print_joint_angles_matrix(result->joint_angles_matrix.data);
+
+                bool has_nan = false;
+                for (const auto& val : result->joint_angles_matrix.data) {
+                    if (std::isnan(val)) {
+                        has_nan = true;
+                        break;
+                    }
+                }
+                
+                if (has_nan) {
+                    RCLCPP_WARN(this->get_logger(), "[Warning] The angle matrix has only NaN values. Stopping computations.");
+                    return; 
+                }
     
                 // Convert waypoints[i] to vector<double>
                 std::vector<double> prev_joints(waypoints[i].begin(), waypoints[i].end());
