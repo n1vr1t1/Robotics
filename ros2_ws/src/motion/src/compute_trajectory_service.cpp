@@ -270,19 +270,19 @@ bool ComputeTrajectoryService::ur5_singAvoid(const Eigen::VectorXd &Th, double s
     // 1) Compute all transforms T0->i (i=0..6)
     std::vector<Eigen::Matrix4d> Tm = computeChainFK(Th, scaleFactor);
 
+    //ADDED NOW FOR DEBUG
+    if (Tm.size() < 7) {
+        RCLCPP_ERROR(this->get_logger(), "ur5_singAvoid: FK result has only %ld transforms, expected 7.", Tm.size());
+        return false; // o gestisci l’errore come necessario
+    }
+
     // 2) Initialize a 6x6 Jacobian
     Eigen::Matrix<double, 6, 6> J;
     J.setZero();
 
     // 3) The end-effector origin in base frame
     Eigen::Vector3d o_6 = Tm[6].block<3,1>(0,3);
-
-    //ADDED NOW FOR DEBUG
-    if (Tm.size() < 7) {
-        RCLCPP_ERROR(this->get_logger(), "FK result has only %ld transforms, expected 7.", Tm.size());
-        return false; // o gestisci l’errore come necessario
-    }
-
+    
     // For each joint i in [1..6]:
     for (int i = 1; i <= 6; ++i)
     {
