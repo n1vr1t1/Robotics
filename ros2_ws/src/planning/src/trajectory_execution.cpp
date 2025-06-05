@@ -91,7 +91,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         //void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response){
         void trajectory_callback(const custom_msg_interfaces::msg::ViaPoints::SharedPtr msg){  
-            if(msg->status_message.lenght() < 30){
+            if(msg->status_message.length() < 30){
                 RCLCPP_ERROR(this->get_logger(), "Error in computing trajectory");
                 return;
             }
