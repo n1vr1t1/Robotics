@@ -91,13 +91,14 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         //void trajectory_client_handler(const std::shared_ptr<custom_msg_interfaces::srv::ComputeTrajectory::Response>  trajectory_response){
         void trajectory_callback(const custom_msg_interfaces::msg::ViaPoints::SharedPtr msg){  
-            if(msg.status_message.len < 30)
+            if(msg.status_message.len < 30){
                 RCLCPP_ERROR(this->get_logger(), "Error in computing trajectory");
                 return;
             }
             RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", msg.trajectory.points.size(), msg.trajectory.joint_names.size());
 
-            auto goal = control_msgs::action::FollowJointTrajectory::Goal();
+            // auto goal = control_msgs::action::FollowJointTrajectory::Goal();
+            control_msgs::action::FollowJointTrajectory::Goal goal = control_msgs::action::FollowJointTrajectory::Goal();
             goal.trajectory = msg.trajectory;
             goal.trajectory.header.stamp = this->now();
             
