@@ -277,6 +277,12 @@ bool ComputeTrajectoryService::ur5_singAvoid(const Eigen::VectorXd &Th, double s
     // 3) The end-effector origin in base frame
     Eigen::Vector3d o_6 = Tm[6].block<3,1>(0,3);
 
+    //ADDED NOW FOR DEBUG
+    if (Tm.size() < 7) {
+        RCLCPP_ERROR(this->get_logger(), "FK result has only %ld transforms, expected 7.", Tm.size());
+        return false; // o gestisci l’errore come necessario
+    }
+
     // For each joint i in [1..6]:
     for (int i = 1; i <= 6; ++i)
     {
