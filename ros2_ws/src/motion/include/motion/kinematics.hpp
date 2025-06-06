@@ -55,8 +55,8 @@ namespace motion
       rclcpp::Service<custom_msg_interfaces::srv::ComputeIK>::SharedPtr service_;
     };
 
-    Eigen::Matrix4d Tij(double th, double alpha, double d, double a){
-        Eigen::Matrix4d T;
+    Eigen::Matrix<float,4,4> Tij(double th, double alpha, double d, double a){
+        Eigen::Matrix<float,4,4> T;
         T << std::cos(th), -std::sin(th) * std::cos(alpha), std::sin(th) * std::sin(alpha), a * std::cos(th),
              std::sin(th), std::cos(th) * std::cos(alpha), -std::cos(th) * std::sin(alpha), a * std::sin(th),
              0, std::sin(alpha), std::cos(alpha), d,
