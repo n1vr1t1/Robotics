@@ -42,8 +42,6 @@ namespace motion
 
     static inline bool almzero(float x) { return std::fabs(x) < 1e-7f; }
 
-    // Classic DH single-step
-    // static Eigen::Matrix<float,4,4> Tij(float th, float alpha, float d, float a);
     Eigen::Matrix<float,4,4> Tij(float th, float alpha, float d, float a){
       Eigen::Matrix<float,4,4> T;
       float c = static_cast<float>(std::cos(th));
