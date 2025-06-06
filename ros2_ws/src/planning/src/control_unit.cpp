@@ -47,11 +47,6 @@ class ControlNode : public rclcpp::Node{
         tf_buffer(this->get_clock()),
         tf_listener(tf_buffer, this){
 
-            ik_client = this->create_client<custom_msg_interfaces::srv::ComputeIK>("/compute_ik");
-            if (!ik_client->wait_for_service(std::chrono::seconds(5))) {
-              RCLCPP_WARN(this->get_logger(),"Service '/compute_ik' not available after 5 seconds.");
-            }
-
             perception_subscription = this->create_subscription<custom_msg_interfaces::msg::ClassPose>(
                 "/inference_3d",
                 rclcpp::QoS(8),
