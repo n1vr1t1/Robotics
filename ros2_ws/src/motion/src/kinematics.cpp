@@ -1,6 +1,4 @@
-#include "motion/kinematics_server.hpp"
-
-
+#include "motion/kinematics.hpp"
 #include "builtin_interfaces/msg/time.hpp"
 #include <iostream>
 #include <iomanip>
@@ -422,7 +420,7 @@ namespace motion
     
     
     }
-}// namespace motion_pkg
+}
 
 int main(int argc, char** argv)
 {
