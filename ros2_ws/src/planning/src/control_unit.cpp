@@ -101,11 +101,11 @@ class ControlNode : public rclcpp::Node{
       rclcpp::Client<custom_msg_interfaces::srv::ComputeIK>::SharedPtr ik_client;
 
       bool isReachable(const geometry_msgs::msg::Pose &target_pose) {
-          // 1) Preparo la richiesta
+          // 1) Preparo la richiesta al servizio
           auto request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
           request->target_pose = target_pose;
         
-          // 2) Controllo se il servizio è pronto (timeout 1s)
+          // 2) Controllo che il servizio sia pronto (timeout 1s)
           if (!ik_client->wait_for_service(std::chrono::seconds(1))) {
             RCLCPP_WARN(this->get_logger(),
                         "Servizio '/compute_ik' non disponibile (timeout 1s).");
@@ -115,46 +115,50 @@ class ControlNode : public rclcpp::Node{
           // 3) Invio la richiesta in modo asincrono
           auto future = ik_client->async_send_request(request);
         
-          // 4) Creo un executor temporaneo per attendere la risposta
-          rclcpp::executors::SingleThreadedExecutor tmp_exec;
-          tmp_exec.add_node(this->get_node_base_interface());
+          // 4) Attendo la risposta con spin_some, per un massimo di 2 secondi
+          rclcpp::Time start = this->now();
+          rclcpp::WallRate rate(100);  // 100 Hz di spin_some
         
-          // 5) Faccio spin finché non arriva la risposta o timeout interno
-          auto ret = tmp_exec.spin_until_future_complete(future, std::chrono::seconds(2));
-          // 6) TOLGO il nodo dall’executor temporaneo *prima di qualsiasi return*
-          tmp_exec.remove_node(this->get_node_base_interface());
-        
-          // 7) Controllo il risultato di spin_until_future_complete
-          if (ret != rclcpp::FutureReturnCode::SUCCESS) {
-            RCLCPP_ERROR(this->get_logger(),
-                         "Chiamata a '/compute_ik' fallita (communication error o timeout).");
-            return false;
+          while (rclcpp::ok()) {
+            // Se il future è pronto, esco subito
+            if (future.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready) {
+              break;
+            }
+            // Se ho superato il timeout di 2 s, restituisco false
+            if ((this->now() - start).seconds() > 2.0) {
+              RCLCPP_WARN(this->get_logger(),
+                          "Timeout chiamata a '/compute_ik' dopo 2 s.");
+              return false;
+            }
+            // Altrimenti processo i callback pendenti (compreso il servizio IK)
+            rclcpp::spin_some(this->get_node_base_interface());
+            rate.sleep();
           }
         
-          // 8) Leggo la risposta
+          // 5) Il future è pronto: leggo la risposta
           auto response = future.get();
           const auto &data = response->joint_angles_matrix.data;
         
-          // 9) Se il vettore è vuoto, consideriamo fuori workspace
+          // 6) Se il vettore è vuoto, consideriamo “fuori workspace”
           if (data.empty()) {
             RCLCPP_DEBUG(this->get_logger(),
-                         "ComputeIK ha restituito matrice vuota: point out of workspace.");
+                         "ComputeIK ha restituito matrice vuota → fuori workspace.");
             return false;
           }
         
-          // 10) Controllo se esiste almeno un elemento NON-NaN
+          // 7) Verifico almeno un valore non-NaN
           for (double angle : data) {
             if (!std::isnan(angle)) {
-              // Ho trovato almeno un angolo valido: la posa è raggiungibile
               return true;
             }
-        }
+          }
         
-          // Se arrivo qui, tutti gli elementi erano NaN
+          // 8) Se arrivo qui, tutte le soluzioni erano NaN → fuori workspace
           RCLCPP_DEBUG(this->get_logger(),
-                       "ComputeIK ha restituito solo NaN nella joint_angles_matrix: fuori workspace.");
+                       "ComputeIK ha restituito solo NaN → fuori workspace.");
           return false;
         }
+
 
 
 
