@@ -7,19 +7,17 @@
 #include<vision_msgs/msg/detection3_d.hpp>
 #include<tf2_ros/buffer.h>
 #include<tf2_ros/transform_listener.h>
-
-// #include "custom_msg_interfaces/srv/interpolation.hpp"
 #include "custom_msg_interfaces/msg/class_pose.hpp"
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 
 const double SAFE_HEIGHT = 0.5;
-const double TABLE_HEIGHT = 1.0; // MAYBE 0.9
+const double TABLE_HEIGHT = 1.0; 
 float CAMERA_COORDINATES[] = {0.7f, 0.0f, 1.580f};
 
 geometry_msgs::msg::Pose get_block_destination(const geometry_msgs::msg::Pose& block_pose) {
   geometry_msgs::msg::Pose destination;
 
-  // Computing simmetric x: 0.45 + (0.45 - x_blocco) == 0.9 - x_block
+  // Computing simmetric x: 0.45 + (0.45 - x_block) == 0.9 - x_block
   double orig_x = block_pose.position.x;
   double orig_y = block_pose.position.y;
   double orig_z = block_pose.position.z;
@@ -116,7 +114,6 @@ class ControlNode : public rclcpp::Node{
         perception_subscription.reset();
 
         RCLCPP_INFO(this->get_logger(), "Unsubscribed from vision topic");
-        //not called in the other code but maybe this is the entry point to start communicating the coordinates
         for(int cb=0; cb<blocks->len; cb++){
             processing_current_block(cb);
         }
@@ -197,11 +194,11 @@ class ControlNode : public rclcpp::Node{
         }else if(current_task_index == 5){
             gripper_service("/open_gripper");
         }else if(current_task_index == 6){
-            gripper_service("/close_gripper"); //maybe not needed or change it to neutral if possible
+            gripper_service("/close_gripper"); 
         }
 
         if(current_task_index >= planned_poses.poses.size()-1){
-            RCLCPP_WARN(this->get_logger(), "No more tasks to process for the current block segment."); // Clarified log
+            RCLCPP_WARN(this->get_logger(), "No more tasks to process for the current block segment."); 
             return;
         }
 
@@ -213,80 +210,6 @@ class ControlNode : public rclcpp::Node{
         extrema_publisher -> publish(msg);
         RCLCPP_INFO(this->get_logger(), "Calling service to compute path for task index %ld", current_task_index);
         
-        // auto interpolation_client = this->create_client<custom_msg_interfaces::srv::Interpolation>("interpolation");
-
-        // while (!interpolation_client->wait_for_service(std::chrono::seconds(1))) {
-        //     if (!rclcpp::ok()) {
-        //         RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for INTERPOLATION service. Exiting.");
-        //         return;
-        //     }
-        //     RCLCPP_INFO(this->get_logger(), "Interpolation service not available, waiting again...");
-        // }
-        // RCLCPP_INFO(this->get_logger(), "The service is free to be used");
-        
-
-        // auto interpolation_request = std::make_shared<custom_msg_interfaces::srv::Interpolation::Request>();
-        // interpolation_request->pose_start = ;
-        // interpolation_request->pose_end = ;
-
-        // const int max_retries = 3;
-        // int retry_count = 0;
-        // bool success = false;
-
-        // while(retry_count < max_retries && !success) {
-            // if (retry_count > 0) {
-            //     RCLCPP_INFO(this->get_logger(), "Retrying interpolation service call (attempt %d/%d)...", retry_count + 1, max_retries);
-            //     rclcpp::sleep_for(std::chrono::seconds(1));
-            // }
-
-            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_interpolation);
-            ////rclcpp::executors::SingleThreadedExecutor temp_executor;
-            ////temp_executor.add_node(this->get_node_base_interface());
-            ////auto future_result = temp_executor.spin_until_future_complete(future_interpolation);
-            ////temp_executor.remove_node(this->get_node_base_interface());
-
-        //     auto int_temp_node = std::make_shared<rclcpp::Node>("temp_interpolation_client_node");
-        //     auto temp_client = int_temp_node->create_client<custom_msg_interfaces::srv::Interpolation>("interpolation");
-        
-        //     // Wait for service once, with timeout
-        //     if (!temp_client->wait_for_service(std::chrono::seconds(10))) {
-        //         RCLCPP_ERROR(this->get_logger(), "Interpolation service not available on temporary client.");
-        //         retry_count++;
-        //         continue;
-        //     }
-        //     RCLCPP_INFO(this->get_logger(), "Done waiting for interpolation service");
-        
-        //     // Send request
-        //     auto future_interpolation = temp_client->async_send_request(interpolation_request);
-        //     RCLCPP_INFO(this->get_logger(), "Creating future for interpolation service"); 
-        
-        //     // Create a temp executor to spin temp_node until future completes
-        //     rclcpp::executors::SingleThreadedExecutor temp_executor;
-        //     temp_executor.add_node(int_temp_node);
-            
-        //     RCLCPP_INFO(this->get_logger(), "Spinning the future interpolation");
-        //     auto future_result = temp_executor.spin_until_future_complete(future_interpolation);
-        
-        //     temp_executor.remove_node(int_temp_node);
-        
-        //     if (future_result != rclcpp::FutureReturnCode::SUCCESS) {
-        //         RCLCPP_ERROR(this->get_logger(), "Failed to call interpolation service (communication issue, attempt %d).", retry_count + 1);
-        //     } else {
-        //         auto interpolation_response = future_interpolation.get();
-        //         if(interpolation_response->success){
-        //             RCLCPP_INFO(this->get_logger(), "Interpolation service call successful (attempt %d).", retry_count + 1);
-        //             success = true;
-        //         } else {
-        //             RCLCPP_ERROR(this->get_logger(), "Interpolation service reported failure (e.g., unable to generate trajectory, attempt %d).", retry_count + 1);
-        //         }
-        //     }
-        //     retry_count++;
-        // }
-
-        // if (!success) {
-        //     RCLCPP_FATAL(this->get_logger(), "Failed to get successful interpolation after %d retries for task index %ld. Cannot process current block.", max_retries, current_task_index);
-        //     return;
-        // }
     }
     void gripper_service(const std::string &service_name){
         auto client = this->create_client<std_srvs::srv::Trigger>(service_name);
