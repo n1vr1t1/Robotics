@@ -26,15 +26,15 @@ def generate_launch_description():
         #),
         launch_ros.actions.Node(
             package='motion',
-            executable='compute_trajectory_service',
-            name='compute_trajectory_service',
+            executable='compute_trajectory',
+            name='compute_trajectory',
             output='screen',
             parameters=[{'use_sim_time': True}]
         ),
         launch_ros.actions.Node(
             package='motion',
-            executable='compute_path_service',
-            name='compute_path_service',
+            executable='compute_path',
+            name='compute_path',
             output='screen',
             parameters=[{'use_sim_time': True}]
         ),
