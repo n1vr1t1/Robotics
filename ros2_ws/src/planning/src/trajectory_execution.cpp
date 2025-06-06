@@ -120,12 +120,11 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 };
     
             send_goal_options.result_callback =
-                [this](const :GoalHandleFollowJointTrajectory::WrappedResult &result) {
+                [this](const GoalHandleFollowJointTrajectory::WrappedResult &result) {
                     switch (result.code)
                     {
                     case rclcpp_action::ResultCode::SUCCEEDED:
                         RCLCPP_INFO(this->get_logger(), "Goal succeeded");
-                        handle_trajectory_success();
                         break;
                     case rclcpp_action::ResultCode::ABORTED:
                         RCLCPP_ERROR(this->get_logger(), "Goal was aborted");
