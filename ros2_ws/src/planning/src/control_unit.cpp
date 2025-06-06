@@ -9,6 +9,7 @@
 #include<tf2_ros/transform_listener.h>
 
 // #include "custom_msg_interfaces/srv/interpolation.hpp"
+#include <custom_msg_interfaces/srv/compute_ik.hpp>
 #include "custom_msg_interfaces/msg/class_pose.hpp"
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 
@@ -16,64 +17,29 @@ const double SAFE_HEIGHT = 0.5;
 const double TABLE_HEIGHT = 1.0; // MAYBE 0.9
 float CAMERA_COORDINATES[] = {0.7f, 0.0f, 1.580f};
 
-geometry_msgs::msg::Pose get_block_destination(int class_id){
-    geometry_msgs::msg::Pose destination = geometry_msgs::msg::Pose();
-    destination.position.z = 0.028; // Default height
+geometry_msgs::msg::Pose get_block_destination(const geometry_msgs::msg::Pose& block_pose) {
+  geometry_msgs::msg::Pose destination;
 
-    switch (class_id) {
-        case 0: //X1_Y1_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            destination.position.z = 0.019;
-            break;
-        case 1: //X1_Y2_Z1
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 2: //X1_Y2_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 3: //X1_Y2_Z2_CHAMFER
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 4: //X1_Y2_Z2_TWINFILLET
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 5:  //X1_Y3_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 6: //X1_Y3_Z2_FILLET
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 7:  //X1_Y4_Z1
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break;
-        case 8: //X1_Y4_Z2
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;
-            break; 
-        case 9: //X2_Y2_Z2
-            destination.position.x = 0.0; 
-            destination.position.y = 0.0; 
-            destination.position.z = 0.019; 
-            break; 
-        case 10: //X2_Y2_Z2_FILLET
-            destination.position.x = 0.0;
-            destination.position.y = 0.0;  
-            break;
-        default:
-            destination.position.x = -1;
-            destination.position.y = -1;
-            destination.position.z = -1; // Invalid class ID
-            break;
-    }
-    return destination;
+  // Computing simmetric x: 0.45 + (0.45 - x_blocco) == 0.9 - x_block
+  double orig_x = block_pose.position.x;
+  double orig_y = block_pose.position.y;
+  double orig_z = block_pose.position.z;
+
+  double new_x = 0.9 - orig_x;
+  double new_y = orig_y; 
+
+  // Checking that z is not under the table:
+  double min_z = TABLE_HEIGHT + 0.02;      //Staying 2cm above
+  double new_z = std::max(orig_z, min_z);  // if orig_z < min_z, we use min_z
+
+  destination.position.x = new_x;
+  destination.position.y = new_y;
+  destination.position.z = new_z;
+
+  //Keeping same initial orientation
+  destination.orientation = block_pose.orientation;
+
+  return destination;
 }
 
 class ControlNode : public rclcpp::Node{
@@ -81,6 +47,11 @@ class ControlNode : public rclcpp::Node{
         ControlNode() : Node("control_node"),
         tf_buffer(this->get_clock()),
         tf_listener(tf_buffer, this){
+
+            ik_client = this->create_client<custom_msg_interfaces::srv::ComputeIK>("/compute_ik");
+            if (!ik_client->wait_for_service(std::chrono::seconds(5))) {
+              RCLCPP_WARN(this->get_logger(),"Service '/compute_ik' not available after 5 seconds.");
+            }
 
             perception_subscription = this->create_subscription<custom_msg_interfaces::msg::ClassPose>(
                 "/inference_3d",
@@ -126,6 +97,55 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_INFO(this->get_logger(), "ControlNode node started"); 
         }
     private: 
+
+      bool isReachable(const geometry_msgs::msg::Pose &target_pose) {
+            // 1) Preparing the request
+            auto request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
+            request->target_pose = target_pose;
+        
+            // 2) Checking if the service is free
+            if (!ik_client->wait_for_service(std::chrono::seconds(1))) {
+              RCLCPP_WARN(this->get_logger(),
+                "Servizio '/compute_ik' non disponibile (timeout 1s).");
+              return false;
+            }
+        
+            // 3) Sending the request and waiting for the answer
+            auto future = ik_client->async_send_request(request);
+            auto ret = rclcpp::spin_until_future_complete(
+              this->get_node_base_interface(), future);
+            if (ret != rclcpp::FutureReturnCode::SUCCESS) {
+              RCLCPP_ERROR(this->get_logger(),
+                           "Chiamata a '/compute_ik' fallita (communication error o timeout).");
+              return false;
+            }
+        
+            // 4) Reading the answer
+            auto response = future.get();
+        
+            // 5) Extracting the vector of joint angles
+            const auto &data = response->joint_angles_matrix.data;
+            if (data.empty()) {
+              // No result → unreachable
+              RCLCPP_DEBUG(this->get_logger(),
+                "ComputeIK ha restituito matrice vuota: point out of workspace.");
+              return false;
+            }
+        
+            // 6) Checking if there is at least one non NaN element
+            for (double angle : data) {
+              if (!std::isnan(angle)) {
+                // At least one valid angle was found
+                return true;
+              }
+            }
+        
+            // All NaN elements, unreachable
+            RCLCPP_DEBUG(this->get_logger(),
+              "ComputeIK ha restituito solo NaN nella joint_angles_matrix: fuori workspace.");
+            return false;
+      }
+
     void perception_callback(const custom_msg_interfaces::msg::ClassPose::SharedPtr msg){
         if (msg->poses.empty() || msg->class_ids.empty()) {
             RCLCPP_WARN(this->get_logger(), "No 3D positions and classes data received");
@@ -165,12 +185,9 @@ class ControlNode : public rclcpp::Node{
             return;
         }
         geometry_msgs::msg::Pose block_pose = blocks->poses[current_block_index];
-        int block_class_id = blocks->class_ids[current_block_index];
-        geometry_msgs::msg::Pose destination = get_block_destination(block_class_id);
-        if (destination.position.x == -1 && destination.position.y == -1 && destination.position.z == -1) {
-            RCLCPP_ERROR(this->get_logger(), "Invalid class ID: %d", block_class_id);
-            return;
-        }
+        geometry_msgs::msg::Pose block_pose = blocks->poses[current_block_index];
+        geometry_msgs::msg::Pose destination = get_block_destination(block_poses);
+
         RCLCPP_INFO(this->get_logger(), "Processing block %d", current_block_index);
         RCLCPP_INFO(this->get_logger(), "Moving to destination: (%f, %f, %f)", destination.position.x, destination.position.y, destination.position.z);
         
@@ -221,6 +238,24 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_WARN(this->get_logger(), "No planned poses available");
             return;
         }
+
+        // 1) Verifying that there at least one segment to follow
+        if (current_task_index >= static_cast<int>(planned_poses.poses.size()) - 1) {
+            RCLCPP_WARN(this->get_logger(), "No more tasks to process for the current block segment.");
+            return;
+        }
+    
+        // 2) Checking reachability of arriving poses
+        geometry_msgs::msg::Pose target_pose = planned_poses.poses[current_task_index + 1];
+        // --- Qui devi richiamare il tuo IK-check. Se stai usando un servizio, 
+        //     fai la call al servizio “isReachable” (oppure al tuo solver IK locale).
+        //     Di seguito è riportato un pseudocodice:
+        if (!isReachable(target_pose)) {
+            RCLCPP_WARN(this->get_logger(), "Pose (%.3f, %.3f, %.3f) fuori dal workspace, skip task %d",
+                        target_pose.position.x, target_pose.position.y, target_pose.position.z, current_task_index);
+            return;  
+        }
+            
 
         if(current_task_index == 1){
             gripper_service("/open_gripper");
