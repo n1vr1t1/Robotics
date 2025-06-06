@@ -11,11 +11,9 @@ namespace motion{
     
     DirectKinServer::DirectKinServer() : Node("direct_kin_server"){
         
-        // Define the service callback
         auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
                                        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response){
                                        this->computeDirectKinematics(request, response);};
-        // Create the service
         service_ = this->create_service<custom_msg_interfaces::srv::ComputeDirKin>("compute_dir_kin", service_callback);
         RCLCPP_INFO(this->get_logger(), "Direct Kinematics Service is ready.");
     }
@@ -27,10 +25,8 @@ namespace motion{
             Eigen::Matrix3d end_effector_orientation;
             std::vector<Eigen::Matrix4d> Tm;
             
-            // Compute direct kinematics
             response = ur5Direct(request->joints, 1.0, end_effector_position, end_effector_orientation, Tm);
             response->frame_id = request->frame_id;
-             // Set status message and frame ID
             response->status_message = "Direct kinematics calculated successfully";
         }catch (const std::exception& e){
             RCLCPP_ERROR(this->get_logger(), "Error in direct kinematics calculation: %s", e.what());
@@ -53,7 +49,6 @@ namespace motion{
 
         std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response;
         
-        // Compute transformation matrices
         Eigen::Matrix4d T60 = Eigen::Matrix4d::Identity();
         for (size_t i = 0; i < 6; ++i) {
             Eigen::Matrix4d T = Tij(Th[i], ALPHA[i], D[i]*scaleFactor, A[i]* scaleFactor);
@@ -78,19 +73,15 @@ namespace motion{
         return response;        
     }
     
-    // node
     InverseKinServer::InverseKinServer(const rclcpp::NodeOptions & options): Node("inverse_kin_server_node", options){
-     // Create the service
         using namespace std::placeholders;
 
-        // Define the service callback
         auto service_callback = [this](
             const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
             std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response) {
             this->computeIKCallback(request, response);
         };
         
-        // Create the service
         service_ = this->create_service<custom_msg_interfaces::srv::ComputeIK>("compute_ik", service_callback);
         RCLCPP_INFO(this->get_logger(), "Inverse Kinematics Service is ready.");
         
@@ -102,52 +93,30 @@ namespace motion{
      auto position = (request->target_pose).position;
      auto orientation =  (request->target_pose).orientation;
     
-     // Convert quaternion to Eigen rotation matrix (using double precision then cast to float)
      Eigen::Quaterniond q_eig(orientation.x, orientation.y, orientation.z, orientation.w);
         
-     Eigen::Matrix3d R_d = q_eig.normalized().toRotationMatrix(); // 3x3 double
-     Eigen::Matrix3f R_f = R_d.cast<float>(); // cast to float
-    
-     // Position as Eigen Vector3f
-     //Eigen::Vector3f p60(x, y, z);
+     Eigen::Matrix3d R_d = q_eig.normalized().toRotationMatrix(); 
+     Eigen::Matrix3f R_f = R_d.cast<float>(); 
      Eigen::Vector3f p60(position.x, position.y, position.z);
-    
-     // Compute the inverse kinematics assuming a scale factor = 1.0
-     Eigen::MatrixXd solutions = ur5Inverse(p60, R_f, 1.0f);  // 8x6 
+ 
+     Eigen::MatrixXd solutions = ur5Inverse(p60, R_f, 1.0f); 
 
-
-
-
-
-
-
-        
-    //ADJUST IT
-     // Prepare the response multiarray: we have 8 solutions, each with 6 joints
      response->joint_angles_matrix.layout.dim.resize(2);
     
-     // First dimension = number of solutions
      response->joint_angles_matrix.layout.dim[0].label = "solutions";
-     response->joint_angles_matrix.layout.dim[0].size = 8;         // we know we always produce 8
-     response->joint_angles_matrix.layout.dim[0].stride = 8 * 6;   // each row has 6 entries, total 8 rows
+     response->joint_angles_matrix.layout.dim[0].size = 8;      
+     response->joint_angles_matrix.layout.dim[0].stride = 8 * 6;  
     
-     // Second dimension = number of joints
      response->joint_angles_matrix.layout.dim[1].label = "joints";
-     response->joint_angles_matrix.layout.dim[1].size = 6;         // 6 joints
-     response->joint_angles_matrix.layout.dim[1].stride = 6;       // stride
+     response->joint_angles_matrix.layout.dim[1].size = 6;         
+     response->joint_angles_matrix.layout.dim[1].stride = 6;       
     
      response->joint_angles_matrix.layout.data_offset = 0;
      response->joint_angles_matrix.data.resize(8 * 6);
 
 
-
-        
-        
-    
-     // Fill the data in row-major order
      for (int i = 0; i < 8; ++i){
         for (int j = 0; j < 6; ++j){
-            // Convert float (or double) to double for the message
             double angle_val = static_cast<double>(solutions(i, j));
             response->joint_angles_matrix.data[i * 6 + j] = angle_val;
         }
@@ -155,11 +124,10 @@ namespace motion{
      response->status_message = "Inverse kinematics solutions computed successfully.";
      RCLCPP_INFO(this->get_logger(), "IK solutions computed and sent back to client.");
     }
-
     
-    bool almzero(float x) {
-        return abs(x) < 1e-7;
-    }
+    // bool almzero(float x) {
+    //     return abs(x) < 1e-7;
+    // }
     
     Matrix4f Tij(float th, float alpha, float d, float a) {
         Matrix4f T;
