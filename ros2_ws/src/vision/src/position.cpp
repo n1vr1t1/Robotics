@@ -22,19 +22,17 @@ namespace std {
         using value_type = float;
         using pointer = float*;
         using reference = float&;
-        using iterator_category = std::forward_iterator_tag;  // Assuming it's a forward iterator
+        using iterator_category = std::forward_iterator_tag;  
     };
 }
 
 class CameraPoseNode : public rclcpp::Node{
     public:
-        CameraPoseNode(): Node("pose_from_camera_node"),
-                            tf_buffer(this->get_clock()), 
-                            tf_listener(std::make_shared<tf2_ros::TransformListener>(tf_buffer)){
-            subscription_pixel = this->create_subscription<std_msgs::msg::Float32MultiArray>(
-                "/inference_result", rclcpp::QoS(8), std::bind(&CameraPoseNode::image_callback, this, std::placeholders::_1));
-            subscription_cloud = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-                "/camera/image_raw/points", rclcpp::QoS(8), std::bind(&CameraPoseNode::cloud_callback, this, std::placeholders::_1));
+        CameraPoseNode(): Node("pose_from_camera_node"), tf_buffer(this->get_clock()), tf_listener(std::make_shared<tf2_ros::TransformListener>(tf_buffer)){
+            
+            subscription_pixel = this->create_subscription<std_msgs::msg::Float32MultiArray>("/inference_result", rclcpp::QoS(8), 
+                                                                                            std::bind(&CameraPoseNode::image_callback, this, std::placeholders::_1));
+            subscription_cloud = this->create_subscription<sensor_msgs::msg::PointCloud2>("/camera/image_raw/points", rclcpp::QoS(8), std::bind(&CameraPoseNode::cloud_callback, this, std::placeholders::_1));
             publisher = this->create_publisher<custom_msg_interfaces::msg::ClassPose>("/inference_3d", 8);
             current_cloud = nullptr;
         }
@@ -106,13 +104,11 @@ class CameraPoseNode : public rclcpp::Node{
                     return;
                 }
 
-                pose.orientation.w = 1.0; //need to initiaze the orientation of x,y, z too
+                pose.orientation.w = 1.0; 
     
                 publish_positions.class_ids.push_back(id);
                 publish_positions.poses.push_back(pose);
                 publish_positions.len++;
-                // RCLCPP_INFO(this->get_logger(), "After tansformation");
-                // RCLCPP_INFO(this->get_logger(), "Pose ID: %d, Position: (%f, %f, %f)", id, pose.position.x, pose.position.y, pose.position.z);
             }
             subscription_pixel.reset();
             subscription_cloud.reset();
