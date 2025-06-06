@@ -43,7 +43,19 @@ namespace motion
     static inline bool almzero(float x) { return std::fabs(x) < 1e-7f; }
 
     // Classic DH single-step
-    static Eigen::Matrix<float,4,4> Tij(float th, float alpha, float d, float a);
+    // static Eigen::Matrix<float,4,4> Tij(float th, float alpha, float d, float a);
+    Eigen::Matrix<float,4,4> Tij(float th, float alpha, float d, float a){
+      Eigen::Matrix<float,4,4> T;
+      float c = static_cast<float>(std::cos(th));
+      float s = static_cast<float>(std::sin(th));
+      float ca = static_cast<float>(std::cos(alpha));
+      float sa = static_cast<float>(std::sin(alpha));
+      T << c, -s*ca,  s*sa, a*c,
+           s,  c*ca, -c*sa, a*s,
+           0,   sa,    ca,  d,
+           0,    0,     0,  1;
+      return T;
+    }
 
     // Service handles
     rclcpp::Service<custom_msg_interfaces::srv::ComputeDirKin>::SharedPtr dir_service_;
