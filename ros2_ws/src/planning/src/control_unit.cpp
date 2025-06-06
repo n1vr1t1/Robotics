@@ -101,52 +101,63 @@ class ControlNode : public rclcpp::Node{
       rclcpp::Client<custom_msg_interfaces::srv::ComputeIK>::SharedPtr ik_client;
 
       bool isReachable(const geometry_msgs::msg::Pose &target_pose) {
-            // 1) Preparing the request
-            auto request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
-            request->target_pose = target_pose;
-        
-            // 2) Checking if the service is free
-            if (!ik_client->wait_for_service(std::chrono::seconds(1))) {
-              RCLCPP_WARN(this->get_logger(),
-                "Servizio '/compute_ik' non disponibile (timeout 1s).");
-              return false;
-            }
-        
-            // 3) Sending the request and waiting for the answer
-            auto future = ik_client->async_send_request(request);
-            auto ret = rclcpp::spin_until_future_complete(
-              this->get_node_base_interface(), future);
-            if (ret != rclcpp::FutureReturnCode::SUCCESS) {
-              RCLCPP_ERROR(this->get_logger(),
-                           "Chiamata a '/compute_ik' fallita (communication error o timeout).");
-              return false;
-            }
-        
-            // 4) Reading the answer
-            auto response = future.get();
-        
-            // 5) Extracting the vector of joint angles
-            const auto &data = response->joint_angles_matrix.data;
-            if (data.empty()) {
-              // No result → unreachable
-              RCLCPP_DEBUG(this->get_logger(),
-                "ComputeIK ha restituito matrice vuota: point out of workspace.");
-              return false;
-            }
-        
-            // 6) Checking if there is at least one non NaN element
-            for (double angle : data) {
-              if (!std::isnan(angle)) {
-                // At least one valid angle was found
-                return true;
-              }
-            }
-        
-            // All NaN elements, unreachable
-            RCLCPP_DEBUG(this->get_logger(),
-              "ComputeIK ha restituito solo NaN nella joint_angles_matrix: fuori workspace.");
-            return false;
+      // 1) Preparo la richiesta
+      auto request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
+      request->target_pose = target_pose;
+    
+      // 2) Controllo se il servizio è pronto (timeout 1s)
+      if (!ik_client->wait_for_service(std::chrono::seconds(1))) {
+        RCLCPP_WARN(this->get_logger(),
+                    "Servizio '/compute_ik' non disponibile (timeout 1s).");
+        return false;
       }
+    
+      // 3) Invio la richiesta in modo asincrono
+      auto future = ik_client->async_send_request(request);
+    
+      // 4) Creo un executor temporaneo per attendere la risposta
+      rclcpp::executors::SingleThreadedExecutor tmp_exec;
+      //    Aggiungo *QUESTO* nodo all’executor temporaneo
+      tmp_exec.add_node(this->get_node_base_interface());
+    
+      // 5) Faccio spin finché non arriva la risposta o timeout interno
+      auto ret = tmp_exec.spin_until_future_complete(future, std::chrono::seconds(2));
+      //    (2 secondi sono un esempio: puoi allungare o accorciare a seconda dei tempi dell’IK)
+      
+      // 6) Tolgo il nodo dall’executor temporaneo
+      tmp_exec.remove_node(this->get_node_base_interface());
+    
+      if (ret != rclcpp::FutureReturnCode::SUCCESS) {
+        RCLCPP_ERROR(this->get_logger(),
+                     "Chiamata a '/compute_ik' fallita (communication error o timeout).");
+        return false;
+      }
+    
+      // 7) Leggo la risposta
+      auto response = future.get();  
+      const auto &data = response->joint_angles_matrix.data;
+    
+      // 8) Se il vettore è vuoto, consideriamo fuori workspace
+      if (data.empty()) {
+        RCLCPP_DEBUG(this->get_logger(),
+                     "ComputeIK ha restituito matrice vuota: point out of workspace.");
+        return false;
+      }
+    
+      // 9) Controllo se esiste almeno un elemento NON-NaN
+      for (double angle : data) {
+        if (!std::isnan(angle)) {
+          // Ho trovato almeno un angolo valido: la posa è raggiungibile
+          return true;
+        }
+      }
+    
+      // Se arrivo qui, tutti gli elementi erano NaN
+      RCLCPP_DEBUG(this->get_logger(),
+                   "ComputeIK ha restituito solo NaN nella joint_angles_matrix: fuori workspace.");
+      return false;
+    }
+
 
     void perception_callback(const custom_msg_interfaces::msg::ClassPose::SharedPtr msg){
         if (msg->poses.empty() || msg->class_ids.empty()) {
