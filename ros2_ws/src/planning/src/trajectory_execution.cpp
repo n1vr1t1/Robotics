@@ -4,10 +4,8 @@
 #include <std_msgs/msg/bool.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <control_msgs/action/follow_joint_trajectory.hpp>
-// #include <custom_msg_interfaces/srv/interpolation.hpp>
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 #include <custom_msg_interfaces/msg/via_points.hpp>
-// #include <custom_msg_interfaces/srv/compute_trajectory.hpp>
 
 #include <memory>
 #include <chrono>
@@ -123,13 +121,8 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
         }
 
-        // rclcpp::Client<custom_msg_interfaces::srv::ComputeTrajectory>::SharedPtr trajectory_client;
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr publisher;
         rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>::SharedPtr action_client;
-        // rclcpp::Service<custom_msg_interfaces::srv::Interpolation>::SharedPtr service;
-
-        // rclcpp::Publisher<custom_msg_interfaces::msg::StartEndPosition>::SharedPtr extrema_publisher;
-        // rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr subscription_path;
         rclcpp::Subscription<custom_msg_interfaces::msg::ViaPoints>::SharedPtr subscription_trajectory;
 
 };
