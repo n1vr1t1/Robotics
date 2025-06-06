@@ -97,74 +97,117 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             }
             RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", msg->trajectory.points.size(), msg->trajectory.joint_names.size());
 
-            auto goal = control_msgs::action::FollowJointTrajectory::Goal();
-            // control_msgs::action::FollowJointTrajectory::Goal goal = control_msgs::action::FollowJointTrajectory::Goal();
-            goal.trajectory = msg->trajectory;
-            // goal.trajectory.header.stamp = this->now();
-            // The header stamp must usually be "now + small_offset" so the controller
-            // doesn't see a fully expired goal. If you stamp it at 'now()', some
-            // controllers will reject if they think the trajectory start time is in
-            // the past. A common trick is:
-            goal.trajectory.header.stamp = this->get_clock()->now() + rclcpp::Duration(0, 500000000); 
-            
-            RCLCPP_INFO(this->get_logger(), "Sending trajectory to action server.");
-            // auto future_goal = action_client->async_send_goal(goal);
-            // 3) Send the goal, spinning THIS node until we at least get a GoalHandle
-            auto future_goal_handle = action_client->async_send_goal(goal);
+            auto goal_msg = control_msgs::action::FollowJointTrajectory::Goal();
+            goal_msg.trajectory = msg->trajectory;
+            goal_msg.goal_time_tolerance.nanosec = 500000000;
+    
+            RCLCPP_INFO(this->get_logger(), "Sending trajectory goal %zu", current_trajectory_index_ + 1);
+    
+            auto send_goal_options = rclcpp_action::Client<FollowJointTrajectory>::SendGoalOptions();
+            send_goal_options.goal_response_callback =
+                [this](const GoalHandleFollowJointTrajectory::SharedPtr &goal_handle) {
+                    if (!goal_handle)
+                    {
+                        RCLCPP_ERROR(this->get_logger(), "Goal was rejected by the server");
+                    }
+                    else
+                    {
+                        RCLCPP_INFO(this->get_logger(), "Goal accepted by the server, waiting for result");
+                    }
+                };
+    
+            send_goal_options.result_callback =
+                [this](const GoalHandleFollowJointTrajectory::WrappedResult &result) {
+                    switch (result.code)
+                    {
+                    case rclcpp_action::ResultCode::SUCCEEDED:
+                        RCLCPP_INFO(this->get_logger(), "Goal %zu succeeded", current_trajectory_index_ + 1);
+                        handle_trajectory_success();
+                        break;
+                    case rclcpp_action::ResultCode::ABORTED:
+                        RCLCPP_ERROR(this->get_logger(), "Goal was aborted");
+                        break;
+                    case rclcpp_action::ResultCode::CANCELED:
+                        RCLCPP_WARN(this->get_logger(), "Goal was canceled");
+                        break;
+                    default:
+                        RCLCPP_ERROR(this->get_logger(), "Unknown result code");
+                        break;
+                    }
+                };
+    
+            action_client_->async_send_goal(goal_msg, send_goal_options);
 
-            // Spin this node until the send_goal handshake completes (or times out)
-              if (rclcpp::spin_until_future_complete(shared_from_this(), future_goal_handle)
-                  != rclcpp::FutureReturnCode::SUCCESS)
-              {
-                RCLCPP_ERROR(this->get_logger(),
-                             "Failed to receive acknowledgment from FollowJointTrajectory server");
-                return;
-              }
-            auto goal_handle = future_goal_handle.get();
-              if (!goal_handle) {
-                RCLCPP_ERROR(this->get_logger(),
-                             "Trajectory execution was rejected by the action server");
-                std_msgs::msg::Bool message;
-                message.data = false;
-                publisher->publish(message);
-                return;
-              }
-              RCLCPP_INFO(this->get_logger(), "Trajectory execution accepted.");
-            
-            //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_goal);
-            // rclcpp::executors::SingleThreadedExecutor temp_executor;
-            // auto traj_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
-            // temp_executor.add_node(traj_temp_node);
-            // auto future_result = temp_executor.spin_until_future_complete(future_goal);
-            // temp_executor.remove_node(traj_temp_node);
 
-            // 4) Now spin until the result (we can reuse the same node)
-              auto future_result = action_client->async_get_result(goal_handle);
-              if (rclcpp::spin_until_future_complete(shared_from_this(), future_result)
-                  != rclcpp::FutureReturnCode::SUCCESS)
-              {
-                RCLCPP_ERROR(this->get_logger(), "Failed to get action result");
-                return;
-              }
             
-            // if(future_result != rclcpp::FutureReturnCode::SUCCESS){
-            //     RCLCPP_ERROR(this->get_logger(), "Failed to call action service");
+            // auto goal = control_msgs::action::FollowJointTrajectory::Goal();
+            // // control_msgs::action::FollowJointTrajectory::Goal goal = control_msgs::action::FollowJointTrajectory::Goal();
+            // goal.trajectory = msg->trajectory;
+            // // goal.trajectory.header.stamp = this->now();
+            // // The header stamp must usually be "now + small_offset" so the controller
+            // // doesn't see a fully expired goal. If you stamp it at 'now()', some
+            // // controllers will reject if they think the trajectory start time is in
+            // // the past. A common trick is:
+            // goal.trajectory.header.stamp = this->get_clock()->now() + rclcpp::Duration(0, 500000000); 
+            
+            // RCLCPP_INFO(this->get_logger(), "Sending trajectory to action server.");
+            // // auto future_goal = action_client->async_send_goal(goal);
+            // // 3) Send the goal, spinning THIS node until we at least get a GoalHandle
+            // auto future_goal_handle = action_client->async_send_goal(goal);
+
+            // // Spin this node until the send_goal handshake completes (or times out)
+            //   if (rclcpp::spin_until_future_complete(shared_from_this(), future_goal_handle)
+            //       != rclcpp::FutureReturnCode::SUCCESS)
+            //   {
+            //     RCLCPP_ERROR(this->get_logger(),
+            //                  "Failed to receive acknowledgment from FollowJointTrajectory server");
             //     return;
-            // }
-            // RCLCPP_INFO(this->get_logger(), "Action computed successfully.");
-            // action_client_handler(future_goal.get());         
-            auto wrapped_result = future_result.get();
-              if (wrapped_result.code != rclcpp_action::ResultCode::SUCCEEDED) {
-                RCLCPP_ERROR(this->get_logger(),
-                             "Trajectory execution failed with result code: %d",
-                             static_cast<int>(wrapped_result.code));
-                return;
-              }
+            //   }
+            // auto goal_handle = future_goal_handle.get();
+            //   if (!goal_handle) {
+            //     RCLCPP_ERROR(this->get_logger(),
+            //                  "Trajectory execution was rejected by the action server");
+            //     std_msgs::msg::Bool message;
+            //     message.data = false;
+            //     publisher->publish(message);
+            //     return;
+            //   }
+            //   RCLCPP_INFO(this->get_logger(), "Trajectory execution accepted.");
             
-              RCLCPP_INFO(this->get_logger(), "Trajectory executed successfully.");
-              std_msgs::msg::Bool message;
-              message.data = true;
-              publisher->publish(message);
+            // //auto future_result = rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_goal);
+            // // rclcpp::executors::SingleThreadedExecutor temp_executor;
+            // // auto traj_temp_node = std::make_shared<rclcpp::Node>("temp_client_node");
+            // // temp_executor.add_node(traj_temp_node);
+            // // auto future_result = temp_executor.spin_until_future_complete(future_goal);
+            // // temp_executor.remove_node(traj_temp_node);
+
+            // // 4) Now spin until the result (we can reuse the same node)
+            //   auto future_result = action_client->async_get_result(goal_handle);
+            //   if (rclcpp::spin_until_future_complete(shared_from_this(), future_result)
+            //       != rclcpp::FutureReturnCode::SUCCESS)
+            //   {
+            //     RCLCPP_ERROR(this->get_logger(), "Failed to get action result");
+            //     return;
+            //   }
+            
+            // // if(future_result != rclcpp::FutureReturnCode::SUCCESS){
+            // //     RCLCPP_ERROR(this->get_logger(), "Failed to call action service");
+            // //     return;
+            // // }
+            // // RCLCPP_INFO(this->get_logger(), "Action computed successfully.");
+            // // action_client_handler(future_goal.get());         
+            // auto wrapped_result = future_result.get();
+            //   if (wrapped_result.code != rclcpp_action::ResultCode::SUCCEEDED) {
+            //     RCLCPP_ERROR(this->get_logger(),
+            //                  "Trajectory execution failed with result code: %d",
+            //                  static_cast<int>(wrapped_result.code));
+            //     return;
+            //   }
+            
+            //   RCLCPP_INFO(this->get_logger(), "Trajectory executed successfully.");
+            //   std_msgs::msg::Bool message;
+            //   message.data = true;
+            //   publisher->publish(message);
             
         }
         void action_client_handler(const 
