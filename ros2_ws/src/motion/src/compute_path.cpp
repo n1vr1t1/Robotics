@@ -3,16 +3,6 @@
 namespace motion{
     
     PathPlannerNode::PathPlannerNode() : Node("path_planner_node") {
-        //initialize service
-        
-        // Defining variable callback
-        // auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
-        //                                 std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response){
-        //                                 this->handle_compute_path(request, response);};
-
-        // Creating the service using the callback
-        // service_ = this->create_service<custom_msg_interfaces::srv::ComputePath>("compute_path", service_callback);
-        
         //initialize_publisher
         auto qos = rclcpp::QoS(10).transient_local().reliable();
         publisher_ = this->create_publisher<geometry_msgs::msg::PoseArray>("computed_trajectory", qos);
@@ -25,20 +15,12 @@ namespace motion{
             
         RCLCPP_INFO(this->get_logger(), "Path Planner Node is ready");
     }
-    
-    
-    //void PathPlannerNode::handle_compute_path(const std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Request> request,
-     //                                       std::shared_ptr<custom_msg_interfaces::srv::ComputePath::Response> response) {
 
     void PathPlannerNode::handle_compute_path(const custom_msg_interfaces::msg::StartEndPosition::SharedPtr msg) {
 
         RCLCPP_INFO(this->get_logger(), "Handling compute path");
-        // Perform interpolation
-        //auto interpolated_poses = compute_interpolated_poses(    //40
-        //    request->pose_start, request->pose_end, request->num_interpolations
-        //);
 
-        auto interpolated_poses = compute_interpolated_poses(    //40
+        auto interpolated_poses = compute_interpolated_poses(  
             msg->pose_start, msg->pose_end, msg->num_interpolations
         );
 
@@ -78,12 +60,10 @@ namespace motion{
         
         geometry_msgs::msg::Pose result;
     
-        // Linear interpolation of position
         result.position.x = start.position.x + t * (end.position.x - start.position.x);
         result.position.y = start.position.y + t * (end.position.y - start.position.y);
         result.position.z = start.position.z + t * (end.position.z - start.position.z);
     
-        // Spherical linear interpolation (SLERP) of orientation
         tf2::Quaternion q_start, q_end;
         tf2::fromMsg(start.orientation, q_start);
         tf2::fromMsg(end.orientation, q_end);
@@ -94,7 +74,6 @@ namespace motion{
         return result;
         
     }
-       
     
 }
 
