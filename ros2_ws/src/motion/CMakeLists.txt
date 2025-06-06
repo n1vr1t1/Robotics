@@ -39,8 +39,8 @@ ament_target_dependencies(table_avoidance
   tf2 
   tf2_ros
 )
-add_executable(kinematics src/kinematics.cpp)
-ament_target_dependencies(kinematics 
+add_executable(kinematics_node src/kinematics.cpp)
+ament_target_dependencies(kinematics_node 
   rclcpp 
   custom_msg_interfaces 
   geometry_msgs
@@ -94,7 +94,7 @@ ament_target_dependencies(compute_path
 install(TARGETS
   table_avoidance
   #inverse_kin_server_node
-  kinematics
+  kinematics_node
   #direct_kin_server
   compute_trajectory
   compute_path
