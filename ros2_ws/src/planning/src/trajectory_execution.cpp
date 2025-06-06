@@ -59,7 +59,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 };
 
            
-             RCLCPP_INFO(this->get_logger(), "Defyning goal result callback");
+             RCLCPP_INFO(this->get_logger(), "Defining goal result callback");
             send_goal_options.result_callback =
                 [this](const GoalHandleFollowJointTrajectory::WrappedResult &result) {
                     switch (result.code)
@@ -83,42 +83,6 @@ class TrajectoryExecutionNode : public rclcpp::Node{
 
              RCLCPP_INFO(this->get_logger(), "Sending trajectory goal");
             action_client ->async_send_goal(goal_msg, send_goal_options);            
-        }
-
-        void action_client_handler(const 
-            rclcpp_action::ClientGoalHandle<control_msgs::action::FollowJointTrajectory>::SharedPtr goal_handle){
-            
-            std_msgs::msg::Bool message;
-            
-            if(!goal_handle){
-                RCLCPP_ERROR(this->get_logger(), "Trajectory execution rejected from action server");
-                message.data = false;
-                publisher->publish(message);
-                return;
-            }
-            RCLCPP_INFO(this->get_logger(), "Trajectory execution accepted.");
-            if(!goal_handle->is_result_aware()){
-                RCLCPP_ERROR(this->get_logger(), "Action server is not result aware");
-                return;
-            }
-
-
-            auto future = action_client->async_get_result(goal_handle);
-            if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) != rclcpp::FutureReturnCode::SUCCESS) {
-                RCLCPP_ERROR(this->get_logger(), "Failed to get action result");
-                return;
-            }
-            
-            auto wrapped_result = future.get();
-            if (wrapped_result.code != rclcpp_action::ResultCode::SUCCEEDED) {
-                RCLCPP_ERROR(this->get_logger(), "Trajectory execution failed with result code: %d", static_cast<int>(wrapped_result.code));
-                return;
-            }
-            
-            RCLCPP_INFO(this->get_logger(), "Trajectory executed successfully.");
-            message.data = true;
-            publisher->publish(message);
-
         }
 
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr publisher;
