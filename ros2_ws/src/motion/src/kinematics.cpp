@@ -10,18 +10,18 @@ namespace motion {
 
 KinematicsNode::KinematicsNode(): Node("kinematics_node"){
   // Direct kinematics service
-  auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
+  auto dir_service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
                                        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response){
                                        this->computeDirectKinematics(request, response);};
-  dir_service_ = this->create_service<custom_msg_interfaces::srv::ComputeDirKin>("compute_dir_kin", service_callback);
+  dir_service_ = this->create_service<custom_msg_interfaces::srv::ComputeDirKin>("compute_dir_kin", dir_service_callback);
   RCLCPP_INFO(this->get_logger(), "Direct Kinematics Service is ready.");
 
   // Inverse kinematics service
-  auto service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
+  auto inv_service_callback = [this](const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
                                        std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response> response) {
-                                       this->ComputeInverseKinematics(request, response);};
+                                       this->computeInverseKinematics(request, response);};
   
-  ik_service_ = this->create_service<custom_msg_interfaces::srv::ComputeIK>("compute_ik", service_callback);
+  ik_service_ = this->create_service<custom_msg_interfaces::srv::ComputeIK>("compute_ik", inv_service_callback);
   RCLCPP_INFO(this->get_logger(), "Inverse Kinematics Service is ready.");
 }
 
@@ -77,7 +77,7 @@ std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> KinematicsN
         
     Eigen::Matrix4d T60 = Eigen::Matrix4d::Identity();
     for (size_t i = 0; i < 6; ++i) {
-        Eigen::Matrix4d T = Tij(Th[i], ALPHA[i], D[i]*scaleFactor, A[i]* scaleFactor).template cast<double>();
+        Eigen::Matrix4d T = Tij(Th[i], ALPHA[i], D[i]*scale, A[i]* scale).template cast<double>();
         Tm.push_back(T);
         T60 *= T;
     }
@@ -341,18 +341,6 @@ Eigen::MatrixXd KinematicsNode::ur5Inverse(const Eigen::Vector3f & p60, const Ei
     }
 }
 
-Eigen::Matrix<float,4,4> KinematicsNode::Tij(float th, float alpha, float d, float a){
-  Eigen::Matrix<float,4,4> T;
-  float c = static_cast<float>(std::cos(th));
-  float s = static_cast<float>(std::sin(th));
-  float ca = static_cast<float>(std::cos(alpha));
-  float sa = static_cast<float>(std::sin(alpha));
-  T << c, -s*ca,  s*sa, a*c,
-       s,  c*ca, -c*sa, a*s,
-       0,   sa,    ca,  d,
-       0,    0,     0,  1;
-  return T;
-}
 
 int main(int argc, char * argv[])
 {
