@@ -478,8 +478,8 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
     // 7) Now Generate a Real Trajectory from Those Waypoints (Cubic Spline)
     // -----------------------------------------------------------------------
     double segment_time = 0.8; // [seconds] for each segment, adjust as needed
-    trajectory_msgs::msg::JointTrajectory cubic_traj =
-        generate_cubic_trajectory(waypoints, segment_time);
+    RCLCPP_INFO(this->get_logger(), "Computing cubic trajectory");
+    trajectory_msgs::msg::JointTrajectory cubic_traj = generate_cubic_trajectory(waypoints, segment_time);
 
     // Send final trajectory in the service response
     response.trajectory = cubic_traj;
