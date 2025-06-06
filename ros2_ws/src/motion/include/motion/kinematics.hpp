@@ -17,7 +17,6 @@ constexpr float D[6] = {0.1625f, 0.0f, 0.0f, 0.1333f, 0.0997f, 0.0996f};
 constexpr double ALPHA[6] = {PI / 2, 0, 0, PI / 2, -PI / 2, 0};
 
 
-// Forward-declare the class
 namespace motion
 {
     class DirectKinServer : public rclcpp::Node{
@@ -25,14 +24,11 @@ namespace motion
             DirectKinServer();
         
         private:
-            void computeDirectKinematics(
-                const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
-                std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response);
-        
-            // Eigen::Matrix4d Tij(double th, double alpha, double d, double a);
-            std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
-                                        Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm);
+
+            void computeDirectKinematics( const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request, std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response);
+            std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe, Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm);
             rclcpp::Service<custom_msg_interfaces::srv::ComputeDirKin>::SharedPtr service_;
+
         };
 
 
