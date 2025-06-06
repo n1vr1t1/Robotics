@@ -433,33 +433,34 @@ std::vector<Eigen::Matrix4d> ComputeTrajectoryService::computeChainFK(const Eige
                 
                 if (has_nan) {
                     RCLCPP_WARN(this->get_logger(), "[Warning] The angle matrix has only NaN values. Stopping computations.");
-                    return; 
-                }
+                }else{
     
-                // Convert waypoints[i] to vector<double>
-                std::vector<double> prev_joints(waypoints[i].begin(), waypoints[i].end());
-    
-                // Pick best row from the 8x6 matrix
-                std::vector<double> best_solution =
-                    select_closest_one(prev_joints, result->joint_angles_matrix.data);
-    
-                Eigen::VectorXd Th = Eigen::VectorXd::Map(best_solution.data(), best_solution.size());
-    
-                // Check for singularity using ROS2 logging
-                if (ur5_singAvoid(Th, 1.0)) {
-                    RCLCPP_WARN(rclcpp::get_logger("compute_trajectory_service"), "Selected joint configuration is near a singularity!");
-                    std::fill(best_solution.begin(), best_solution.end(), std::numeric_limits<double>::quiet_NaN());
-                    //this will stop the trajecotry generation and thus the robot
-                }
-    
-                // Store in row i+1
-                for (size_t j = 0; j < 6; ++j) {
-                    waypoints[i + 1][j] = best_solution[j];
+                    // Convert waypoints[i] to vector<double>
+                    std::vector<double> prev_joints(waypoints[i].begin(), waypoints[i].end());
+        
+                    // Pick best row from the 8x6 matrix
+                    std::vector<double> best_solution =
+                        select_closest_one(prev_joints, result->joint_angles_matrix.data);
+        
+                    Eigen::VectorXd Th = Eigen::VectorXd::Map(best_solution.data(), best_solution.size());
+        
+                    // Check for singularity using ROS2 logging
+                    if (ur5_singAvoid(Th, 1.0)) {
+                        RCLCPP_WARN(rclcpp::get_logger("compute_trajectory_service"), "Selected joint configuration is near a singularity!");
+                        std::fill(best_solution.begin(), best_solution.end(), std::numeric_limits<double>::quiet_NaN());
+                        //this will stop the trajecotry generation and thus the robot
+                    }
+        
+                    // Store in row i+1
+                    for (size_t j = 0; j < 6; ++j) {
+                        waypoints[i + 1][j] = best_solution[j];
+                    }
                 }
             }
         } else {
             RCLCPP_ERROR(this->get_logger(), "IK service call for Pose %zu failed!", i + 1);
         }
+        
     }
     
     // (Optional) Print final global waypoints
