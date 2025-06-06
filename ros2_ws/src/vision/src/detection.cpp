@@ -2,25 +2,21 @@
 #include <sensor_msgs/msg/image.hpp>
 #include <std_msgs/msg/float32_multi_array.hpp>
 #include <sensor_msgs/image_encodings.hpp>
-
 #include <cv_bridge/cv_bridge.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
 #include <torch/script.h>
-
 #include <memory>
 #include <string>
 #include <vector>
 #include <exception>
 
-const int DIM = 640; //640,640 for s and 512 for n
+const int DIM = 640;
 
 class DetectionNode : public rclcpp::Node {
 public:
     DetectionNode() : Node("yolo_detection_node") {
         try {
-            // model = torch::jit::load("/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/vision/model/yolo11n.torchscript");
             model = torch::jit::load("/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/src/vision/model/yolo11s.torchscript");
             model.to(torch::kCPU);
             model.eval();
@@ -43,7 +39,6 @@ public:
 private:
     void image_callback(const sensor_msgs::msg::Image::SharedPtr msg) {
         RCLCPP_INFO(this->get_logger(), "Image_callback called");
-        // cv::Mat img;
         cv::Mat bgr_img;
         try {
             RCLCPP_INFO(this->get_logger(), "Converting using cv_bridge (BGR8)");
@@ -56,19 +51,11 @@ private:
         cv::Mat rgb_img;
         RCLCPP_INFO(this->get_logger(), "Converting (BGR8)->(RGB8)");
         cv::cvtColor(bgr_img, rgb_img, cv::COLOR_BGR2RGB);
-        // try {
-        //     RCLCPP_INFO(this->get_logger(), "converting using cvbridge");
-        //     img = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image;
-        // } catch (cv_bridge::Exception &e) {
-        //     RCLCPP_ERROR(this->get_logger(), "cv_bridge conversion failed: %s", e.what());
-        //     return;
-        // }
-
         cv::Mat resized_img;
         try {
             RCLCPP_INFO(this->get_logger(), "resizing image");
             cv::resize(rgb_img, resized_img, cv::Size(DIM, DIM)); 
-            resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0); // Normalize to [0, 1]
+            resized_img.convertTo(resized_img, CV_32F, 1.0 / 255.0);
 
         } catch (const std::exception &e) {
             RCLCPP_ERROR(this->get_logger(), "Image preprocessing failed: %s", e.what());
@@ -88,7 +75,7 @@ private:
             auto output_ivalue = model.forward(inputs);
             RCLCPP_INFO(this->get_logger(), "Model forward pass completed.");
 
-            output = output_ivalue.toTensor(); // should be shape: [1, 15, 5376]
+            output = output_ivalue.toTensor(); // shape: [1, 15, 5376]
 
             RCLCPP_INFO(this->get_logger(), "Output tensor obtained. Shape: %s", c10::str(output.sizes()).c_str());
         } catch (const c10::Error &e) {
@@ -101,7 +88,6 @@ private:
             return;
         }
 
-        // RCLCPP_INFO(this->get_logger(), "getting detections");
         output = output.squeeze(0).transpose(0, 1); // [5376, 15]
         
         std_msgs::msg::Float32MultiArray result_msg;
@@ -115,23 +101,12 @@ private:
             float class_conf = std::get<0>(max_result).item<float>(); // finding highest confidence
 
             if (class_conf < 0.7) continue;
-            // RCLCPP_INFO(this->get_logger(), "Confidence is:%f", class_conf);
         
             float class_id = std::get<1>(max_result).item<float>();  // getting the class id of the highest confidence
         
             float x = pred[0].item<float>();
             float y = pred[1].item<float>();
-            // float w = (pred[2].item<float>())/2.0f;
-            // float h = (pred[3].item<float>())/2.0f;
 
-            // cv::rectangle(input_img, cv::Point(x-w, y-h), cv::Point(x+w, y+h), cv::Scalar(0, 255, 0), 2);
-
-            // std::string label = "Class " + std::to_string(class_id) + " (" + std::to_string(class_conf).substr(0, 4) + ")";
-            // cv::putText(input_img, label, cv::Point(x, y-5),
-                        // cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
-
-            // RCLCPP_INFO(this->get_logger(), "class:%f, x1:%f, y1:%f, x2:%f, y2:%f", class_id, x-w, y-h, x+w, y+h);
-            
             data_vector.push_back(class_id);
             data_vector.push_back(x);
             data_vector.push_back(y);
@@ -147,17 +122,14 @@ private:
             for(size_t i=3; i+2 < data_vector.size(); i+=3){
                     if((avg_pos_block[block_num + 1] - data_vector[i+1] > -5.0 && avg_pos_block[block_num +1] - data_vector[i+1] < 5.0) &&
                         (avg_pos_block[block_num +2] - data_vector[i+2] > -5.0 && avg_pos_block[block_num +2] - data_vector[i+2] < 5.0)) {
-                            //RCLCPP_INFO(this->get_logger(), "%d: Averaging from (%f, %f)", block_num, avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
 
                             avg_pos_block[block_num + 1] = (avg_pos_block[block_num + 1] + data_vector[i+1])/2.0f;
                             avg_pos_block[block_num + 2] = (avg_pos_block[block_num + 2] + data_vector[i+2])/2.0f;
-                            //RCLCPP_INFO(this->get_logger(), "to (%f, %f)", avg_pos_block[block_num + 1], avg_pos_block[block_num + 2]);
                         
                     }else{
                             avg_pos_block[block_num + 1] /= static_cast<float>(DIM);
                             avg_pos_block[block_num + 2] /= static_cast<float>(DIM);
                             block_num += 3;
-                            //RCLCPP_INFO(this->get_logger(), "to next block: %d", block_num);
                             avg_pos_block.push_back(data_vector[i]);
                             avg_pos_block.push_back(data_vector[i + 1]);
                             avg_pos_block.push_back(data_vector[i + 2]);
@@ -168,20 +140,7 @@ private:
         avg_pos_block[block_num + 2] /= static_cast<float>(DIM);
         
         RCLCPP_INFO(this->get_logger(), "%ld → %ld", data_vector.size()/3, avg_pos_block.size()/3);
-        // for(int i=0;i<data_vector.size();i+=3){
-        //     cv::rectangle(input_img, cv::Point(data_vector[i+1]-10, data_vector[i+2]-10), 
-        //             cv::Point(data_vector[i+1]+10, data_vector[i+2]+10), cv::Scalar(0, 255, 0), 2);
-        //     RCLCPP_INFO(this->get_logger(), "%f %f", data_vector[i+1], data_vector[i+2]);
-            
-
-        //         std::string label = "Class " + std::to_string(data_vector[i]);
-        //         cv::putText(input_img, label, cv::Point(data_vector[i +1], data_vector[i+2]),
-        //                 cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1);
-        // }
-        // cv::imshow("Detections", input_img);
-        // cv::waitKey(1);
         subscription.reset();
-        // return;
         result_msg.data = avg_pos_block;
         publisher->publish(result_msg);
         RCLCPP_INFO(this->get_logger(), "Published %zu detections.", avg_pos_block.size() / 3);
