@@ -9,7 +9,6 @@
 #include<tf2_ros/transform_listener.h>
 
 // #include "custom_msg_interfaces/srv/interpolation.hpp"
-#include <custom_msg_interfaces/srv/compute_ik.hpp>
 #include "custom_msg_interfaces/msg/class_pose.hpp"
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 
@@ -97,70 +96,6 @@ class ControlNode : public rclcpp::Node{
             RCLCPP_INFO(this->get_logger(), "ControlNode node started"); 
         }
     private: 
-
-      rclcpp::Client<custom_msg_interfaces::srv::ComputeIK>::SharedPtr ik_client;
-
-      bool isReachable(const geometry_msgs::msg::Pose &target_pose) {
-          // 1) Preparo la richiesta al servizio
-          auto request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
-          request->target_pose = target_pose;
-        
-          // 2) Controllo che il servizio sia pronto (timeout 1s)
-          if (!ik_client->wait_for_service(std::chrono::seconds(1))) {
-            RCLCPP_WARN(this->get_logger(),
-                        "Servizio '/compute_ik' non disponibile (timeout 1s).");
-            return false;
-          }
-        
-          // 3) Invio la richiesta in modo asincrono
-          auto future = ik_client->async_send_request(request);
-        
-          // 4) Attendo la risposta con spin_some, per un massimo di 2 secondi
-          rclcpp::Time start = this->now();
-          rclcpp::WallRate rate(100);  // 100 Hz di spin_some
-        
-          while (rclcpp::ok()) {
-            // Se il future è pronto, esco subito
-            if (future.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready) {
-              break;
-            }
-            // Se ho superato il timeout di 2 s, restituisco false
-            if ((this->now() - start).seconds() > 2.0) {
-              RCLCPP_WARN(this->get_logger(),
-                          "Timeout chiamata a '/compute_ik' dopo 2 s.");
-              return false;
-            }
-            // Altrimenti processo i callback pendenti (compreso il servizio IK)
-            rclcpp::spin_some(this->get_node_base_interface());
-            rate.sleep();
-          }
-        
-          // 5) Il future è pronto: leggo la risposta
-          auto response = future.get();
-          const auto &data = response->joint_angles_matrix.data;
-        
-          // 6) Se il vettore è vuoto, consideriamo “fuori workspace”
-          if (data.empty()) {
-            RCLCPP_DEBUG(this->get_logger(),
-                         "ComputeIK ha restituito matrice vuota → fuori workspace.");
-            return false;
-          }
-        
-          // 7) Verifico almeno un valore non-NaN
-          for (double angle : data) {
-            if (!std::isnan(angle)) {
-              return true;
-            }
-          }
-        
-          // 8) Se arrivo qui, tutte le soluzioni erano NaN → fuori workspace
-          RCLCPP_DEBUG(this->get_logger(),
-                       "ComputeIK ha restituito solo NaN → fuori workspace.");
-          return false;
-        }
-
-
-
 
     void perception_callback(const custom_msg_interfaces::msg::ClassPose::SharedPtr msg){
         if (msg->poses.empty() || msg->class_ids.empty()) {
@@ -254,24 +189,11 @@ class ControlNode : public rclcpp::Node{
             return;
         }
 
-        // 1) Verifying that there at least one segment to follow
         if (current_task_index + 1 >= planned_poses.poses.size()) {
             RCLCPP_WARN(this->get_logger(),
                 "No more tasks to process for the current block segment.");
             return;
-        }
-    
-        // 2) Checking reachability of arriving poses
-        geometry_msgs::msg::Pose target_pose = planned_poses.poses[current_task_index + 1];
-        // --- Qui devi richiamare il tuo IK-check. Se stai usando un servizio, 
-        //     fai la call al servizio “isReachable” (oppure al tuo solver IK locale).
-        //     Di seguito è riportato un pseudocodice:
-        if (!isReachable(target_pose)) {
-            RCLCPP_WARN(this->get_logger(), "Pose (%.3f, %.3f, %.3f) fuori dal workspace, skip task %ld",
-                        target_pose.position.x, target_pose.position.y, target_pose.position.z, current_task_index);
-            return;  
-        }
-            
+        }            
 
         if(current_task_index == 1){
             gripper_service("/open_gripper");
