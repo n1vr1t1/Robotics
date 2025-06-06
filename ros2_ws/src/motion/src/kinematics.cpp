@@ -34,15 +34,15 @@ namespace motion{
         }
     }
     
-    Eigen::Matrix4d DirectKinServer::Tij(double th, double alpha, double d, double a)
-    {
-        Eigen::Matrix4d T;
-        T << std::cos(th), -std::sin(th) * std::cos(alpha), std::sin(th) * std::sin(alpha), a * std::cos(th),
-             std::sin(th), std::cos(th) * std::cos(alpha), -std::cos(th) * std::sin(alpha), a * std::sin(th),
-             0, std::sin(alpha), std::cos(alpha), d,
-             0, 0, 0, 1;
-        return T;
-    }
+    // Eigen::Matrix4d DirectKinServer::Tij(double th, double alpha, double d, double a)
+    // {
+    //     Eigen::Matrix4d T;
+    //     T << std::cos(th), -std::sin(th) * std::cos(alpha), std::sin(th) * std::sin(alpha), a * std::cos(th),
+    //          std::sin(th), std::cos(th) * std::cos(alpha), -std::cos(th) * std::sin(alpha), a * std::sin(th),
+    //          0, std::sin(alpha), std::cos(alpha), d,
+    //          0, 0, 0, 1;
+    //     return T;
+    // }
     
     std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> DirectKinServer::ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
                                     Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm){
