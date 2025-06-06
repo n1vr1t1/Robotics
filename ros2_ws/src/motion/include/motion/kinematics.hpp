@@ -29,7 +29,7 @@ namespace motion
                 const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
                 std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response);
         
-            Eigen::Matrix4d Tij(double th, double alpha, double d, double a);
+            // Eigen::Matrix4d Tij(double th, double alpha, double d, double a);
             std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
                                         Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm);
             rclcpp::Service<custom_msg_interfaces::srv::ComputeDirKin>::SharedPtr service_;
@@ -45,11 +45,7 @@ namespace motion
             const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
             std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response>      response);
         
-          Eigen::MatrixXd ur5Inverse(
-            const Eigen::Vector3f & p60, 
-            const Eigen::Matrix3f & R60, 
-            float scaleFactor
-          );
+          Eigen::MatrixXd ur5Inverse(const Eigen::Vector3f & p60, const Eigen::Matrix3f & R60, float scaleFactor);
     
       inline bool almzero(float x) const{      
         return std::fabs(x) < 1e-7;
@@ -58,6 +54,15 @@ namespace motion
     private:
       rclcpp::Service<custom_msg_interfaces::srv::ComputeIK>::SharedPtr service_;
     };
+
+    Eigen::Matrix4d Tij(double th, double alpha, double d, double a){
+        Eigen::Matrix4d T;
+        T << std::cos(th), -std::sin(th) * std::cos(alpha), std::sin(th) * std::sin(alpha), a * std::cos(th),
+             std::sin(th), std::cos(th) * std::cos(alpha), -std::cos(th) * std::sin(alpha), a * std::sin(th),
+             0, std::sin(alpha), std::cos(alpha), d,
+             0, 0, 0, 1;
+        return T;
+    }
 }  
 
 
