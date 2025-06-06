@@ -15,6 +15,9 @@
 #include <string>
 #include <vector>
 
+using FollowJointTrajectory  = control_msgs::action::FollowJointTrajectory;
+using GoalHandleFollowJointTrajectory =  rclcpp_action::ClientGoalHandle<FollowJointTrajectory>;
+
 class TrajectoryExecutionNode : public rclcpp::Node{
     public:
         TrajectoryExecutionNode() : Node("trajectory_execution_node"){
@@ -97,13 +100,13 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             }
             RCLCPP_INFO(this->get_logger(), "Received trajectory response with %zu points and %zu joints", msg->trajectory.points.size(), msg->trajectory.joint_names.size());
 
-            auto goal_msg = control_msgs::action::FollowJointTrajectory::Goal();
+            auto goal_msg = FollowJointTrajectory::Goal();
             goal_msg.trajectory = msg->trajectory;
             goal_msg.goal_time_tolerance.nanosec = 500000000;
     
-            RCLCPP_INFO(this->get_logger(), "Sending trajectory goal %zu", current_trajectory_index_ + 1);
+            RCLCPP_INFO(this->get_logger(), "Sending trajectory goal");
     
-            auto send_goal_options = rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>::SendGoalOptions();
+            auto send_goal_options = rclcpp_action::Client<FollowJointTrajectory>::SendGoalOptions();
             send_goal_options.goal_response_callback =
                 [this](const GoalHandleFollowJointTrajectory::SharedPtr &goal_handle) {
                     if (!goal_handle)
@@ -117,11 +120,11 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 };
     
             send_goal_options.result_callback =
-                [this](const control_msgs::action::GoalHandleFollowJointTrajectory::WrappedResult &result) {
+                [this](const :GoalHandleFollowJointTrajectory::WrappedResult &result) {
                     switch (result.code)
                     {
                     case rclcpp_action::ResultCode::SUCCEEDED:
-                        RCLCPP_INFO(this->get_logger(), "Goal %zu succeeded", current_trajectory_index_ + 1);
+                        RCLCPP_INFO(this->get_logger(), "Goal succeeded");
                         handle_trajectory_success();
                         break;
                     case rclcpp_action::ResultCode::ABORTED:
