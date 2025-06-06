@@ -39,23 +39,30 @@ ament_target_dependencies(table_avoidance
   tf2 
   tf2_ros
 )
-
-add_executable(inverse_kin_server_node src/kinematics.cpp)
-ament_target_dependencies(inverse_kin_server_node
-  rclcpp
-  custom_msg_interfaces
-  geometry_msgs
-  std_msgs
-  Eigen3
-)
-add_executable(direct_kin_server src/kinematics.cpp)
-ament_target_dependencies(direct_kin_server 
+add_executable(kinematics src/kinematics.cpp)
+ament_target_dependencies(kinematics 
   rclcpp 
   custom_msg_interfaces 
   geometry_msgs
   std_msgs
   Eigen3
 )
+#add_executable(inverse_kin_server_node src/kinematics.cpp)
+#ament_target_dependencies(inverse_kin_server_node
+#  rclcpp
+#  custom_msg_interfaces
+#  geometry_msgs
+#  std_msgs
+#  Eigen3
+#)
+#add_executable(direct_kin_server src/kinematics.cpp)
+#ament_target_dependencies(direct_kin_server 
+#  rclcpp 
+#  custom_msg_interfaces 
+#  geometry_msgs
+#  std_msgs
+#  Eigen3
+#)
 
 add_executable(compute_trajectory src/compute_trajectory.cpp)
 ament_target_dependencies(compute_trajectory
@@ -86,8 +93,9 @@ ament_target_dependencies(compute_path
 
 install(TARGETS
   table_avoidance
-  inverse_kin_server_node
-  direct_kin_server
+  #inverse_kin_server_node
+  kinematics
+  #direct_kin_server
   compute_trajectory
   compute_path
   DESTINATION lib/${PROJECT_NAME}
