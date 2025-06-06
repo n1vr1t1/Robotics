@@ -1,4 +1,4 @@
-#include "motion/compute_trajectory_service.hpp"
+#include "motion/compute_trajectory.hpp"
 using namespace std::chrono_literals;  
 
 std::vector<std::array<double, 6>> waypoints;
