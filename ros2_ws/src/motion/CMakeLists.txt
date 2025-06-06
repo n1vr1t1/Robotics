@@ -31,8 +31,8 @@ install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )
 
-add_executable(table_avoidance_node src/table_avoidance_node.cpp)
-ament_target_dependencies(table_avoidance_node 
+add_executable(table_avoidance src/table_avoidance.cpp)
+ament_target_dependencies(table_avoidance 
   rclcpp 
   std_msgs 
   Eigen3 
@@ -85,7 +85,7 @@ ament_target_dependencies(compute_path
 )
 
 install(TARGETS
-  table_avoidance_node
+  table_avoidance
   inverse_kin_server_node
   direct_kin_server
   compute_trajectory_service
