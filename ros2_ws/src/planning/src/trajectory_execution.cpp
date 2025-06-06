@@ -104,7 +104,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
             goal_msg.trajectory = msg->trajectory;
             goal_msg.goal_time_tolerance.nanosec = 500000000;
     
-            RCLCPP_INFO(this->get_logger(), "Sending trajectory goal");
+            RCLCPP_INFO(this->get_logger(), "Defyning goal callback");
     
             auto send_goal_options = rclcpp_action::Client<FollowJointTrajectory>::SendGoalOptions();
             send_goal_options.goal_response_callback =
@@ -118,7 +118,9 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                         RCLCPP_INFO(this->get_logger(), "Goal accepted by the server, waiting for result");
                     }
                 };
-    
+
+           
+             RCLCPP_INFO(this->get_logger(), "Defyning goal result callback");
             send_goal_options.result_callback =
                 [this](const GoalHandleFollowJointTrajectory::WrappedResult &result) {
                     switch (result.code)
@@ -137,8 +139,13 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                         break;
                     }
                 };
-    
+
+           
+
+             RCLCPP_INFO(this->get_logger(), "Sending trajectory goal");
             action_client ->async_send_goal(goal_msg, send_goal_options);
+
+            
 
 
             
