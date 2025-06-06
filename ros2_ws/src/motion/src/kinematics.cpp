@@ -51,7 +51,7 @@ namespace motion{
         
         Eigen::Matrix4d T60 = Eigen::Matrix4d::Identity();
         for (size_t i = 0; i < 6; ++i) {
-            Eigen::Matrix4d T = Tij(Th[i], ALPHA[i], D[i]*scaleFactor, A[i]* scaleFactor);
+            Eigen::Matrix4f T = Tij(Th[i], ALPHA[i], D[i]*scaleFactor, A[i]* scaleFactor);
             Tm.push_back(T);
             T60 *= T;
         }
