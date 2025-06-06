@@ -40,7 +40,7 @@ ament_target_dependencies(table_avoidance_node
   tf2_ros
 )
 
-add_executable(inverse_kin_server_node src/kinematics_server.cpp)
+add_executable(inverse_kin_server_node src/kinematics.cpp)
 ament_target_dependencies(inverse_kin_server_node
   rclcpp
   custom_msg_interfaces
@@ -48,7 +48,7 @@ ament_target_dependencies(inverse_kin_server_node
   std_msgs
   Eigen3
 )
-add_executable(direct_kin_server src/kinematics_server.cpp)
+add_executable(direct_kin_server src/kinematics.cpp)
 ament_target_dependencies(direct_kin_server 
   rclcpp 
   custom_msg_interfaces 
