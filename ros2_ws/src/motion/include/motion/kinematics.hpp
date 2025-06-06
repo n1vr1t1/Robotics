@@ -20,40 +20,38 @@ constexpr double ALPHA[6] = {PI / 2, 0, 0, PI / 2, -PI / 2, 0};
 // Forward-declare the class
 namespace motion
 {
-    class DirectKinServer : public rclcpp::Node
-    {
-    public:
-        DirectKinServer();
-    
-    private:
-        void computeDirectKinematics(
-            const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
-            std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response);
-    
-        Eigen::Matrix4d Tij(double th, double alpha, double d, double a);
-        std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
-                                    Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm);
-        rclcpp::Service<custom_msg_interfaces::srv::ComputeDirKin>::SharedPtr service_;
-    };
+    class DirectKinServer : public rclcpp::Node{
+        public:
+            DirectKinServer();
+        
+        private:
+            void computeDirectKinematics(
+                const std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Request> request,
+                std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> response);
+        
+            Eigen::Matrix4d Tij(double th, double alpha, double d, double a);
+            std::shared_ptr<custom_msg_interfaces::srv::ComputeDirKin::Response> ur5Direct(const std::vector<double>& Th, double scaleFactor, Eigen::Vector3d& pe,
+                                        Eigen::Matrix3d& Re, std::vector<Eigen::Matrix4d>& Tm);
+            rclcpp::Service<custom_msg_interfaces::srv::ComputeDirKin>::SharedPtr service_;
+        };
 
 
-    class InverseKinServer : public rclcpp::Node
-    {
-    public:
-      explicit InverseKinServer(const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
-      
-    private:
-      void computeIKCallback(
-        const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
-        std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response>      response);
+    class InverseKinServer : public rclcpp::Node{
+        public:
+          explicit InverseKinServer(const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
+          
+        private:
+          void computeIKCallback(
+            const std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Request> request,
+            std::shared_ptr<custom_msg_interfaces::srv::ComputeIK::Response>      response);
+        
+          Eigen::MatrixXd ur5Inverse(
+            const Eigen::Vector3f & p60, 
+            const Eigen::Matrix3f & R60, 
+            float scaleFactor
+          );
     
-      Eigen::MatrixXd ur5Inverse(
-        const Eigen::Vector3f & p60, 
-        const Eigen::Matrix3f & R60, 
-        float scaleFactor
-      );
-    
-      inline bool almzero(float x) const{      {
+      inline bool almzero(float x) const{      
         return std::fabs(x) < 1e-7;
       }
     
