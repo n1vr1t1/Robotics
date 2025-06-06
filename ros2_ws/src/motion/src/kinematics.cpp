@@ -7,8 +7,7 @@ using namespace std;
 using namespace Eigen;
 using Eigen::MatrixXf;
 
-namespace motion
-{
+namespace motion{
     
     DirectKinServer::DirectKinServer() : Node("direct_kin_server"){
         
