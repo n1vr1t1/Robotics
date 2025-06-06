@@ -125,26 +125,10 @@ namespace motion{
      RCLCPP_INFO(this->get_logger(), "IK solutions computed and sent back to client.");
     }
     
-    // bool almzero(float x) {
-    //     return abs(x) < 1e-7;
-    // }
-    
-    Matrix4f Tij(float th, float alpha, float d, float a) {
-        Matrix4f T;
-        T << cos(th), -sin(th) * cos(alpha), sin(th) * sin(alpha), a * cos(th),
-             sin(th), cos(th) * cos(alpha), -cos(th) * sin(alpha), a * sin(th),
-             0, sin(alpha), cos(alpha), d,
-             0, 0, 0, 1;
-        return T;
-    }
-    
-    //Eigen::MatrixXd InverseKinServer::ur5Inverse(
     Eigen::MatrixXd InverseKinServer::ur5Inverse(const Eigen::Vector3f & p60, const Eigen::Matrix3f & R60, float scaleFactor){
-
-        //CREA VETTORE DI VARIABILI CON FOR LOOP
         
-        MatrixXd solutions(8, 6); // 8 possible solutions, each with 6 joint angles
-        solutions.setConstant(NAN); // Initialize with NaN
+        MatrixXd solutions(8, 6); 
+        solutions.setConstant(NAN); 
     
         float A_scaled[6], D_scaled[6];
         for (int i = 0; i < 6; ++i) {
@@ -337,9 +321,7 @@ namespace motion{
         xy = T43(1, 0);
         xx = T43(0, 0);
         th4_1_2_2 = atan2(xy, xx);
-        
-        //4_2_...
-    
+
         T21 = Tij(th2_2_1_1, ALPHA[1], D_scaled[1], A_scaled[1]);
         T32 = Tij(th3_2_1_1, ALPHA[2], D_scaled[2], A_scaled[2]);
         T41 = T41_2_1;
@@ -373,7 +355,6 @@ namespace motion{
         xx = T43(0, 0);
         th4_2_2_2 = atan2(xy, xx);
     
-        // Store the solutions in the MatrixXd
         solutions.row(0) << th1_1, th2_1_1_1, th3_1_1_1, th4_1_1_1, th5_1_1, th6_1_1;
         solutions.row(1) << th1_1, th2_1_1_2, th3_1_1_2, th4_1_1_2, th5_1_1, th6_1_1;
         solutions.row(2) << th1_1, th2_1_2_1, th3_1_2_1, th4_1_2_1, th5_1_2, th6_1_2;
@@ -382,10 +363,8 @@ namespace motion{
         solutions.row(5) << th1_2, th2_2_1_2, th3_2_1_2, th4_2_1_2, th5_2_1, th6_2_1;
         solutions.row(6) << th1_2, th2_2_2_1, th3_2_2_1, th4_2_2_1, th5_2_2, th6_2_2;
         solutions.row(7) << th1_2, th2_2_2_2, th3_2_2_2, th4_2_2_2, th5_2_2, th6_2_2;
-    
+        
         return solutions;
-    
-    
     }
 }
 
