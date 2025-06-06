@@ -98,6 +98,8 @@ class ControlNode : public rclcpp::Node{
         }
     private: 
 
+      rclcpp::Client<custom_msg_interfaces::srv::ComputeIK>::SharedPtr ik_client;
+
       bool isReachable(const geometry_msgs::msg::Pose &target_pose) {
             // 1) Preparing the request
             auto request = std::make_shared<custom_msg_interfaces::srv::ComputeIK::Request>();
@@ -185,8 +187,7 @@ class ControlNode : public rclcpp::Node{
             return;
         }
         geometry_msgs::msg::Pose block_pose = blocks->poses[current_block_index];
-        geometry_msgs::msg::Pose block_pose = blocks->poses[current_block_index];
-        geometry_msgs::msg::Pose destination = get_block_destination(block_poses);
+        geometry_msgs::msg::Pose destination = get_block_destination(block_pose);
 
         RCLCPP_INFO(this->get_logger(), "Processing block %d", current_block_index);
         RCLCPP_INFO(this->get_logger(), "Moving to destination: (%f, %f, %f)", destination.position.x, destination.position.y, destination.position.z);
@@ -251,7 +252,7 @@ class ControlNode : public rclcpp::Node{
         //     fai la call al servizio “isReachable” (oppure al tuo solver IK locale).
         //     Di seguito è riportato un pseudocodice:
         if (!isReachable(target_pose)) {
-            RCLCPP_WARN(this->get_logger(), "Pose (%.3f, %.3f, %.3f) fuori dal workspace, skip task %d",
+            RCLCPP_WARN(this->get_logger(), "Pose (%.3f, %.3f, %.3f) fuori dal workspace, skip task %ld",
                         target_pose.position.x, target_pose.position.y, target_pose.position.z, current_task_index);
             return;  
         }
