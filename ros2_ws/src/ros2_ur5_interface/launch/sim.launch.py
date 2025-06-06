@@ -167,106 +167,6 @@ def spawn_blocks(context, *args, **kwargs):
     return instances_cmds
 
 
-'''def spawn_blocks(context, *args, **kwargs):
-
-    blocks = ["X1-Y1-Z2", "X1-Y2-Z2", "X1-Y4-Z2", "X1-Y2-Z1", "X1-Y3-Z2-FILLET", "X2-Y2-Z2-FILLET", "X1-Y2-Z2-CHAMFER", "X1-Y3-Z2", "X2-Y2-Z2", "X1-Y2-Z2-TWINFILLET", "X1-Y4-Z1"]
-
-    block_numbers = ["1", "2", "3", "4"]  # Define block numbers for two blocks
-    block_types = [blocks[0], blocks[1], blocks[2], blocks[3]]  # Define block types for each block
-    instances_cmds = []
-
-    #ELIMINA
-    i = 0
-
-    for block_number, block_type in zip(block_numbers, block_types):
-
-        #ELIMINA
-        i+=1
-
-        # Paths
-        xacro_file = os.path.join(get_package_share_directory(package_name), 'models', 'block.urdf.xacro')
-        urdf_file = os.path.join(get_package_share_directory(package_name), f'models/block_{block_number}.urdf')
-        sdf_file = os.path.join(get_package_share_directory(package_name), f'models/block_{block_number}.sdf')
-
-        # Generate URDF from Xacro
-        try:
-            xacro_command = [
-                FindExecutable(name="xacro").perform(context),
-                xacro_file,
-                f"block_name:={block_number}",
-                f"block_type:={block_type}",
-            ]
-            urdf_output = subprocess.check_output(xacro_command, text=True)
-            with open(urdf_file, 'w') as urdf_fp:
-                urdf_fp.write(urdf_output)
-
-        except subprocess.CalledProcessError as e:
-            raise RuntimeError(f"Error generating URDF for block {block_number}: {e}")
-
-        # Convert URDF to SDF
-        try:
-            sdf_command = [
-                FindExecutable(name="gz").perform(context),
-                "sdf",
-                "-p",
-                urdf_file,
-            ]
-            sdf_output = subprocess.check_output(sdf_command, text=True)
-            # Modify SDF to include the IMU sensor
-            sdf_lines = sdf_output.splitlines()
-            sensor_block = f"""
-            <plugin
-                filename="ignition-gazebo-pose-publisher-system"
-                name="ignition::gazebo::systems::PosePublisher">
-                <publish_model_pose>true</publish_model_pose>
-                <publish_nested_model_pose>true</publish_nested_model_pose>
-                <use_pose_vector_msg>true</use_pose_vector_msg>
-                <update_frequency>100.0</update_frequency>
-            </plugin>
-            """
-            # Append the sensor to the appropriate location
-            insert_index = next(
-                (i for i, line in enumerate(sdf_lines) if "</model>" in line), len(sdf_lines) - 1
-            )
-            sdf_lines.insert(insert_index, sensor_block)
-            modified_sdf_output = "\n".join(sdf_lines)
-            with open(sdf_file, 'w') as sdf_fp:
-                sdf_fp.write(modified_sdf_output)
-
-        except subprocess.CalledProcessError as e:
-            raise RuntimeError(f"Error converting URDF to SDF for block {block_number}: {e}")
-
-        print(f"Successfully generated URDF for block {block_number} at {urdf_file}")
-        print(f"Successfully generated SDF for block {block_number} at {sdf_file}")
-
-        # Block robot state publisher node
-        block_robot_state_publisher_node = Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            output='screen',
-            namespace=f'block_{block_number}',
-            name='robot_state_publisher',
-            parameters=[{'robot_description': urdf_output}]
-        )
-        instances_cmds.append(block_robot_state_publisher_node)
-
-        # Spawn block node
-        spawn_block = Node(
-            package='ros_gz_sim',
-            executable='create',
-            arguments=[
-                '-name', f"block{block_number}",
-                '-file', sdf_file,
-                '-x', str(0.2 * int(block_number)), #str(0.405 + 0.2 * int(block_number)),  # Adjust position for each block
-                '-y', str(0.2 * int(block_number)), #'0.58',
-                '-z', '0.88',
-            ],
-            output='screen',
-        )
-        instances_cmds.append(spawn_block)
-
-    return instances_cmds
-'''
 
 def generate_launch_description():
     declared_arguments = []
@@ -351,6 +251,13 @@ def generate_launch_description():
         parameters=[{'robot_description': desk_urdf}]
     )
 
+    
+    gazebo_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([FindPackageShare('ros_gz_sim'), '/launch/gz_sim.launch.py']),
+        launch_arguments={'gz_args': ['-r -s ', world_file ], 'on_exit_shutdown': 'true'}.items()
+        #                              -r -s -v4
+    )
+
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -363,17 +270,21 @@ def generate_launch_description():
         arguments=["scaled_joint_trajectory_controller", "-c", "/controller_manager"],
     )
 
+    joint_trajectory_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+        "joint_trajectory_controller",
+        "-c", "/controller_manager"
+        ],
+    )
+
     gripper_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["gripper_controller", "-c", "/controller_manager"],
     )
 
-    gazebo_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([FindPackageShare('ros_gz_sim'), '/launch/gz_sim.launch.py']),
-        launch_arguments={'gz_args': ['-r -s ', world_file ], 'on_exit_shutdown': 'true'}.items()
-        #                              -r -s -v4
-    )
     
     spawn_camera = Node(
         package='ros_gz_sim',
@@ -466,10 +377,11 @@ def generate_launch_description():
         desk_state_publisher_node,
         ur_robot_state_publisher_node,
         OpaqueFunction(function=spawn_blocks),
+        gazebo_launch,
         joint_state_broadcaster_spawner,
         joint_controller_spawner,
+        joint_trajectory_controller_spawner,
         gripper_controller_spawner,
-        gazebo_launch,
         spawn_camera,
         spawn_ur5,
         spawn_desk,
