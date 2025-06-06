@@ -241,8 +241,9 @@ class ControlNode : public rclcpp::Node{
         }
 
         // 1) Verifying that there at least one segment to follow
-        if (current_task_index >= static_cast<int>(planned_poses.poses.size()) - 1) {
-            RCLCPP_WARN(this->get_logger(), "No more tasks to process for the current block segment.");
+        if (current_task_index + 1 >= planned_poses.poses.size()) {
+            RCLCPP_WARN(this->get_logger(),
+                "No more tasks to process for the current block segment.");
             return;
         }
     
