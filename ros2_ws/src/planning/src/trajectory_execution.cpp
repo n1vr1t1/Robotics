@@ -103,7 +103,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
     
             RCLCPP_INFO(this->get_logger(), "Sending trajectory goal %zu", current_trajectory_index_ + 1);
     
-            auto send_goal_options = rclcpp_action::Client<FollowJointTrajectory>::SendGoalOptions();
+            auto send_goal_options = rclcpp_action::Client<control_msgs::action::FollowJointTrajectory>::SendGoalOptions();
             send_goal_options.goal_response_callback =
                 [this](const GoalHandleFollowJointTrajectory::SharedPtr &goal_handle) {
                     if (!goal_handle)
@@ -117,7 +117,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                 };
     
             send_goal_options.result_callback =
-                [this](const GoalHandleFollowJointTrajectory::WrappedResult &result) {
+                [this](const control_msgs::action::GoalHandleFollowJointTrajectory::WrappedResult &result) {
                     switch (result.code)
                     {
                     case rclcpp_action::ResultCode::SUCCEEDED:
@@ -136,7 +136,7 @@ class TrajectoryExecutionNode : public rclcpp::Node{
                     }
                 };
     
-            action_client_->async_send_goal(goal_msg, send_goal_options);
+            action_client ->async_send_goal(goal_msg, send_goal_options);
 
 
             
