@@ -13,7 +13,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': True}]
         ),
-        # Add the icp_pose_estimator_node node
+
         Node(
             package='planning',
             executable='trajectory_execution_node',
