@@ -57,8 +57,8 @@ ament_target_dependencies(direct_kin_server
   Eigen3
 )
 
-add_executable(compute_trajectory_service src/compute_trajectory_service.cpp)
-ament_target_dependencies(compute_trajectory_service
+add_executable(compute_trajectory src/compute_trajectory.cpp)
+ament_target_dependencies(compute_trajectory
   rclcpp
   control_msgs
   rclcpp_action
@@ -88,7 +88,7 @@ install(TARGETS
   table_avoidance
   inverse_kin_server_node
   direct_kin_server
-  compute_trajectory_service
+  compute_trajectory
   compute_path
   DESTINATION lib/${PROJECT_NAME}
 )
