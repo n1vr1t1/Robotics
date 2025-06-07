@@ -3,7 +3,7 @@
 ![Languages](https://img.shields.io/badge/languages-C++%2C%20Python%2C%20CMake%2C%20Shell%2C%20Dockerfile-blue)
 ![Repo Size](https://img.shields.io/github/repo-size/SaraFrancavilla/Robotics)
 
-## Project OverviewA
+## Project Overview
 
 This repository contains the codebase and resources for the project in the Fundamentals of Robotics course at the University of Trento. The project involves designing and implementing a robotic system that autonomously picks and sorts objects using an anthropomorphic manipulator with a two-fingered gripper, guided by a calibrated 3D sensor.
 
