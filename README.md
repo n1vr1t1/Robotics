@@ -89,7 +89,6 @@ source startup.sh   # Installs libtorch and sets up environment
 #### 3. Build the Packages
 
 ```bash
-cd src
 colcon build --cmake-args -DCMAKE_PREFIX_PATH="/home/ubuntu/ros2_ws/src/Robotics/ros2_ws/external/libtorch/libtorch"
 ```
 
