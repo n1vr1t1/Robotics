@@ -11,8 +11,7 @@
 #include <custom_msg_interfaces/msg/start_end_position.hpp>
 
 const double SAFE_HEIGHT = 0.5;
-const double TABLE_HEIGHT = 1.0; 
-float CAMERA_COORDINATES[] = {0.7f, 0.0f, 1.580f};
+const double TABLE_HEIGHT = 1.0;
 
 geometry_msgs::msg::Pose get_block_destination(const geometry_msgs::msg::Pose& block_pose) {
   geometry_msgs::msg::Pose destination;
